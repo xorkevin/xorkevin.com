@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <h1>{{.Params.name}}</h1>
+  <h3>{{.Params.description}}</h3>
+  <h3><a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}">{{.Params.projecturl}}</a></h3>
+  <h4>{{.Params.datebegin}} - {{.Params.dateend}}</h4>
+  <div>
+    {{ range .Params.tags }}
+      <div>{{ . }}</div>
+    {{ end }}
+  </div>
+  <div>
+    {{.Content}}
+  </div>
+{{ end }}

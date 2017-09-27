@@ -2,7 +2,7 @@
   <div>
     {{ range .Data.Pages }}
       <div>
-        <a href="{{.Permalink}}">{{.Title}}</a>
+        <a href="{{.RelPermalink}}">{{.Title}}</a>
       </div>
     {{ end }}
   </div>

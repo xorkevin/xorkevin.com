@@ -10,4 +10,6 @@ dateend:     "Present"
 projecturl:  "https://github.com/hackform/governor"
 ---
 
-# Governor
+Designed and implemented a framework in Go for quickly building microservices needed for running a website
+
+Common requirements such as user management already implemented out of the box
