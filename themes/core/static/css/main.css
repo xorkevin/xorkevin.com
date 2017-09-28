@@ -1,0 +1,99 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+html, body {
+  margin: 0;
+  padding: 0; }
+  html.dark, body.dark {
+    background-color: #15191f;
+    color: rgba(255, 255, 255, 0.7); }
+
+input:not([type="checkbox"]), button, submit {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  font-family: unset; }
+
+textarea, input {
+  font-family: unset; }
+
+.text-center {
+  text-align: center; }
+
+:root {
+  background-color: #15191f; }
+
+html, body {
+  font-size: 12px;
+  font-family: "Lato", Arial, Verdana, sans-serif;
+  line-height: 1.5;
+  letter-spacing: normal;
+  font-weight: 400;
+  background-color: #FCFCFC;
+  color: rgba(0, 0, 0, 0.87);
+  overflow-wrap: break-word;
+  transition: 0.125s cubic-bezier(0.4, 0, 0.2, 1); }
+  html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6, body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6 {
+    color: rgba(255, 255, 255, 0.9); }
+  html.dark a, body.dark a {
+    color: #2f67b1; }
+  @media (min-width: 768px) and (max-width: 1151px) {
+    html, body {
+      font-size: 13px; } }
+  @media (min-width: 1152px) and (max-width: 1727px) {
+    html, body {
+      font-size: 14px; } }
+  @media (min-width: 1728px) {
+    html, body {
+      font-size: 15px; } }
+  html h1, html h2, html h3, html h4, html h5, html h6, body h1, body h2, body h3, body h4, body h5, body h6 {
+    margin-top: 0.42em;
+    margin-bottom: 0.25em;
+    font-weight: 700; }
+  html h1, body h1 {
+    font-size: 4rem; }
+  html h2, body h2 {
+    font-size: 3rem; }
+  html h3, body h3 {
+    font-size: 2rem; }
+  html h4, body h4 {
+    font-size: 1.25rem; }
+  html h5, body h5 {
+    font-size: 1rem; }
+  html h6, body h6 {
+    font-size: 0.75rem; }
+  html small, body small {
+    font-size: 0.6em; }
+  html h1 small, html h2 small, html h3 small, body h1 small, body h2 small, body h3 small {
+    font-size: 0.6em; }
+  html h4 small, html h5 small, html h6 small, body h4 small, body h5 small, body h6 small {
+    font-size: 0.8em; }
+  html a, body a {
+    color: #224A7F;
+    text-decoration: unset; }
+    html a:hover, body a:hover {
+      text-decoration: underline;
+      cursor: pointer; }
+    html a.no-style, body a.no-style {
+      color: unset;
+      text-decoration: unset; }
+      html a.no-style:hover, body a.no-style:hover {
+        text-decoration: unset; }
+    html a.no-color, body a.no-color {
+      color: unset; }
+  html .colossal, body .colossal {
+    font-size: 96px;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase; }
+  html .mammoth, body .mammoth {
+    font-size: 256px;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-transform: uppercase; }
