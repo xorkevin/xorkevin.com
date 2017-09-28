@@ -1,10 +1,14 @@
 {{ define "main" }}
-  Hello World
-  <div>
-    {{ range .Data.Pages }}
+  <section>
+    <div class="container padded narrow">
+      Hello World
       <div>
-        <a href="{{.RelPermalink}}">{{.Title}}</a>
+        {{ range .Data.Pages }}
+          <div>
+            <a href="{{.RelPermalink}}">{{.Title}}</a>
+          </div>
+        {{ end }}
       </div>
-    {{ end }}
-  </div>
+    </div>
+  </section>
 {{ end }}

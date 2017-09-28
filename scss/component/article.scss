@@ -1,15 +1,15 @@
 article, .article {
   line-height: 1.8;
-  font-size  : 1.25rem;
+  font-size:   1.25rem;
   font-family: $typography-base-font;
-  width      : 100%;
+  width:       100%;
 
   &>* {
-    max-width   : 100%;
-    margin-left : auto;
+    max-width:    100%;
+    margin-left:  auto;
     margin-right: auto;
-    width       : 42rem;
-    display     : block;
+    width:        42rem;
+    display:      block;
   }
 
   &>*.outset {
@@ -18,6 +18,10 @@ article, .article {
 
   &>*.fullwidth {
     width: 100%;
+  }
+
+  &>img {
+    width: 64rem;
   }
 
   .info {
@@ -29,13 +33,17 @@ article, .article {
   }
 
   p {
-    font-family: $typography-article-font;
-    margin-top   : 2rem;
+    font-family:   $typography-article-font;
+    margin-top:    2rem;
     margin-bottom: 2rem;
   }
 
+  .title {
+    line-height: 1;
+  }
+
   h1, h2, h3, h4, h5, h6, .info, p {
-    padding-left : 8px;
+    padding-left:  8px;
     padding-right: 8px;
   }
 }

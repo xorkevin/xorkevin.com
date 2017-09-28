@@ -1,14 +1,19 @@
 {{ define "main" }}
-  <h1>{{.Params.name}}</h1>
-  <h3>{{.Params.description}}</h3>
-  <h3><a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}">{{.Params.projecturl}}</a></h3>
-  <h4>{{.Params.datebegin}} - {{.Params.dateend}}</h4>
-  <div>
-    {{ range .Params.tags }}
-      <div>{{ . }}</div>
-    {{ end }}
-  </div>
-  <div>
-    {{.Content}}
-  </div>
+  <section>
+    <article>
+      <h2 class="title">{{.Params.name}}<br/><small>{{.Params.description}}</small></h2>
+      <span class="info">
+         {{.Params.datebegin}} - {{.Params.dateend}}
+      </span>
+      <span class="info">
+        {{ range .Params.tags }}
+          <span class="chip">{{ . }}</span>
+        {{ end }}
+      </span>
+      <span class="info">
+        <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}">{{.Params.projecturl}}</a>
+      </span>
+      {{.Content}}
+    </article>
+  </section>
 {{ end }}
