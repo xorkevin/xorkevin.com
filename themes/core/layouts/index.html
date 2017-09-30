@@ -2,6 +2,7 @@
   xorkevin
 {{ end }}
 {{ define "main" }}
+  {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
   <section>
     <div class="container padded">
       <div class="section-header">

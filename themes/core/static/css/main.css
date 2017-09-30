@@ -124,7 +124,7 @@ article, .article {
     margin-top: 2rem;
     margin-bottom: 2rem; }
   article .title, .article .title {
-    line-height: 1; }
+    line-height: 1.25; }
   article h1, article h2, article h3, article h4, article h5, article h6, article .info, article p, .article h1, .article h2, .article h3, .article h4, .article h5, .article h6, .article .info, .article p {
     padding-left: 8px;
     padding-right: 8px; }
