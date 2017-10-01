@@ -593,6 +593,16 @@ body.dark footer {
   .grid.horizontal-center {
     justify-content: center; }
 
+header.main {
+  width: 100%;
+  letter-spacing: 1px; }
+  header.main h1, header.main h2, header.main h3, header.main h4, header.main h5, header.main h6 {
+    text-transform: uppercase; }
+  header.main .title {
+    font-weight: 900; }
+  header.main .subtitle {
+    font-weight: 300; }
+
 .img {
   overflow: hidden; }
   .img.rounded {
