@@ -2,8 +2,8 @@
   <section>
     <div class="container padded">
       <div class="grid">
-        <div class="col sm-12 md-8">
-          {{ range .Data.Pages }}
+        {{ range .Data.Pages }}
+          <div class="col sm-12 md-8">
             <div class="card md accent">
               <div class="title-bar">
                 <div class="title-inner">
@@ -23,9 +23,8 @@
                 <a href="{{.RelPermalink}}"><button>View</button></a>
               </div>
             </div>
-            </div>
-          {{ end }}
-        </div>
+          </div>
+        {{ end }}
       </div>
     </div>
   </section>
