@@ -11,7 +11,7 @@
       <div class="grid">
         {{ range .Data.Pages }}
           <div class="col sm-12 md-8">
-            <div class="card md accent">
+            <div class="card md">
               <div class="title-bar">
                 <div class="title-inner">
                   <h3><a href="{{.RelPermalink}}">{{.Title}}</a></h3>
@@ -25,9 +25,6 @@
               <div class="body">
                 <h4>{{.Params.description}}</h4>
                 {{.Params.datebegin}} - {{.Params.dateend}}
-              </div>
-              <div class="bar">
-                <a href="{{.RelPermalink}}"><button>View</button></a>
               </div>
             </div>
           </div>
