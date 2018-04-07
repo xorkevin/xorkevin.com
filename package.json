@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/xorkevin/xorkevin#readme",
   "devDependencies": {
-    "node-sass": "^4.7.2",
-    "nodemon": "^1.12.1"
+    "node-sass": "^4.8.3",
+    "nodemon": "^1.17.3"
   }
 }
