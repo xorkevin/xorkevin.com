@@ -98,34 +98,78 @@ html, body {
     text-transform: uppercase;
     text-transform: uppercase; }
 
-article, .article {
+article,
+.article {
   line-height: 1.8;
   font-size: 1.25rem;
   font-family: "Lato", Arial, Verdana, sans-serif;
   width: 100%; }
-  article > *, .article > * {
+  article > *,
+  .article > * {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
     width: 42rem;
     display: block; }
-  article > *.outset, .article > *.outset {
+  article > *.outset,
+  .article > *.outset {
     width: 64rem; }
-  article > *.fullwidth, .article > *.fullwidth {
+  article > *.fullwidth,
+  .article > *.fullwidth {
     width: 100%; }
-  article > img, .article > img {
+  article > img,
+  .article > img {
     width: 64rem; }
-  article .info, .article .info {
+  article > figure,
+  .article > figure {
+    width: 64rem; }
+    article > figure > img,
+    .article > figure > img {
+      width: 100%; }
+    article > figure > figcaption,
+    .article > figure > figcaption {
+      text-align: center; }
+      article > figure > figcaption > p,
+      .article > figure > figcaption > p {
+        margin: 0; }
+  article .info,
+  .article .info {
     font-size: 1rem; }
-    article .info time, .article .info time {
+    article .info time,
+    .article .info time {
       font-size: 0.85rem; }
-  article p, .article p {
+  article p,
+  .article p {
     font-family: "Source Serif Pro", Palatino, Georgia, serif;
     margin-top: 2rem;
     margin-bottom: 2rem; }
-  article .title, .article .title {
+  article ul,
+  article ol,
+  .article ul,
+  .article ol {
+    font-family: "Source Serif Pro", Palatino, Georgia, serif;
+    list-style-position: outside;
+    padding-left: 64px;
+    padding-right: 32px; }
+  article .title,
+  .article .title {
     line-height: 1.25; }
-  article h1, article h2, article h3, article h4, article h5, article h6, article .info, article p, .article h1, .article h2, .article h3, .article h4, .article h5, .article h6, .article .info, .article p {
+  article h1,
+  article h2,
+  article h3,
+  article h4,
+  article h5,
+  article h6,
+  article .info,
+  article p,
+  .article h1,
+  .article h2,
+  .article h3,
+  .article h4,
+  .article h5,
+  .article h6,
+  .article .info,
+  .article p {
     padding-left: 8px;
     padding-right: 8px; }
 

@@ -2,7 +2,7 @@
   <section>
     <div class="container padded">
       <div class="grid">
-        {{ range .Data.Pages }}
+        {{ range where .Data.Pages "Section" "projects" }}
           <div class="col sm-12 md-8">
             <div class="card md">
               <div class="title-bar">
