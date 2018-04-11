@@ -17,6 +17,9 @@ for future reuse. Thus, Nuke became a UI library, which I have since used in
 many other projects, including the LAHacks application system, and this blog
 itself.
 
+If you would like to interact with a demo, one exists here:
+[https://hackform.github.io/](https://hackform.github.io/)
+
 ### Typography
 
 Typography was an integral part of Nuke from its inception and it still forms
@@ -35,6 +38,22 @@ resolution.
 
 ### Components
 
+#### Form Inputs
+
+Interactivity is a necessity in almost every website, thus one of the first set
+of components that I designed consist of input fields and buttons. I
+particularly like the simplicity that Material design brings, thus I took many
+cues from it.
+
+{{<figure src="/img/projects/nuke/forminputs.png" caption="Form inputs">}}
+
+#### Cards
+
+They seem to be all the rage these days. It feels as if I was almost obligated
+to create them.
+
+{{<figure src="/img/projects/nuke/cards.png" caption="Cards">}}
+
 #### Articles
 
 Articles were created purely for fun, taking many cues from Medium, which I
@@ -52,3 +71,14 @@ placing them adjacent to their parent, and move the best replies to the top. I
 try and replicate this system myself in Nuke.
 
 {{<figure src="/img/projects/nuke/commentthread.png" caption="Comment threading">}}
+
+#### Dark Mode
+
+I am a firm believer in giving users options. I, myself, often work late into
+the night and the light from a bright white background can be bothering if not
+for your roommates who are trying to sleep, then for your own eyes. As such a
+dark mode was a feature that I strove to implement. It is made maintainable by
+using SCSS to style elements if they are the children of a `body.dark`. Thus
+only the class of body needs to be changed to enable dark mode.
+
+{{<figure src="/img/projects/nuke/darkmodearticle.png" caption="Dark mode">}}
