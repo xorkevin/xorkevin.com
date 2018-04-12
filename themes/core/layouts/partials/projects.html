@@ -1,0 +1,24 @@
+<div class="grid">
+  {{ range where .Data.Pages "Section" "projects" }}
+    <div class="col sm-12 md-8">
+      <div class="card md">
+        <div class="title-bar">
+          <div class="title-inner">
+            <h3><a href="{{.RelPermalink}}">{{.Title}}</a></h3>
+            <div class="tags">
+              {{ range .Params.tags }}
+                <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
+                  <span class="chip">{{ . }}</span>
+                </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        <div class="body">
+          <h4>{{.Params.description}}</h4>
+          {{.Params.datebegin}} - {{.Params.dateend}}
+        </div>
+      </div>
+    </div>
+  {{ end }}
+</div>
