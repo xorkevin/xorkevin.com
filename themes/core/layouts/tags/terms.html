@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <section>
+    <div class="container padded">
+      <div class="grid">
+        {{ range $key, $value := .Data.Terms.ByCount }}
+          <div class="col sm-8 md-4">
+            <a href='{{ "/tags/" | relURL }}{{ $value.Name | urlize }}'>
+              <div class="card md">
+                <div class="body">
+                  {{ $value.Name }}
+                </div>
+              </div>
+            </a>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

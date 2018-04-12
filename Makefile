@@ -12,4 +12,4 @@ dev:
 	npm run watch-css
 
 devserver:
-	hugo server -D -w
+	hugo server --disableFastRender -D -w
