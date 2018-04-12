@@ -72,7 +72,7 @@ try and replicate this system myself in Nuke.
 
 {{<figure src="/img/projects/nuke/commentthread.png" caption="Comment threading">}}
 
-#### Dark Mode
+### Dark Mode
 
 I am a firm believer in giving users options. I, myself, often work late into
 the night and the light from a bright white background can be bothering if not
