@@ -390,6 +390,58 @@ body.dark .card > .bar {
 body.dark .chip {
   background-color: rgba(255, 255, 255, 0.12); }
 
+.comment {
+  margin: 16px 0;
+  width: 100%; }
+  .comment > .inner {
+    width: 42rem;
+    max-width: 100%; }
+    .comment > .inner > .info > * + * {
+      margin-left: 8px; }
+    .comment > .inner > .info .data {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.54); }
+    .comment > .inner > .content {
+      font-size: 1rem;
+      color: rgba(0, 0, 0, 0.75); }
+    .comment > .inner > .options {
+      font-size: 0.85rem;
+      color: rgba(0, 0, 0, 0.54); }
+      .comment > .inner > .options > * + * {
+        margin-left: 8px; }
+  .comment > .children {
+    margin: 0 0 0 12px;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 0 0 0 12px; }
+  .comment.hidden > .inner > :not(.info) {
+    display: none; }
+  .comment.hidden > :not(.inner) {
+    display: none; }
+
+.comment-section {
+  width: 100%; }
+  .comment-section > .comment {
+    margin: 0;
+    padding: 16px 0; }
+  .comment-section > .comment + .comment {
+    border-top: 2px solid rgba(0, 0, 0, 0.12); }
+
+body.dark .comment > .inner > .info .data {
+  color: rgba(255, 255, 255, 0.5); }
+
+body.dark .comment > .inner > .content {
+  color: rgba(255, 255, 255, 0.7); }
+
+body.dark .comment > .inner > .options {
+  color: rgba(255, 255, 255, 0.5); }
+
+body.dark .comment > .children {
+  border-color: rgba(255, 255, 255, 0.12); }
+
+body.dark .comment-section > .comment + .comment {
+  border-color: rgba(255, 255, 255, 0.12); }
+
 .container {
   width: 100%;
   margin: auto; }
