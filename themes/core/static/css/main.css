@@ -419,6 +419,224 @@ footer {
 body.dark footer {
   background-color: #080a0c; }
 
+input,
+textarea {
+  font-family: "Lato", Arial, Verdana, sans-serif;
+  background: transparent; }
+
+.input {
+  position: relative;
+  width: 256px;
+  padding: 20px 0; }
+  .input.wide {
+    width: 512px; }
+  .input.full-width {
+    width: 100%; }
+  .input > input:not([type='checkbox']),
+  .input > textarea,
+  .input > select {
+    font-size: 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+    width: 100%;
+    padding: 4px 0;
+    color: rgba(0, 0, 0, 0.87); }
+    .input > input:not([type='checkbox']) + label,
+    .input > textarea + label,
+    .input > select + label {
+      transition: 0.125s cubic-bezier(0.4, 0, 0.2, 1);
+      bottom: 0;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 1em;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      position: absolute;
+      display: block;
+      top: 24px;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: left; }
+      .input > input:not([type='checkbox']) + label:after,
+      .input > textarea + label:after,
+      .input > select + label:after {
+        background-color: #224A7F;
+        bottom: 20px;
+        left: calc(50% - 8px);
+        width: 16px;
+        height: 2px;
+        content: '';
+        position: absolute;
+        transition: 0.125s cubic-bezier(0.4, 0, 0.2, 1);
+        visibility: hidden; }
+    .input > input:not([type='checkbox']):focus,
+    .input > textarea:focus,
+    .input > select:focus {
+      outline: none; }
+    .input > input:not([type='checkbox']):focus + label,
+    .input > textarea:focus + label,
+    .input > select:focus + label {
+      color: #224A7F;
+      font-size: 0.75em;
+      top: 4px;
+      visibility: visible; }
+      .input > input:not([type='checkbox']):focus + label:after,
+      .input > textarea:focus + label:after,
+      .input > select:focus + label:after {
+        left: 0;
+        visibility: visible;
+        width: 100%; }
+    .input > input:not([type='checkbox']):not(:placeholder-shown) + label,
+    .input > textarea:not(:placeholder-shown) + label,
+    .input > select:not(:placeholder-shown) + label {
+      color: #224A7F;
+      font-size: 0.75em;
+      top: 4px;
+      visibility: visible; }
+    .input > input:not([type='checkbox']) ~ .info,
+    .input > textarea ~ .info,
+    .input > select ~ .info {
+      color: rgba(0, 0, 0, 0.38);
+      position: absolute;
+      font-size: 0.75em;
+      margin-top: 2px;
+      display: block; }
+    .input > input:not([type='checkbox']):focus ~ .info,
+    .input > textarea:focus ~ .info,
+    .input > select:focus ~ .info {
+      color: rgba(0, 0, 0, 0.54); }
+    .input > input:not([type='checkbox']):not(:placeholder-shown) ~ .info,
+    .input > textarea:not(:placeholder-shown) ~ .info,
+    .input > select:not(:placeholder-shown) ~ .info {
+      color: rgba(0, 0, 0, 0.54); }
+    .input > input:not([type='checkbox']) ~ .error,
+    .input > textarea ~ .error,
+    .input > select ~ .error {
+      color: #C62828;
+      position: absolute;
+      font-size: 0.75em;
+      margin-top: 2px;
+      visibility: hidden;
+      display: block; }
+  .input > input[type='file'],
+  .input > input[type='checkbox'] {
+    border-bottom: none; }
+    .input > input[type='file'] + label:after,
+    .input > input[type='file'] + label:hover:after,
+    .input > input[type='checkbox'] + label:after,
+    .input > input[type='checkbox'] + label:hover:after {
+      content: none; }
+  .input.checkbox {
+    padding-top: 8px;
+    padding-bottom: 8px; }
+  .input > input[type='checkbox'] {
+    vertical-align: middle;
+    margin-right: 8px; }
+    .input > input[type='checkbox'] + label {
+      vertical-align: middle; }
+  .input > textarea {
+    padding: 4px 0;
+    display: block;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.38);
+    resize: vertical; }
+  .input > select {
+    display: block;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.38); }
+    .input > select:hover {
+      cursor: pointer; }
+    .input > select ~ .dropdown-arrow {
+      content: '';
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 6px 6px 0 6px;
+      border-color: transparent;
+      border-top-color: rgba(0, 0, 0, 0.54); }
+    .input > select > option {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      background: none; }
+
+.input.invalid > label {
+  color: #C62828 !important; }
+  .input.invalid > label:after {
+    background-color: #C62828 !important;
+    left: 0;
+    visibility: visible;
+    width: 100%; }
+
+.input.invalid > .error {
+  visibility: visible; }
+
+.input.valid > label {
+  color: #61D095 !important; }
+  .input.valid > label:after {
+    background-color: #61D095 !important;
+    left: 0;
+    visibility: visible;
+    width: 100%; }
+
+body.dark .input > input,
+body.dark .input > textarea,
+body.dark .input > select {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white; }
+  body.dark .input > input + label,
+  body.dark .input > textarea + label,
+  body.dark .input > select + label {
+    color: rgba(255, 255, 255, 0.5); }
+    body.dark .input > input + label:after,
+    body.dark .input > textarea + label:after,
+    body.dark .input > select + label:after {
+      background-color: rgba(255, 255, 255, 0.7); }
+  body.dark .input > input:focus + label,
+  body.dark .input > textarea:focus + label,
+  body.dark .input > select:focus + label {
+    color: rgba(255, 255, 255, 0.9); }
+  body.dark .input > input:not(:placeholder-shown) + label,
+  body.dark .input > textarea:not(:placeholder-shown) + label,
+  body.dark .input > select:not(:placeholder-shown) + label {
+    color: rgba(255, 255, 255, 0.9); }
+  body.dark .input > input ~ .info,
+  body.dark .input > textarea ~ .info,
+  body.dark .input > select ~ .info {
+    color: rgba(255, 255, 255, 0.5); }
+  body.dark .input > input:focus ~ .info,
+  body.dark .input > textarea:focus ~ .info,
+  body.dark .input > select:focus ~ .info {
+    color: rgba(255, 255, 255, 0.7); }
+  body.dark .input > input:not(:placeholder-shown) ~ .info,
+  body.dark .input > textarea:not(:placeholder-shown) ~ .info,
+  body.dark .input > select:not(:placeholder-shown) ~ .info {
+    color: rgba(255, 255, 255, 0.7); }
+
+body.dark .input > select ~ .dropdown-arrow {
+  border-top-color: rgba(255, 255, 255, 0.7); }
+
+body.dark .input > select > option,
+body.dark .input > select > option:checked {
+  background: rgba(0, 0, 0, 0.87); }
+
+body.dark .input.invalid > label {
+  color: #C62828 !important; }
+  body.dark .input.invalid > label:after {
+    background-color: #C62828 !important; }
+
+body.dark .input.valid > label {
+  color: #61D095 !important; }
+  body.dark .input.valid > label:after {
+    background-color: #61D095 !important; }
+
 .grid {
   width: 100%;
   display: flex;
