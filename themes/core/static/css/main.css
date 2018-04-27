@@ -484,7 +484,7 @@ textarea {
     width: 512px; }
   .input.full-width {
     width: 100%; }
-  .input > input:not([type='checkbox']),
+  .input > input:not([type='radio']):not([type='checkbox']),
   .input > textarea,
   .input > select {
     font-size: 1em;
@@ -492,7 +492,7 @@ textarea {
     width: 100%;
     padding: 4px 0;
     color: rgba(0, 0, 0, 0.87); }
-    .input > input:not([type='checkbox']) + label,
+    .input > input:not([type='radio']):not([type='checkbox']) + label,
     .input > textarea + label,
     .input > select + label {
       transition: 0.125s cubic-bezier(0.4, 0, 0.2, 1);
@@ -509,7 +509,7 @@ textarea {
       overflow: hidden;
       white-space: nowrap;
       text-align: left; }
-      .input > input:not([type='checkbox']) + label:after,
+      .input > input:not([type='radio']):not([type='checkbox']) + label:after,
       .input > textarea + label:after,
       .input > select + label:after {
         background-color: #224A7F;
@@ -521,31 +521,31 @@ textarea {
         position: absolute;
         transition: 0.125s cubic-bezier(0.4, 0, 0.2, 1);
         visibility: hidden; }
-    .input > input:not([type='checkbox']):focus,
+    .input > input:not([type='radio']):not([type='checkbox']):focus,
     .input > textarea:focus,
     .input > select:focus {
       outline: none; }
-    .input > input:not([type='checkbox']):focus + label,
+    .input > input:not([type='radio']):not([type='checkbox']):focus + label,
     .input > textarea:focus + label,
     .input > select:focus + label {
       color: #224A7F;
       font-size: 0.75em;
       top: 4px;
       visibility: visible; }
-      .input > input:not([type='checkbox']):focus + label:after,
+      .input > input:not([type='radio']):not([type='checkbox']):focus + label:after,
       .input > textarea:focus + label:after,
       .input > select:focus + label:after {
         left: 0;
         visibility: visible;
         width: 100%; }
-    .input > input:not([type='checkbox']):not(:placeholder-shown) + label,
+    .input > input:not([type='radio']):not([type='checkbox']):not(:placeholder-shown) + label,
     .input > textarea:not(:placeholder-shown) + label,
     .input > select:not(:placeholder-shown) + label {
       color: #224A7F;
       font-size: 0.75em;
       top: 4px;
       visibility: visible; }
-    .input > input:not([type='checkbox']) ~ .info,
+    .input > input:not([type='radio']):not([type='checkbox']) ~ .info,
     .input > textarea ~ .info,
     .input > select ~ .info {
       color: rgba(0, 0, 0, 0.38);
@@ -553,15 +553,15 @@ textarea {
       font-size: 0.75em;
       margin-top: 2px;
       display: block; }
-    .input > input:not([type='checkbox']):focus ~ .info,
+    .input > input:not([type='radio']):not([type='checkbox']):focus ~ .info,
     .input > textarea:focus ~ .info,
     .input > select:focus ~ .info {
       color: rgba(0, 0, 0, 0.54); }
-    .input > input:not([type='checkbox']):not(:placeholder-shown) ~ .info,
+    .input > input:not([type='radio']):not([type='checkbox']):not(:placeholder-shown) ~ .info,
     .input > textarea:not(:placeholder-shown) ~ .info,
     .input > select:not(:placeholder-shown) ~ .info {
       color: rgba(0, 0, 0, 0.54); }
-    .input > input:not([type='checkbox']) ~ .error,
+    .input > input:not([type='radio']):not([type='checkbox']) ~ .error,
     .input > textarea ~ .error,
     .input > select ~ .error {
       color: #C62828;
@@ -571,19 +571,24 @@ textarea {
       visibility: hidden;
       display: block; }
   .input > input[type='file'],
+  .input > input[type='radio'],
   .input > input[type='checkbox'] {
     border-bottom: none; }
     .input > input[type='file'] + label:after,
     .input > input[type='file'] + label:hover:after,
+    .input > input[type='radio'] + label:after,
+    .input > input[type='radio'] + label:hover:after,
     .input > input[type='checkbox'] + label:after,
     .input > input[type='checkbox'] + label:hover:after {
       content: none; }
-  .input.checkbox {
+  .input.radio, .input.checkbox {
     padding-top: 8px;
     padding-bottom: 8px; }
+  .input > input[type='radio'],
   .input > input[type='checkbox'] {
     vertical-align: middle;
     margin-right: 8px; }
+    .input > input[type='radio'] + label,
     .input > input[type='checkbox'] + label {
       vertical-align: middle; }
   .input > textarea {
