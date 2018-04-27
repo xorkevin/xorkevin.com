@@ -1,23 +1,30 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
   margin: 0;
   padding: 0; }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0; }
-  html.dark, body.dark {
+  html.dark,
+  body.dark {
     background-color: #15191f;
     color: rgba(255, 255, 255, 0.7); }
 
-input:not([type="checkbox"]), button, submit {
+input:not([type='radio']):not([type='checkbox']),
+button,
+submit {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   border: none;
   font-family: unset; }
 
-textarea, input {
+textarea,
+input {
   font-family: unset; }
 
 .text-center {
