@@ -7,7 +7,9 @@
       </span>
       <span class="info">
         {{ range .Params.tags }}
-          <span class="chip">{{ . }}</span>
+          <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
+            <span class="chip">{{ . }}</span>
+          </a>
         {{ end }}
       </span>
       <span class="info">
