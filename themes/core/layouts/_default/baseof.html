@@ -5,7 +5,8 @@
     <title>{{ block "title" . }}{{ $.Site.Title }} {{ with .Title }} | {{ . }}{{ end }}{{ end }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{ .Hugo.Generator }}
-    <link href='{{"css/main.css" | relURL}}' rel="stylesheet" type="text/css" />
+    {{ $styles := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}" media="screen">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   </head>
 
