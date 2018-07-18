@@ -7,7 +7,7 @@ HUGO_URL=https://github.com/gohugoio/hugo/releases/download/v0.44/hugo_extended_
 
 VENDORPATH=static/vendor
 
-.PHONY: all build dev init deps clean
+.PHONY: all build dev init deps clean-deps clean
 
 all: build
 
