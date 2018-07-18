@@ -22,3 +22,4 @@ node_modules
 
 public/
 resources/_gen/
+build/
