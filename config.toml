@@ -1,7 +1,0 @@
-baseURL = "http://example.org/"
-languageCode = "en-us"
-title = "xorkevin"
-theme = "core"
-
-[permalinks]
-  projects = "/:section/:year/:title"
