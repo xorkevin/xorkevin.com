@@ -1,9 +1,14 @@
-HUGO=./build/hugo
+EXT?=0
+
+HUGO=hugo
+ifeq ($(EXT),1)
+	HUGO=./build/hugo
+endif
 
 BINPATH=build
 BIN=hugo
 
-HUGO_URL=https://github.com/gohugoio/hugo/releases/download/v0.44/hugo_extended_0.44_Linux-64bit.tar.gz
+HUGO_URL=https://github.com/gohugoio/hugo/releases/download/v0.48/hugo_extended_0.48_Linux-64bit.tar.gz
 
 VENDORPATH=static/vendor
 
@@ -38,5 +43,5 @@ deps: clean-deps
 clean-deps:
 	rm -rf $(VENDORPATH)
 
-clean:
+clean-tools:
 	rm -rf $(TEMPDIR) $(TEMPTAR) $(BINPATH)
