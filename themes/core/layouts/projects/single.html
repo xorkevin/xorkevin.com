@@ -1,16 +1,17 @@
 {{ define "main" }}
   <section>
     <article>
-      <h2 class="title">{{.Params.name}}<br/><small>{{.Params.description}}</small></h2>
-      <span class="info">
-         {{.Params.datebegin}} - {{.Params.dateend}}
-      </span>
+      <h2 class="title">{{.Params.name}}</h2>
+      <h4>{{.Params.description}}</h4>
       <span class="info">
         {{ range .Params.tags }}
           <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
             <span class="chip">{{ . }}</span>
           </a>
         {{ end }}
+      </span>
+      <span class="info">
+         {{.Params.datebegin}} - {{.Params.dateend}}
       </span>
       <span class="info">
         <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}">{{.Params.projecturl}}</a>
