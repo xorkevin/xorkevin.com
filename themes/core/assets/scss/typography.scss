@@ -1,3 +1,6 @@
+@import 'vars';
+@import 'color';
+
 html,
 body {
   font-size: $typography-base-size;
@@ -106,6 +109,11 @@ body {
     &.no-color {
       color: unset;
     }
+  }
+
+  p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .colossal {
