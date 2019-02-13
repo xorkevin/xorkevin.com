@@ -1,8 +1,13 @@
 header.main {
-  width:          100%;
+  width: 100%;
   letter-spacing: 1px;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     text-transform: uppercase;
   }
 
@@ -11,6 +16,6 @@ header.main {
   }
 
   .subtitle {
-    font-weight: 300;
+    font-weight: 400;
   }
 }
