@@ -2,7 +2,7 @@
   <section>
     <article>
       <h2 class="title">{{.Params.name}}</h2>
-      <h4>{{.Params.description}}</h4>
+      <h4 class="subtitle">{{.Params.description}}</h4>
       <span class="info">
         {{ range .Params.tags }}
           <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
