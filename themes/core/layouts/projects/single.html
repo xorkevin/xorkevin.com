@@ -19,25 +19,41 @@
         {{ end }}
       </span>
     </article>
-    <div class="container">
-      <div class="grid">
-        <div class="col xs-12">
-          {{ with .PrevInSection }}
-            {{if .}}
-              {{.RelPermalink}}
-            {{ end }}
-          {{end}}
-        </div>
-        <div class="col xs-12">
-          {{ with .NextInSection }}
-            {{if .}}
+    <section>
+      <div class="container">
+        <div class="grid horizontal-center">
+          <div class="col xs-12 sm-10 md-6">
+            {{ with .PrevInSection }}
               <div>
-                {{.RelPermalink}}
+                <a href="{{.RelPermalink}}" class="no-style text-center">
+                  <h6><i class="fas fa-fw fa-chevron-left"></i> Prev</h6>
+                  <h4>
+                    {{.Title}}
+                  </h4>
+                  <p>
+                    {{.Params.description}}
+                  </p>
+                </a>
               </div>
-            {{ end }}
-          {{end}}
+            {{end}}
+          </div>
+          <div class="col xs-12 sm-10 md-6">
+            {{ with .NextInSection }}
+              <div>
+                <a href="{{.RelPermalink}}" class="no-style text-center">
+                  <h6 class="right-align">Next <i class="fas fa-fw fa-chevron-right"></i></h6>
+                  <h4>
+                    {{.Title}}
+                  </h4>
+                  <p>
+                    {{.Params.description}}
+                  </p>
+                </a>
+              </div>
+            {{end}}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   </section>
 {{ end }}
