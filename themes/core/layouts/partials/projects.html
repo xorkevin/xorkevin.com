@@ -1,23 +1,18 @@
 <div class="grid">
   {{ range where .Data.Pages "Section" "projects" }}
     <div class="col md-12">
-      <h3><a class="no-style" href="{{.RelPermalink}}">{{.Title}}</a></h3>
-      <div>
-        <a class="no-style" href="{{.RelPermalink}}">
+      <a class="no-style" href="{{.RelPermalink}}">
+        <h3>{{.Title}}</h3>
+      </a>
+      <a class="no-style" href="{{.RelPermalink}}">
+        <div>
           <p>
             {{.Params.description}}
           </p>
-        </a>
-      </div>
-      <div class="tags">
-        {{ range .Params.tags }}
-          <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
-            <span class="chip">{{ . }}</span>
-          </a>
-        {{ end }}
-      </div>
+        </div>
+      </a>
       <div>
-        {{.Params.datebegin}} - {{.Params.dateend}}
+        {{.Params.datebegin}}&mdash;{{.Params.dateend}} &middot; {{.ReadingTime}} min read
       </div>
     </div>
   {{ end }}

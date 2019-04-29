@@ -1,16 +1,13 @@
 ---
-title:       "Governor"
-date:        2017-03-01T00:00:00-00:00
-draft:       true
-name:        "Governor"
-description: "microservice framework"
-tags:        ["web", "microservice", "go"]
-datebegin:   "March 2017"
-dateend:     "Present"
-projecturl:  "https://github.com/hackform/governor"
+title: 'Governor'
+date: 2017-03-01T00:00:00-00:00
+name: 'Governor'
+description: 'microservice framework'
+tags: ['web', 'microservice', 'go']
+datebegin: 'March 2017'
+dateend: 'Present'
+projecturl: 'https://github.com/hackform/governor'
 ---
-
-### Motivation
 
 As the amount of projects I have worked on grew, I noticed that many
 requirements were similar if not identical across them. Not only was rewriting

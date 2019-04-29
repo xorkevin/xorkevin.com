@@ -4,19 +4,40 @@
       <h2 class="title">{{.Params.name}}</h2>
       <h4 class="subtitle">{{.Params.description}}</h4>
       <span class="info">
+        {{.Params.datebegin}}&mdash;{{.Params.dateend}} &middot; {{.ReadingTime}} min read
+      </span>
+      <span class="info small">
+        <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>
+        &middot; <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}"><i class="fas fa-fw fa-code-branch"></i> Repo</a>
+      </span>
+      {{.Content}}
+      <span class="info">
         {{ range .Params.tags }}
           <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
             <span class="chip">{{ . }}</span>
           </a>
         {{ end }}
       </span>
-      <span class="info">
-         {{.Params.datebegin}} - {{.Params.dateend}}
-      </span>
-      <span class="info">
-        <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}">{{.Params.projecturl}}</a>
-      </span>
-      {{.Content}}
     </article>
+    <div class="container">
+      <div class="grid">
+        <div class="col xs-12">
+          {{ with .PrevInSection }}
+            {{if .}}
+              {{.RelPermalink}}
+            {{ end }}
+          {{end}}
+        </div>
+        <div class="col xs-12">
+          {{ with .NextInSection }}
+            {{if .}}
+              <div>
+                {{.RelPermalink}}
+              </div>
+            {{ end }}
+          {{end}}
+        </div>
+      </div>
+    </div>
   </section>
 {{ end }}

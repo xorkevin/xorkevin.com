@@ -1,7 +1,8 @@
-baseURL: "http://example.org/"
-languageCode: "en-us"
-title: "xorkevin"
-theme: "core"
+baseURL: 'https://xorkevin.com/'
+languageCode: 'en-us'
+title: 'xorkevin'
+theme: 'core'
+summaryLength: 8
 
 permalinks:
-  projects: "/:section/:year/:title"
+  projects: '/:section/:year/:title'
