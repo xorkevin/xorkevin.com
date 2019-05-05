@@ -27,26 +27,6 @@ article,
     width: 100%;
   }
 
-  & > img {
-    width: 64rem;
-  }
-
-  & > figure {
-    width: 64rem;
-
-    & > img {
-      width: 100%;
-    }
-
-    & > figcaption {
-      text-align: center;
-
-      & > p {
-        margin: 0;
-      }
-    }
-  }
-
   .info {
     font-size: 1rem;
     color: $color-text-dark-1-5;
@@ -55,7 +35,8 @@ article,
       font-size: 0.85rem;
     }
 
-    &.small {
+    &.small,
+    .small {
       font-size: 0.85rem;
     }
   }

@@ -33,7 +33,7 @@ based on the `body` font size. As such, one only needs to change the font size
 for the body in media queries allowing text to be responsive at every
 resolution.
 
-{{<figure src="assets/htmlhtags.png" caption="HTML headers">}}
+{{<core/img src="assets/htmlhtags.png">}}
 
 ### Components
 
@@ -44,21 +44,21 @@ of components that I designed consist of input fields and buttons. I
 particularly like the simplicity that Material design brings, thus I took many
 cues from it.
 
-{{<figure src="assets/forminputs.png" caption="Form inputs">}}
+{{<core/img src="assets/forminputs.png">}}
 
 #### Cards
 
 They seem to be all the rage these days. It feels as if I was almost obligated
 to create them.
 
-{{<figure src="assets/cards.png" caption="Cards">}}
+{{<core/img src="assets/cards.png">}}
 
 #### Articles
 
 Articles were created purely for fun, taking many cues from Medium, which I
 think executes long form content perfectly.
 
-{{<figure src="assets/articleview.png" caption="Article template">}}
+{{<core/img src="assets/articleview.png">}}
 
 #### Comments
 
@@ -69,7 +69,7 @@ traditional forum, the Reddit comment system simplifies viewing replies by
 placing them adjacent to their parent, and move the best replies to the top. I
 try and replicate this system myself in Nuke.
 
-{{<figure src="assets/commentthread.png" caption="Comment threading">}}
+{{<core/img src="assets/commentthread.png">}}
 
 ### Dark Mode
 
@@ -80,4 +80,4 @@ dark mode was a feature that I strove to implement. It is made maintainable by
 using SCSS to style elements if they are the children of a `body.dark`. Thus
 only the class of body needs to be changed to enable dark mode.
 
-{{<figure src="assets/darkmodearticle.png" caption="Dark mode">}}
+{{<core/img src="assets/darkmodearticle.png">}}

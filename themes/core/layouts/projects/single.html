@@ -1,6 +1,8 @@
 {{ define "main" }}
   <section>
-    <article>
+  </section>
+  <article>
+    <section>
       <h2 class="title">{{.Params.name}}</h2>
       <h4 class="subtitle">{{.Params.description}}</h4>
       <span class="info">
@@ -10,7 +12,9 @@
         <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>
         &middot; <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}"><i class="fas fa-fw fa-code-branch"></i> Repo</a>
       </span>
-      {{.Content}}
+    </section>
+    {{.Content}}
+    <section>
       <span class="info">
         {{ range .Params.tags }}
           <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
@@ -18,42 +22,42 @@
           </a>
         {{ end }}
       </span>
-    </article>
-    <section>
-      <div class="container">
-        <div class="grid horizontal-center">
-          <div class="col xs-12 sm-10 md-6">
-            {{ with .PrevInSection }}
-              <div>
-                <a href="{{.RelPermalink}}" class="no-style text-center">
-                  <h6><i class="fas fa-fw fa-chevron-left"></i> Prev</h6>
-                  <h4>
-                    {{.Title}}
-                  </h4>
-                  <p>
-                    {{.Params.description}}
-                  </p>
-                </a>
-              </div>
-            {{end}}
-          </div>
-          <div class="col xs-12 sm-10 md-6">
-            {{ with .NextInSection }}
-              <div>
-                <a href="{{.RelPermalink}}" class="no-style text-center">
-                  <h6 class="right-align">Next <i class="fas fa-fw fa-chevron-right"></i></h6>
-                  <h4>
-                    {{.Title}}
-                  </h4>
-                  <p>
-                    {{.Params.description}}
-                  </p>
-                </a>
-              </div>
-            {{end}}
-          </div>
+    </section>
+  </article>
+  <section>
+    <div class="container">
+      <div class="grid horizontal-center">
+        <div class="col xs-12 sm-10 md-6">
+          {{ with .PrevInSection }}
+            <div>
+              <a href="{{.RelPermalink}}" class="no-style text-center">
+                <h6><i class="fas fa-fw fa-chevron-left"></i> Prev</h6>
+                <h4>
+                  {{.Title}}
+                </h4>
+                <p>
+                  {{.Params.description}}
+                </p>
+              </a>
+            </div>
+          {{end}}
+        </div>
+        <div class="col xs-12 sm-10 md-6">
+          {{ with .NextInSection }}
+            <div>
+              <a href="{{.RelPermalink}}" class="no-style text-center">
+                <h6 class="right-align">Next <i class="fas fa-fw fa-chevron-right"></i></h6>
+                <h4>
+                  {{.Title}}
+                </h4>
+                <p>
+                  {{.Params.description}}
+                </p>
+              </a>
+            </div>
+          {{end}}
         </div>
       </div>
-    </section>
+    </div>
   </section>
 {{ end }}
