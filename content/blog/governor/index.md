@@ -25,13 +25,13 @@ management already implemented as services out of the box.
 
 ### Design
 
-I knew that the code that I would write would always be destined to change as
-I learned and grew as a developer. To resolve this issue, if there is one thing
+I knew that the code that I would write would always be destined to change as I
+learned and grew as a developer. To resolve this issue, if there is one thing
 my Operating Systems professor taught us, it is to make clearly defined
 interfaces and to isolate services. Thus to facilitate these guaranteed future
 refactors, I adopted the Unix philosophy for each of my services. Each is
-highly isolated - depending only on the interfaces of other services, and
-furthermore those dependencies are made explicit with constructor based
+highly isolated&mdash;depending only on the interfaces of other services.
+Furthermore those dependencies are made explicit with constructor based
 dependency injection. While this leads to a nontrivial amount of boilerplate,
 the upfront cost has already helped me locate and fix many inter-service bugs
 as I know clearly where one service ends and another begins.
@@ -47,17 +47,18 @@ with the project. The message queue is durable, backed by Postgres, to ensure
 guaranteed delivery across unexpected restarts. Every message broadcasted can
 be configured to be delivered to all consumers or to only a single consumer in
 the case of a work queue. The message queue enables Governor to scale to
-multiple nodes in order to address load and availability concerns.
+multiple nodes in order to address load and availability concerns. Furthermore,
+any load spike can be easily handled through placing more jobs on the queue.
 
 #### Storage
 
 There are in-built wrappers around Postgres, Redis, and Minio (based on the S3
 protocol) services that can be launched along with Governor. They handle
-relational, cache, and object storage respectively. I chose these services both
-for their reliability and the amount of support they receive both from their
-maintainers and the community. These services expose interfaces, however, and
-as a result can be easily swapped out in dependent services with alternative
-implementations if necessary.
+relational data, caching, and object storage respectively. I chose these
+services both for their reliability and the amount of support they receive both
+from their maintainers and the community. These services expose interfaces,
+however, and as a result can be easily swapped out in dependent services with
+alternative implementations if necessary.
 
 To help write and maintain the SQL for relational models in Postgres, I have
 also started a parallel project, Forge, intended for use with Governor though
@@ -71,7 +72,10 @@ lack of types.
 An SMTP client and mail workers allow mail to be sent to any SMTP server. The
 interface accepts simple strings, which allow anything to be sent. The mail
 service is used frequently in the user service in cases such as password reset
-and new login notifications.
+and new login notifications. It leverages the message queue service so that any
+caller does not have to wait for the mail to finish sending before continuing.
+This also gives the mail service the benefit of having the same load handling
+characteristics as mentioned before.
 
 #### User Management and Authentication
 
