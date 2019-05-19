@@ -5,4 +5,4 @@ theme: 'core'
 summaryLength: 8
 
 permalinks:
-  projects: '/:section/:year/:title'
+  blog: '/:section/:year/:title'
