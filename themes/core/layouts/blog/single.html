@@ -3,10 +3,10 @@
   </section>
   <article>
     <section>
-      <h2 class="title">{{.Params.name}}</h2>
+      <h2 class="title">{{.Title}}</h2>
       <h4 class="subtitle">{{.Params.description}}</h4>
       <span class="info">
-        {{.Params.datebegin}}&mdash;{{.Params.dateend}} &middot; {{.ReadingTime}} min read
+        {{ dateFormat "Mon, Jan 2, 2006" .Date }} &middot; {{.ReadingTime}} min read
       </span>
       <span class="info small">
         <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>

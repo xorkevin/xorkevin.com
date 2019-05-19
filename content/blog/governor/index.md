@@ -1,11 +1,9 @@
 ---
+name: 'governor'
 title: 'Governor'
-date: 2017-03-01T00:00:00-00:00
-name: 'Governor'
+date: 2018-06-25T17:08:18-07:00
 description: 'microservice framework'
 tags: ['web', 'microservice', 'go']
-datebegin: 'March 2017'
-dateend: 'Present'
 projecturl: 'https://github.com/hackform/governor'
 ---
 

@@ -1,11 +1,9 @@
 ---
-title:       "{{ replace .Name "-" " " | title }}"
-date:        {{ .Date }}
-draft:       true
-name:        ""
-description: ""
-tags:        []
-datebegin:   ""
-dateend:     ""
-projecturl:  ""
+name: '{{.Name}}'
+title: '{{ replace .Name "-" " " | title }}'
+date: {{.Date}}
+description: ''
+tags: []
+projecturl: ''
+draft: true
 ---

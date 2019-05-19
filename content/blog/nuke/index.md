@@ -1,11 +1,9 @@
 ---
+name: 'nuke'
 title: 'Nuke'
-date: 2017-06-24T00:00:00-00:00
-name: 'Nuke'
+date: 2018-04-10T23:58:40-07:00
 description: 'frontend for governor'
 tags: ['web', 'frontend', 'js']
-datebegin: 'June 2017'
-dateend: 'Present'
 projecturl: 'https://github.com/hackform/nuke'
 ---
 
