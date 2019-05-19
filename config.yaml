@@ -3,6 +3,7 @@ languageCode: 'en-us'
 title: 'xorkevin'
 theme: 'core'
 summaryLength: 8
+pluralizelisttitles: 'false'
 
 permalinks:
   blog: '/:section/:year/:month/:title'
