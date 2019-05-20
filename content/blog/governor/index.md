@@ -3,7 +3,7 @@ name: 'governor'
 title: 'Governor'
 date: 2018-06-25T17:08:18-07:00
 description: 'microservice framework'
-tags: ['web', 'microservice', 'go']
+tags: ['microservice', 'go', 'web', 'backend']
 projecturl: 'https://github.com/hackform/governor'
 ---
 

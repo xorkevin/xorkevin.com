@@ -3,7 +3,7 @@ name: 'nuke'
 title: 'Nuke'
 date: 2018-04-10T23:58:40-07:00
 description: 'frontend for governor'
-tags: ['web', 'frontend', 'js']
+tags: ['web', 'frontend', 'react', 'js']
 projecturl: 'https://github.com/hackform/nuke'
 ---
 
