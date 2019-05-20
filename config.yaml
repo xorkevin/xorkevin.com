@@ -4,6 +4,7 @@ title: 'xorkevin'
 theme: 'core'
 summaryLength: 8
 pluralizelisttitles: 'false'
+pygmentsCodeFences: true
 
 permalinks:
   blog: '/:section/:year/:month/:title'
