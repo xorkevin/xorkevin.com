@@ -1,44 +1,67 @@
 <footer>
   <div class="container padded narrow">
-    <div class="grid vertical-center horizontal-center">
-      <div class="col sm-8">
-        <div class="text-center">
-          <h4>Kevin Wang</h4>
-          web dev | tech evangelist | powered by coffee <i class="fas fa-fw fa-coffee"></i>
+    {{ with $.Site.Params.author }}
+      {{ $author := index $.Site.Data.authors . }}
+      <div class="grid vertical-center horizontal-center">
+        <div class="col sm-8">
+          <div class="text-center">
+            <h4 class="title">{{$author.name}}</h4>
+            {{$author.taghtml | safeHTML}}
+          </div>
+        </div>
+        <div class="col sm-8">
+          <div class="text-center">
+            <ul>
+              {{ with $author.resume }}
+                <li>
+                  <a class="no-color" target="_blank" rel="noopener noreferrer" href='{{. | relURL}}'>
+                    <i class="fas fa-fw fa-file-alt"></i> Resume
+                  </a>
+                </li>
+              {{ end }}
+              {{ with $author.social.github }}
+                <li>
+                  <a class="no-color" target="_blank" rel="noopener noreferrer" href='https://github.com/{{.}}'>
+                    <i class="fab fa-fw fa-github"></i> {{.}}@github
+                  </a>
+                </li>
+              {{ end }}
+              {{ with $author.social.twitter }}
+                <li>
+                  <a class="no-color" target="_blank" rel="noopener noreferrer" href='https://twitter.com/{{.}}'>
+                    <i class="fab fa-fw fa-twitter"></i> {{.}}@twitter
+                  </a>
+                </li>
+              {{ end }}
+              {{ with $author.email }}
+                <li>
+                  <a class="no-color" target="_blank" rel="noopener noreferrer" href="mailto:{{.}}">
+                    <i class="fas fa-fw fa-envelope"></i> {{.}}
+                  </a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        <div class="col sm-8">
+          <div class="text-center">
+            <ul>
+              {{ with $author.social.github }}
+                <li>
+                  <span>
+                    <i class="fas fa-fw fa-code"></i> with <i class="far fa-fw fa-heart"></i> by <a class="no-color" target="_blank" rel="noopener noreferrer" href="https://github.com/{{.}}"><i class="fab fa-fw fa-github"></i> {{.}}</a>
+                  </span>
+                </li>
+              {{ end }}
+              <li>
+                <span>
+                  themed with <a class="no-color" target="_blank" rel="noopener noreferrer" href="https://github.com/xorkevin/xorkevin">xorkevin/core</a>
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="col sm-8">
-        <div class="text-center">
-          <ul>
-            <li>
-              <a class="no-color" target="_blank" rel="noopener noreferrer" href='{{"KevinWangResume.pdf" | relURL}}'>
-                <i class="fas fa-fw fa-file-alt"></i> Resume
-              </a>
-            </li>
-            <li>
-              <a class="no-color" target="_blank" rel="noopener noreferrer" href="mailto:wangkevin448@gmail.com">
-                <i class="fas fa-fw fa-envelope"></i> wangkevin448@gmail.com
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="col sm-8">
-        <div class="text-center">
-          <ul>
-            <li>
-              <span>
-                <i class="fas fa-fw fa-code"></i> with <i class="far fa-fw fa-heart"></i> by <a class="no-color" target="_blank" rel="noopener noreferrer" href="https://github.com/xorkevin"><i class="fab fa-fw fa-github"></i> xorkevin</a>
-              </span>
-            </li>
-            <li>
-              <span>
-                themed with <a class="no-color" target="_blank" rel="noopener noreferrer" href="https://github.com/xorkevin/xorkevin">xorkevin/core</a>
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    {{ end }}
   </div>
 </footer>

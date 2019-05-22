@@ -1,15 +1,18 @@
 <div class="img sized lg">
   <div class="inner">
-    <div class="children">
-      <header class="main">
-        <div class="container padded narrow">
-          <h1 class="title">Kevin Wang</h1>
-          <h4 class="subtitle">full stack web developer</h4>
-          <div>Computer Science @ UCLA</div>
-          <div>San Jose | Los Angeles</div>
-        </div>
-      </header>
-    </div>
-    <img class="image" src="/img/home/tower.jpg">
+    {{ with $.Site.Params.author }}
+      {{ $author := index $.Site.Data.authors . }}
+      <div class="children">
+        <header class="main">
+          <div class="container padded narrow">
+            <h1 class="title">{{$author.name}}</h1>
+            <h4 class="subtitle">{{$author.tagheader}}</h4>
+            <div>{{$author.employment}}</div>
+            <div>{{$author.location}}</div>
+          </div>
+        </header>
+      </div>
+    {{ end }}
+    <img class="image" src="/img/home/background.jpg">
   </div>
 </div>

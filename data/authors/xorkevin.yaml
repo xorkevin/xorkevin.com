@@ -1,6 +1,12 @@
 name: 'Kevin Wang'
 bio: 'Tech evangelist and web dev. Experiences decision fatigue daily.'
+taghtml: 'web dev | tech evangelist | powered by coffee <i class="fas fa-fw fa-coffee"></i>'
+tagheader: 'full stack web developer'
+location: 'San Jose | Los Angeles'
+employment: 'Computer Science @ UCLA'
 image: 'img/authors/xorkevin.jpg'
+resume: 'KevinWangResume.pdf'
+email: 'kevin@xorkevin.com'
 social:
   github: 'xorkevin'
   twitter: 'xorkevin'
