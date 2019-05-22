@@ -2,7 +2,7 @@
   <div class="container padded narrow">
     {{ with $.Site.Params.author }}
       {{ $author := index $.Site.Data.authors . }}
-      <div class="grid vertical-center horizontal-center">
+      <div class="grid horizontal-center">
         <div class="col sm-8">
           <div class="text-center">
             <h4 class="title">{{$author.name}}</h4>
@@ -11,6 +11,7 @@
         </div>
         <div class="col sm-8">
           <div class="text-center">
+            <h5 class="title">contact me</h5>
             <ul>
               {{ with $author.resume }}
                 <li>

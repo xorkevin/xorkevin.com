@@ -16,7 +16,7 @@ many other projects, including the LAHacks application system, and this blog
 itself.
 
 If you would like to interact with a demo, one exists here:
-[https://hackform.github.io/](https://hackform.github.io/)
+{{<core/anchor href="https://hackform.github.io">}}https://hackform.github.io/{{</core/anchor>}}
 
 ### Typography
 
