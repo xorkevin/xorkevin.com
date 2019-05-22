@@ -12,10 +12,6 @@
         </div>
       </a>
       <div>
-        {{ with .Params.author }}
-          {{ $author := index $.Site.Data.authors . }}
-          <h5>{{$author.name}}</h5>
-        {{ end }}
         {{ dateFormat "Mon, Jan 2, 2006" .Date }} &middot; {{.ReadingTime}} min read
       </div>
     </div>
