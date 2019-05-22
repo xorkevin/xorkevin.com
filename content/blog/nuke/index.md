@@ -1,6 +1,7 @@
 ---
 name: 'nuke'
 title: 'Nuke'
+author: 'xorkevin'
 date: 2018-04-10T23:58:40-07:00
 description: 'frontend for governor'
 tags: ['web', 'frontend', 'react', 'js']

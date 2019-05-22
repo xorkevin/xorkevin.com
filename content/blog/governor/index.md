@@ -1,6 +1,7 @@
 ---
 name: 'governor'
 title: 'Governor'
+author: 'xorkevin'
 date: 2018-06-25T17:08:18-07:00
 description: 'microservice framework'
 tags: ['microservice', 'go', 'web', 'backend']
