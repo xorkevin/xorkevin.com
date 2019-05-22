@@ -2,27 +2,24 @@
   <section>
   </section>
   <article>
-    <section>
-      <h2 class="title">{{.Title}}</h2>
-      <h4 class="subtitle">{{.Params.description}}</h4>
-      <span class="info">
-        {{ dateFormat "Mon, Jan 2, 2006" .Date }} &middot; {{.ReadingTime}} min read
-      </span>
-      <span class="info small">
-        <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>
-        &middot; <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}"><i class="fas fa-fw fa-code-branch"></i> Repo</a>
-      </span>
-    </section>
+    <h1 class="title">{{.Title}}</h1>
+    <h3 class="subtitle">{{.Params.description}}</h3>
+    <span class="info">
+      {{ dateFormat "Mon, Jan 2, 2006" .Date }} &middot; {{.ReadingTime}} min read
+    </span>
+    <span class="info small">
+      <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>
+      &middot; <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}"><i class="fas fa-fw fa-code-branch"></i> Repo</a>
+    </span>
     {{.Content}}
-    <section>
-      <span class="info">
-        {{ range .Params.tags }}
-          <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
-            <span class="chip">{{ . }}</span>
-          </a>
-        {{ end }}
-      </span>
-    </section>
+    <span class="info">
+      {{ range .Params.tags }}
+        <a href='{{ "/tags/" | relURL }}{{ . | urlize }}' class="no-style">
+          <span class="chip">{{ . }}</span>
+        </a>
+      {{ end }}
+    </span>
+    <hr />
   </article>
   <section>
     <div class="container">
