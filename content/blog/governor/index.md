@@ -3,6 +3,7 @@ name: 'governor'
 title: 'Governor'
 author: 'xorkevin'
 date: 2018-06-25T17:08:18-07:00
+lastmod: 2019-05-22T22:33:30-07:00
 description: 'microservice framework'
 tags: ['microservice', 'go', 'web', 'backend']
 projecturl: 'https://github.com/hackform/governor'
@@ -101,3 +102,8 @@ the NodeJS platform. Thus far, I have refactored the user role and permissions
 engine multiple times, and all the database models as I introduced Forge into
 the project. These refactors of core components were only made possible with
 the service oriented architecture of Governor.
+
+At over two years old, Governor has been my longest standing project. It
+currently powers the LA Hacks Tech platform, and some of UCLA DevX's internal
+tooling. I have many more plans for it as I continue to learn and improve my
+web development skills.

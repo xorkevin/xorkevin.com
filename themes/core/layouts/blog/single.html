@@ -9,7 +9,15 @@
       <h5>{{$author.name}}</h5>
     {{ end }}
     <span class="info">
-      {{ dateFormat "Mon, Jan 2, 2006" .Date }} &middot; {{.ReadingTime}} min read
+      <span class="tooltip-parent">
+        {{ with .Lastmod }}
+          <span class="tooltip top">
+            Last modified {{ dateFormat "2006-01-02" . }}
+          </span>
+        {{ end }}
+        {{ dateFormat "Mon, Jan 2, 2006" .Date }}
+      </span>
+      &middot; {{.ReadingTime}} min read
     </span>
     <span class="info small">
       <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>

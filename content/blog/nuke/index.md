@@ -3,17 +3,18 @@ name: 'nuke'
 title: 'Nuke'
 author: 'xorkevin'
 date: 2018-04-10T23:58:40-07:00
+lastmod: 2019-05-22T22:22:40-07:00
 description: 'frontend for governor'
 tags: ['web', 'frontend', 'react', 'js']
 projecturl: 'https://github.com/hackform/nuke'
 ---
 
-Nuke was designed as a frontend for the Governor project. I wanted to build a
-UI that could facilitate testing the numerous services that compose Governor.
-However, as the project grew, I wanted to also componentize various UI elements
-for future reuse. Thus, Nuke became a UI library, which I have since used in
-many other projects, including the LAHacks application system, and this blog
-itself.
+Nuke was designed as a frontend for the Governor web framework project. I
+wanted to build a UI that could facilitate testing the numerous services that
+compose Governor. However, as the project grew, I wanted to also componentize
+various UI elements for future reuse. Thus, Nuke became its own UI library,
+which I have since used in many other projects, including the LAHacks
+application system, UCLA DevX internal tooling dashboard, and this blog itself.
 
 If you would like to interact with a demo, one exists here:
 {{<core/anchor href="https://hackform.github.io">}}https://hackform.github.io/{{</core/anchor>}}
@@ -22,14 +23,15 @@ If you would like to interact with a demo, one exists here:
 
 Typography was an integral part of Nuke from its inception and it still forms
 the bedrock of its design today. First, I wanted to pick a font that was
-boring. I needed a font that would get out of the way quickly so that no one
-would pay much attention to it, and thus let the focus be on the content. I
-ultimately chose Lato and Source Serif Pro.
+boring. I needed a font that would get out of the way quickly and let the focus
+be on the content. I ultimately chose Lato and Source Serif Pro.
 
 I then proceeded to build a responsive visual hierarchy in SCSS based on the
-`rem` unit. This allows for automatic scaling of all the text on the screen
-based on the `body` font size. As such, one only needs to change the font size
-for the body in media queries allowing text to be responsive at every
+`rem` unit. This is to make Nuke easier to maintain. `rem` allows all text on
+the screen to be based on the `body` font size, i.e. when the `body` font size
+changes, the `rem` unit will change proportionally. As such, for all
+`font-size`s given in `rem`, only the the font size for the body must be
+changed in media queries, allowing all text to be responsive at every
 resolution.
 
 {{<core/img src="assets/htmlhtags.png">}}
@@ -80,3 +82,6 @@ using SCSS to style elements if they are the children of a `body.dark`. Thus
 only the class of body needs to be changed to enable dark mode.
 
 {{<core/img src="assets/darkmodearticle.png">}}
+
+Nuke has made it easy for me to bootstrap new projects without having to
+reimplement common UI components from scratch.

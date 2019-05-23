@@ -3,6 +3,7 @@ name: 'forge'
 title: 'Forge'
 author: 'xorkevin'
 date: 2019-05-19T16:01:01-07:00
+lastmod: 2019-05-22T22:14:19-07:00
 description: 'code generation utility for governor'
 tags: ['codegen', 'cli', 'go']
 projecturl: 'https://github.com/hackform/forge'
