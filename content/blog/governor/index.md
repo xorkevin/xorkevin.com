@@ -27,19 +27,22 @@ management already implemented as services out of the box.
 ### Design
 
 I knew that the code that I would write would always be destined to change as I
-learned and grew as a developer. To resolve this issue, if there is one thing
-my Operating Systems professor taught us, it is to make clearly defined
-interfaces and to isolate services. Thus to facilitate these guaranteed future
-refactors, I adopted the Unix philosophy for each of my services. Each is
-highly isolated&mdash;depending only on the interfaces of other services.
-Furthermore those dependencies are made explicit with constructor based
-dependency injection. While this leads to a nontrivial amount of boilerplate,
-the upfront cost has already helped me locate and fix many inter-service bugs
-as I know clearly where one service ends and another begins.
+learned and grew as a developer, as I painfully learned from experience. To
+resolve this issue, if there is one thing my Operating Systems professor taught
+us, it is to make clearly defined interfaces and to isolate services. Thus to
+facilitate these guaranteed future refactors, I adopted the Unix philosophy for
+each of my services. Each is highly isolated&mdash;depending only on the
+interfaces of other services. Furthermore those dependencies are made explicit
+with constructor based dependency injection. While this leads to a nontrivial
+amount of boilerplate, it can always be resolved in the future with code
+generation. Most importantly, the upfront cost has already helped me locate and
+fix many inter-service bugs as I know clearly where one service ends and
+another begins.
 
 ### Features
 
-Here is a brief summary of the most important features:
+Here is a brief summary of the most important features (in no particular order
+of importance):
 
 #### Message queue
 
@@ -58,8 +61,8 @@ protocol) services that can be launched along with Governor. They handle
 relational data, caching, and object storage respectively. I chose these
 services both for their reliability and the amount of support they receive both
 from their maintainers and the community. These services expose interfaces,
-however, and as a result can be easily swapped out in dependent services with
-alternative implementations if necessary.
+however, and as a result can be easily swapped out by their dependent services
+with alternative implementations if necessary.
 
 To help write and maintain the SQL for relational models in Postgres, I have
 also started a parallel project, Forge, intended for use with Governor though
@@ -94,7 +97,7 @@ implementations arose. Using Go for this project has enabled me to easily
 adhere to interfaces and write new service implementations. Having a compiler
 check simple type errors allows me to refactor with confidence, which was never
 the case when I built similar previous projects in languages like Javascript on
-the NodeJS platform. Thus far, I have refactored the user role engine multiple
-times, and all the models as I introduced Forge into the project. These
-refactors of core components were only made possible with the service oriented
-architecture of Governor.
+the NodeJS platform. Thus far, I have refactored the user role and permissions
+engine multiple times, and all the database models as I introduced Forge into
+the project. These refactors of core components were only made possible with
+the service oriented architecture of Governor.
