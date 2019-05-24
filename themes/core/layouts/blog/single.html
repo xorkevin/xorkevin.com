@@ -21,7 +21,7 @@
     </span>
     <span class="info small">
       <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>
-      &middot; <a target="_blank" rel="noopener noreferrer" href="{{.Params.projecturl}}"><i class="fas fa-fw fa-code-branch"></i> Repo</a>
+      {{ with .Params.projecturl }}&middot; <a target="_blank" rel="noopener noreferrer" href="{{.}}"><i class="fas fa-fw fa-code-branch"></i> Repo</a>{{ end }}
     </span>
     {{.Content}}
     <span class="info">
