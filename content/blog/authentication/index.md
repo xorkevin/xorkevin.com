@@ -34,6 +34,6 @@ on external web services, improving application reliability. Unfortunately,
 authentication has a large amount of moving parts, and they can be overwhelming
 to understand and design and use correctly. While I am by no means a security
 expert, I want to share my experiences designing the authentication system for
-my Governor project[^xorkevin:governor], and how it all works.
+my Governor microservice project[^xorkevin:governor], and how it all works.
 
 [^xorkevin:governor]: Governor project repository: https://github.com/hackform/governor
