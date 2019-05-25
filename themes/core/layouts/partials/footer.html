@@ -59,6 +59,19 @@
                   themed with <a class="no-color" target="_blank" rel="noopener noreferrer" href="https://github.com/xorkevin/xorkevin">xorkevin/core</a>
                 </span>
               </li>
+              {{ with $.Site.Copyright }}
+                <li>
+                  <span>
+                    &copy; {{$author.name}}
+                    {{ $curyear := now.Format "2006" }}
+                    {{ if eq .  $curyear }}
+                      {{.}}
+                    {{ else }}
+                      {{.}}-{{$curyear}}
+                    {{ end }}
+                  </span>
+                </li>
+              {{ end }}
             </ul>
           </div>
         </div>

@@ -5,6 +5,7 @@ theme: 'core'
 summaryLength: 8
 pluralizelisttitles: 'false'
 pygmentsCodeFences: true
+copyright: 2018
 permalinks:
   blog: '/:section/:year/:month/:title'
 params:
