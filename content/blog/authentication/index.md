@@ -144,14 +144,14 @@ AES-GCM diagram[^gcmdiagram]
 AES-GCM is now the de facto symmetric key algorithm. With a key size of 256
 bits, it currently is not known to be cryptographically vulnerable for the
 foreseeable future. Unfortunately, despite its security, its implementation in
-machine code is slow without a speciallized instruction set, such as
+machine code is slow without a specialized instruction set, such as
 AES-NI[^aes-ni]. This also makes it potentially vulnerable to side-channel
 attacks while encrypting data, such as a timing attack[^timing-attack], on
 machines without AES-NI. As a result, ChaCha20-Poly1305[^chacha20] is also
 gaining traction, having recently been standardized by the IETF with Google's
 support. ChaCha20 and her original sister cipher salsa20 are stream ciphers,
 unlike the AES block cipher, and their implementations are fast on hardware
-even without speciallized instructions.
+even without specialized instructions.
 
 [^aes-ni]: https://en.wikipedia.org/wiki/AES_instruction_set
 [^timing-attack]: https://en.wikipedia.org/wiki/Timing_attack
