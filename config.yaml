@@ -5,6 +5,7 @@ theme: 'core'
 summaryLength: 8
 pluralizelisttitles: 'false'
 pygmentsCodeFences: true
+footnoteReturnLinkContents: '&larrhk;'
 copyright: 2018
 permalinks:
   blog: '/:section/:year/:month/:title'

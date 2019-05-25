@@ -112,17 +112,14 @@ Using the following images as an example, one can see that regions of the image
 with the same color encrypt to the same ciphertext in a naively applied block
 cipher. This is, by definition, weak to frequency analysis.
 
-{{<core/img src="assets/Tux.jpg">}}
+<div class="contentrow inset">
+  {{<core/img src="assets/Tux.jpg">}}
+  {{<core/img src="assets/Tux_ecb.jpg">}}
+</div>
 
-Original Tux Image[^tux-plaintext]
-
-{{<core/img src="assets/Tux_ecb.jpg">}}
-
-Encrypted Tux Image[^tux-encrypted]
+{{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
 
 [^colossus]: https://en.wikipedia.org/wiki/Colossus_computer
-[^tux-plaintext]: https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg
-[^tux-encrypted]: https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg
 
 Modern cryptographic algorithms circumvent these issues by mimicking a one-time
 pad cipher with a stream cipher. Take, for example, AES-GCM[^cipher:aesgcm],
@@ -134,12 +131,11 @@ to produce the cipher text. The ciphertext then goes through a system to allow
 the receiver to verify the integrity of the message, which is covered in more
 detail in the MAC section of Cryptographic Hash Functions, later.
 
-{{<core/img src="assets/GCM.png">}}
+{{<core/img class="inset" src="assets/GCM.png">}}
 
-AES-GCM diagram[^gcmdiagram]
+{{<core/caption cap="[Advanced Encryption Standard - Galois Counter Mode](https://en.wikipedia.org/wiki/File:GCM-Galois_Counter_Mode_with_IV.svg)">}}
 
 [^cipher:aesgcm]: https://en.wikipedia.org/wiki/Galois/Counter_Mode
-[^gcmdiagram]: https://en.wikipedia.org/wiki/File:GCM-Galois_Counter_Mode_with_IV.svg
 
 AES-GCM is now the de facto symmetric key algorithm. With a key size of 256
 bits, it currently is not known to be cryptographically vulnerable for the
