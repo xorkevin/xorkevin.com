@@ -7,7 +7,6 @@ lastmod: 2019-05-26T02:18:26-07:00
 description: 'a brief look at cryptographic algorithms'
 tags: ['auth', 'web']
 projecturl: ''
-draft: true
 ---
 
 Authentication is often one of the most complicated portions of an application
