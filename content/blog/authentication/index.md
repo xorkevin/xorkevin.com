@@ -121,15 +121,16 @@ cipher. This is, by definition, weak to frequency analysis.
 
 [^colossus]: Colossus https://en.wikipedia.org/wiki/Colossus_computer
 
-Modern cryptographic algorithms circumvent these issues by mimicking a one-time
-pad cipher with a stream cipher. Take, for example, AES-GCM[^cipher:aesgcm],
-which itself is based on the secure AES block cipher to mimick a stream cipher.
-Some initial value, key, and counter are run through AES repeatedly while
-incrementing the counter, therefore producing a pseudorandom stream of bits
-similar to a one-time pad. These bits are then XOR'ed with each plaintext block
-to produce the cipher text. The ciphertext then goes through a system to allow
-the receiver to verify the integrity of the message, which is covered in more
-detail in the MAC section of Cryptographic Hash Functions, later.
+Modern symmetric encryption algorithms circumvent these issues by mimicking a
+one-time pad cipher with a stream cipher. Take, for example,
+AES-GCM[^cipher:aesgcm], which itself is based on the secure AES block cipher
+to mimick a stream cipher. Some initial value, key, and counter are run through
+AES repeatedly while incrementing the counter, therefore producing a
+pseudorandom stream of bits similar to a one-time pad. These bits are then
+XOR'ed with each plaintext block to produce the cipher text. The ciphertext
+then goes through a system to allow the receiver to verify the integrity of the
+message, which is covered in more detail in the MAC section of hash functions,
+later.
 
 {{<core/img class="inset" src="assets/GCM.png">}}
 
@@ -202,7 +203,7 @@ information, in this case the prime factorization. RSA chooses a semiprime
 number for this, because semiprime numbers are the most difficult to factor for
 their size. RSA is presently secure, because factoring is an NP problem.
 
-[^rsa]: RSA [https://en.wikipedia.org/wiki/RSA\_(cryptosystem)](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
+[^rsa]: RSA <https://en.wikipedia.org/wiki/RSA\_(cryptosystem)>
 
 It seems then that asymmetric encryption should always be used, however it has
 some caveats. RSA itself is computationally expensive compared to a strong
@@ -243,7 +244,7 @@ weaker of the two keys (most likely RSA), this allows the sending of data
 without having to physically meet and share a secret key.
 
 Public key cryptography has other interesting applications such as signing
-content with the private key that can be verified with the public key, but this
+content with the private key that can be verified with the public key, and this
 is discussed in the later section of signing algorithms.
 
 ### Key Exchange Algorithm
@@ -298,30 +299,49 @@ by a relatively small, fixed amount of bytes. Cryptographic hash functions,
 however, have some added constraints. First, the function itself must be
 one-way, or irreversible, i.e. it is easy to compute the output given the
 input, but given the output, it is computationally too expensive to find the
-input. Second, hash collisions are rare, and computationally too expensive to
-find. The idea behind a cryptographic hash function is to have a function that
-can, for all intents and purposes, uniquely represent an arbitrary amount of
-data with a few fixed number of bytes.
+input. Second, hash collisions should be rare, and computationally too
+expensive to find. The idea behind a cryptographic hash function is to have a
+function that can, for all intents and purposes, uniquely represent an
+arbitrary amount of data with a few fixed number of bytes.
+
+Common cryptographic hashes include: SHA-2[^sha2], SHA-3, and BLAKE2[^blake2].
+SHA-1 has had a hash collision, and should not be used going
+forward[^sha1-attack]. The SHA-3 algorithm, Keccak, was chosen in a competition
+by NIST, over BLAKE, for its differences from SHA-2 in the event SHA-2 were
+ever broken. But SHA-2 has not been broken yet, and thus the recommendation is
+to use BLAKE2 for cryptographic hashes. If an implementation of BLAKE2 is not
+available, SHA2-512, or SHA2-256 should be used.
+
+[^sha2]: SHA-2 https://en.wikipedia.org/wiki/SHA-2
+[^blake2]: BLAKE2 <https://en.wikipedia.org/wiki/BLAKE_(hash_function)>
+[^sha1-attack]: SHA-1 collision https://www.zdnet.com/article/sha-1-collision-attacks-are-now-actually-practical-and-a-looming-danger/
 
 Because collisions are rare for a good cryptographic hash, they are often used
-to check whether data has been changed or tampered with. This allows one to
-verify the integrity of the data. Thus, cryptographic hashes are used in
-signing algorithms to represent the contents of the entire data. More recently,
-cryptographic hashes have found an application in proof of work systems such as
-blockchain. Proof of work relies on the fact that a cryptographic hash is
-difficult to reverse, thus the entire security of the system is dependent on
-the fact that a single entity does not have more than 50% of the computational
-power.
+to check whether data has been changed or tampered with. This application of a
+hash, known as a hash-based message authentication code (HMAC) allows one to
+verify the integrity of the data[^hmac]. An HMAC works in general by hashing a
+concatenation of the original plaintext and the encryption key, to produce a
+MAC which is sent along with the cipher text to the receiver. If the ciphertext
+were tampered with in any way, then the MAC will not match the hash of the
+decrypted data. The MAC also cannot be easily faked since it depends on the
+secret encryption key itself. Many common libraries are now beginning to
+support an "authenticated encryption with associated data" (AEAD)[^aead] mode
+for their encryption, which uses MACs[^mac] by default and reduces the chance
+that the encryption algorithm will be misused. Common MAC hashes include SHA-2
+and Poly1305[^poly1305]. Similarly, cryptographic hashes are also used in
+signing algorithms (covered later) to represent the contents of the entire
+data.
 
-Common cryptographic hashes include: SHA-2, SHA-3, and BLAKE2. SHA-1 has had a
-hash collision, and should not be used going forward[^sha1-attack]. The SHA-3
-algorithm, Keccak, was chosen in a competition by NIST, over BLAKE, for its
-differences from SHA-2, in case SHA-2 were ever broken. But SHA-2 has not been
-broken yet, and thus the recommendation is to use BLAKE2 for cryptographic
-hashes. If an implementation is not available, SHA2-512, or SHA2-256 should be
-used.
+[^hmac]: HMAC https://en.wikipedia.org/wiki/HMAC
+[^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
+[^mac]: MAC https://en.wikipedia.org/wiki/Message_authentication_code
+[^poly1305]: Poly1305 https://en.wikipedia.org/wiki/Poly1305
 
-[^sha1-attack]: SHA-1 collision https://www.zdnet.com/article/sha-1-collision-attacks-are-now-actually-practical-and-a-looming-danger/
+More recently, cryptographic hashes have found an application in proof of work
+systems such as blockchain. Proof of work relies on the fact that a
+cryptographic hash is difficult to reverse, thus the entire security of the
+system is dependent on the fact that a single entity does not have more than
+50% of the computational power.
 
 ### Password Hash Function
 
@@ -330,7 +350,7 @@ hashes at a rate of 947 MBps[^blake2-hashrate]. A password hashing function on
 the other hand is designed to be slow to compute, and difficult to parallelize
 and pipeline. This is due to the unique nature of how passwords are stored.
 
-[^blake2-hashrate]: BLAKE2 hash https://blake2.net/
+[^blake2-hashrate]: BLAKE2 hashrate https://blake2.net/
 
 Passwords should not be stored in plaintext, or even stored in an encrypted
 format. Plaintext passwords should be irrecoverable from their stored forms.
@@ -359,14 +379,17 @@ recommended, though benchmarks on your own hardware will give more accurate
 results. The highest work factor where the average hash takes no longer than
 several hundred milliseconds should be preferred. Other password hashing
 algorithms have similar designs. While bcrypt is still recommended, more modern
-password hashes have better defenses against other attacks. Scrypt[^scrypt]
-and Argon2[^argon2] have configurable memory work factors, to make their hashes
+password hashes have better defenses against other attacks. Scrypt[^scrypt] and
+Argon2[^argon2] have configurable memory work factors, to make their hashes
 difficult to execute on GPUs.
 
 [^bcrypt]: bcrypt https://en.wikipedia.org/wiki/Bcrypt
 [^scrypt]: scrypt https://en.wikipedia.org/wiki/Scrypt
 [^argon2]: argon2 https://en.wikipedia.org/wiki/Argon2
 
-### Signing Data
+### Signing Algorithm
 
-MAC, AEAD, RSA ECC Signing
+Encryption algorithms and hashes allow their users to safely and securely
+transmit data and verify their integrity.
+
+RSA ECC Signing
