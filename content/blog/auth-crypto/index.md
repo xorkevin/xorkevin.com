@@ -200,11 +200,12 @@ others. Much to their surprise, the algorithm was independently rediscovered by
 Rivest, Shamir, and Adleman based off the work of Diffie and Hellman[^rsa]. Now
 known as RSA, the algorithm works by exploiting Euler's totient function, which
 is easy to calculate for a number if one knows its prime factorization, and
-difficult otherwise. This property of the totient function, makes it a trapdoor
-function, a function that computationally difficult, unless one knows special
-information, in this case the prime factorization. RSA chooses a semiprime
-number for this, because semiprime numbers are the most difficult to factor for
-their size. RSA is presently secure, because factoring is an NP problem.
+difficult otherwise. This property of the totient function makes it a trapdoor
+function, a function that is computationally difficult, unless one knows
+special information, in this case the prime factorization. RSA chooses a
+semiprime number for this, because semiprime numbers are the most difficult to
+factor for their size. RSA is presently secure, because factoring is an NP
+problem.
 
 [^rsa]: RSA <https://en.wikipedia.org/wiki/RSA\_(cryptosystem)>
 
@@ -224,7 +225,7 @@ increased, there is no remedy for this type of attack.
 
 Fortunately, while RSA has been the mainstay of public key cryptography, some
 of these issues are being addressed by other asymmetric encryption algorithms.
-Elliptic curve cryptography has become more popular, in recent years. ECC is
+Elliptic curve cryptography has become more popular in recent years. ECC is
 based on the difficulty of the more general discrete logarithm problem. ECC
 maps an elliptic curve onto a finite (Galois) field, where the operations of
 multiplication and addition are redefined. (**Warning**: It is strongly
@@ -232,7 +233,7 @@ believed that the NSA has backdoored the NIST elliptic curves, thus
 compromising ECDSA. It is recommended to use EdDSA instead on the Ed25519
 elliptic curve.) Because ECC does not rely on prime numbers, it has much
 smaller key sizes. An ECC key of 521 bits is approximately equal in strength to
-AES-256. Unfortunately, again, ECC is vulnerable to quantum attacks via Shor's
+AES-256. Unfortunately, ECC is still vulnerable to quantum attacks via Shor's
 algorithm. As a result, new systems such as lattice-based
 cryptography[^lattice-crypto] are currently being developed, which have not yet
 been found to have a quantum weakness.
@@ -324,20 +325,19 @@ to check whether data has been changed or tampered with. This application of a
 hash, known as a hash-based message authentication code (HMAC) allows one to
 verify the integrity of the data[^hmac]. An HMAC works in general by hashing a
 concatenation of the original plaintext and the encryption key, to produce a
-MAC which is sent along with the cipher text to the receiver. If the ciphertext
-were tampered with in any way, then the MAC will not match the hash of the
-decrypted data. The MAC also cannot be easily faked since it depends on the
-secret encryption key itself. Many common libraries are now beginning to
+MAC[^MAC] which is sent along with the cipher text to the receiver. If the
+ciphertext were tampered with in any way, then the MAC will not match the hash
+of the decrypted data. The MAC also cannot be easily faked since it depends on
+the secret encryption key itself. Many common libraries are now beginning to
 support an "authenticated encryption with associated data" (AEAD)[^aead] mode
-for their encryption, which uses MACs[^mac] by default and reduces the chance
-that the encryption algorithm will be misused. Common MAC hashes include SHA-2
-and Poly1305[^poly1305]. Similarly, cryptographic hashes are also used in
-signing algorithms (covered later) to represent the contents of the entire
-data.
+for their encryption, which uses MACs by default and reduces the chance that
+the encryption algorithm will be misused. Common MAC hashes include SHA-2 and
+Poly1305[^poly1305]. Similarly, cryptographic hashes are also used in signing
+algorithms (covered later) to represent the contents of the entire data.
 
 [^hmac]: HMAC https://en.wikipedia.org/wiki/HMAC
-[^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
 [^mac]: MAC https://en.wikipedia.org/wiki/Message_authentication_code
+[^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
 [^poly1305]: Poly1305 https://en.wikipedia.org/wiki/Poly1305
 
 More recently, cryptographic hashes have found an application in proof of work
