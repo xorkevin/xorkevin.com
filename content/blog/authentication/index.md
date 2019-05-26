@@ -22,7 +22,7 @@ level applications, correctness of the authentication service is usually one of
 the most important parts of an application due to its large number of
 dependants.
 
-[^torvalds:bugs]: https://lkml.org/lkml/2017/11/17/767
+[^torvalds:bugs]: Linus Torvalds's response https://lkml.org/lkml/2017/11/17/767
 
 It is no surprise, then, to find that many projects choose to use an OAuth
 provider for application sign-in, instead of rolling their own. This makes the
@@ -84,7 +84,7 @@ key) XOR (plaintext2 XOR key) = (plaintext1 XOR plaintext2)`. This would allow
 the resulting string to be decrypted via frequency analysis and similar tools,
 without the attacker needing to know the key.
 
-[^cipher:otp]: https://en.wikipedia.org/wiki/One-time_pad
+[^cipher:otp]: One-time pad https://en.wikipedia.org/wiki/One-time_pad
 
 One-time pads have a downside however: the key must be at least as long as the
 plaintext. This makes encrypting files that are on the order of megabytes in
@@ -96,8 +96,8 @@ cipher[^cipher:lorenz] used in WWII), while block ciphers encrypt entire
 "blocks" of data (which may vary in size) independently (e.g.
 AES[^cipher:aes]).
 
-[^cipher:lorenz]: https://en.wikipedia.org/wiki/Lorenz_cipher
-[^cipher:aes]: https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+[^cipher:lorenz]: Lorenz cipher https://en.wikipedia.org/wiki/Lorenz_cipher
+[^cipher:aes]: AES https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
 
 Unfortunately, both of these types of algorithms, in their earliest forms, had
 their own glaring weaknesses. Simple stream ciphers, operating at a character
@@ -119,7 +119,7 @@ cipher. This is, by definition, weak to frequency analysis.
 
 {{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
 
-[^colossus]: https://en.wikipedia.org/wiki/Colossus_computer
+[^colossus]: Colossus https://en.wikipedia.org/wiki/Colossus_computer
 
 Modern cryptographic algorithms circumvent these issues by mimicking a one-time
 pad cipher with a stream cipher. Take, for example, AES-GCM[^cipher:aesgcm],
@@ -135,7 +135,7 @@ detail in the MAC section of Cryptographic Hash Functions, later.
 
 {{<core/caption cap="[Advanced Encryption Standard - Galois Counter Mode](https://en.wikipedia.org/wiki/File:GCM-Galois_Counter_Mode_with_IV.svg)">}}
 
-[^cipher:aesgcm]: https://en.wikipedia.org/wiki/Galois/Counter_Mode
+[^cipher:aesgcm]: AES-GCM https://en.wikipedia.org/wiki/Galois/Counter_Mode
 
 AES-GCM is now the de facto symmetric key algorithm. With a key size of 256
 bits, it currently is not known to be cryptographically vulnerable for the
@@ -150,9 +150,9 @@ sister cipher Salsa20 are stream ciphers, unlike the AES block cipher, and
 their implementations are *consistently* fast on hardware even without
 specialized instructions.
 
-[^aes-ni]: https://en.wikipedia.org/wiki/AES_instruction_set
-[^timing-attack]: https://en.wikipedia.org/wiki/Timing_attack
-[^chacha20]: https://tools.ietf.org/html/rfc7539
+[^aes-ni]: AES-NI https://en.wikipedia.org/wiki/AES_instruction_set
+[^timing-attack]: Timing attack https://en.wikipedia.org/wiki/Timing_attack
+[^chacha20]: ChaCha20 https://tools.ietf.org/html/rfc7539
 
 Nevertheless, symmetric encryption algorithms offer many benefits. They are,
 compared to other encryption algorithms, relatively fast to execute due to
@@ -164,7 +164,7 @@ decreases with a quantum computer, i.e. AES-256 would only have 128 bits of
 security instead of 256. These issues can be easily resolved by doubling the
 key size.
 
-[^grover-alg]: https://en.wikipedia.org/wiki/Grover%27s_algorithm
+[^grover-alg]: Grover's algorithm https://en.wikipedia.org/wiki/Grover%27s_algorithm
 
 The only major downside to symmetric encryption is that both communicating
 parties must know the key. When it is impossible for these parties to
@@ -202,7 +202,7 @@ information, in this case the prime factorization. RSA chooses a semiprime
 number for this, because semiprime numbers are the most difficult to factor for
 their size. RSA is presently secure, because factoring is an NP problem.
 
-[^rsa]: [https://en.wikipedia.org/wiki/RSA\_(cryptosystem)](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
+[^rsa]: RSA [https://en.wikipedia.org/wiki/RSA\_(cryptosystem)](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
 
 It seems then that asymmetric encryption should always be used, however it has
 some caveats. RSA itself is computationally expensive compared to a strong
@@ -216,21 +216,24 @@ completely vulnerable to quantum attacks using Shor's algorithm[^shor-alg] to
 factor numbers in polynomial time. Unlike with AES, where the key size can be
 increased, there is no remedy for this type of attack.
 
-[^shor-alg]: https://en.wikipedia.org/wiki/Shor%27s_algorithm
+[^shor-alg]: Shor's algorithm https://en.wikipedia.org/wiki/Shor%27s_algorithm
 
 Fortunately, while RSA has been the mainstay of public key cryptography, some
 of these issues are being addressed by other asymmetric encryption algorithms.
 Elliptic curve cryptography has become more popular, in recent years. ECC is
 based on the difficulty of the more general discrete logarithm problem. ECC
 maps an elliptic curve onto a finite (Galois) field, where the operations of
-multiplication and addition are redefined. Because ECC does not rely on prime
-numbers, it has much smaller key sizes. An ECC key of 521 bits is approximately
-equal in strength to AES-256. Unfortunately, again, ECC is vulnerable to
-quantum attacks via Shor's algorithm. As a result, new systems such as
-lattice-based cryptography[^lattice-crypto] are currently being developed, which have not yet
+multiplication and addition are redefined. (**Warning**: It is strongly
+believed that the NSA has backdoored the NIST elliptic curves, thus
+compromising ECDSA. It is recommended to use EdDSA instead on the Ed25519
+elliptic curve.) Because ECC does not rely on prime numbers, it has much
+smaller key sizes. An ECC key of 521 bits is approximately equal in strength to
+AES-256. Unfortunately, again, ECC is vulnerable to quantum attacks via Shor's
+algorithm. As a result, new systems such as lattice-based
+cryptography[^lattice-crypto] are currently being developed, which have not yet
 been found to have a quantum weakness.
 
-[^lattice-crypto]: https://en.wikipedia.org/wiki/Lattice-based_cryptography
+[^lattice-crypto]: Lattice-based crypto https://en.wikipedia.org/wiki/Lattice-based_cryptography
 
 Asymmetric and symmetric cryptography also do not have to be used mutually
 exclusively. Software such as GPG can symmetrically encrypt a large file, e.g.
@@ -263,11 +266,13 @@ chosen carefully, `c_ba = c_ab`, and if `f` is irreversible, any listener to
 this conversation will be unable to produce `c_ab` since that would require the
 knowledge of `a` or `b` which have been kept secret. In the original
 implementation, Diffie-Hellman uses an `f((g, p), i) = ((g^i mod p), p)`, which
-can be verified to work since `((g^a)^b) = ((g^b)^a) (mod p)`. Diffie-Hellman
-can use other functions, such as elliptic curves mapped onto finite fields to
+can be verified to work since `((g^a)^b) = ((g^b)^a) (mod p)`. `A = g^i mod p`
+is also easy to compute, but given `g`, `p`, and `A`, it is difficult to
+compute `i`, making the function irreversible or "one-way". Diffie-Hellman can
+use other functions, such as elliptic curves mapped onto finite fields to
 create the Elliptic Curve Diffie-Hellman algorithm[^diffie-hellman].
 
-[^diffie-hellman]: https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
+[^diffie-hellman]: Diffie-Hellman https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
 
 One may ask why key exchange algorithms are needed when a combination of
 asymmetric and symmetric algorithms can be used, as in the case of GPG to
@@ -283,11 +288,84 @@ Whatsapp, Signal, and others to create protocols that enable perfect forward
 secrecy within the same session of communication[^double-ratchet].
 
 [^tls-diffie-hellman]: https://wiki.openssl.org/index.php/Diffie_Hellman#Diffie-Hellman_in_SSL.2FTLS
-[^double-ratchet]: https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
+[^double-ratchet]: double ratchet https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
 
 ### Hash Function
 
+A hash is a function that maps an input string to a fixed length output. Hash
+functions are used whenever an arbitrary amount of data needs to be represented
+by a relatively small, fixed amount of bytes. Cryptographic hash functions,
+however, have some added constraints. First, the function itself must be
+one-way, or irreversible, i.e. it is easy to compute the output given the
+input, but given the output, it is computationally too expensive to find the
+input. Second, hash collisions are rare, and computationally too expensive to
+find. The idea behind a cryptographic hash function is to have a function that
+can, for all intents and purposes, uniquely represent an arbitrary amount of
+data with a few fixed number of bytes.
+
+Because collisions are rare for a good cryptographic hash, they are often used
+to check whether data has been changed or tampered with. This allows one to
+verify the integrity of the data. Thus, cryptographic hashes are used in
+signing algorithms to represent the contents of the entire data. More recently,
+cryptographic hashes have found an application in proof of work systems such as
+blockchain. Proof of work relies on the fact that a cryptographic hash is
+difficult to reverse, thus the entire security of the system is dependent on
+the fact that a single entity does not have more than 50% of the computational
+power.
+
+Common cryptographic hashes include: SHA-2, SHA-3, and BLAKE2. SHA-1 has had a
+hash collision, and should not be used going forward[^sha1-attack]. The SHA-3
+algorithm, Keccak, was chosen in a competition by NIST, over BLAKE, for its
+differences from SHA-2, in case SHA-2 were ever broken. But SHA-2 has not been
+broken yet, and thus the recommendation is to use BLAKE2 for cryptographic
+hashes. If an implementation is not available, SHA2-512, or SHA2-256 should be
+used.
+
+[^sha1-attack]: SHA-1 collision https://www.zdnet.com/article/sha-1-collision-attacks-are-now-actually-practical-and-a-looming-danger/
+
 ### Password Hash Function
+
+Normal cryptographic hash functions are designed to be fast to compute. BLAKE2b
+hashes at a rate of 947 MBps[^blake2-hashrate]. A password hashing function on
+the other hand is designed to be slow to compute, and difficult to parallelize
+and pipeline. This is due to the unique nature of how passwords are stored.
+
+[^blake2-hashrate]: BLAKE2 hash https://blake2.net/
+
+Passwords should not be stored in plaintext, or even stored in an encrypted
+format. Plaintext passwords should be irrecoverable from their stored forms.
+Passwords should be salted and hashed, and those hashes should be stored in
+some datastore. In order to check if an entered password is correct, the
+entered password should be hashed again and compared against the stored hash.
+Because a hash is a function, the same input should result in the same output
+hash.
+
+An attacker of a password hash would effectively have to try every possible
+input, assuming the actual password is random enough, and not the obvious
+`hunter2`[^hunter2]. The easier the hash is to compute, the faster an attacker
+is able to guess different values. For normal data, the content is long enough
+so that finding a hash collision is still impractical due to the large size of
+the input. Passwords, however, are unique in that they are relatively small in
+size. Thus the hash itself needs to be designed to be slow.
+
+[^hunter2]: hunter2 origins http://bash.org/?244321
+
+Bcrypt is the de facto password hashing algorithm, and has been in use for a
+decade. It works by recursively hashing the input for a configurable
+2<sup>N</sup> iterations, or "rounds", where N is the work factor[^bcrypt].
+Thus as computers grow more powerful, bcrypt's number of rounds can be
+increased proportionally. For the year of 2019, a workfactor of 13 is
+recommended, though benchmarks on your own hardware will give more accurate
+results. The highest work factor where the average hash takes no longer than
+several hundred milliseconds should be preferred. Other password hashing
+algorithms have similar designs. While bcrypt is still recommended, more modern
+password hashes have better defenses against other attacks. Scrypt[^scrypt]
+and Argon2[^argon2] have configurable memory work factors, to make their hashes
+difficult to execute on GPUs.
+
+[^bcrypt]: bcrypt https://en.wikipedia.org/wiki/Bcrypt
+[^scrypt]: scrypt https://en.wikipedia.org/wiki/Scrypt
+[^argon2]: argon2 https://en.wikipedia.org/wiki/Argon2
 
 ### Signing Data
 
