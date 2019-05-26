@@ -17,7 +17,15 @@
         {{ end }}
         {{ dateFormat "Mon, Jan 2, 2006" .Date }}
       </span>
-      &middot; {{.ReadingTime}} min read
+      &middot;
+      <span class="tooltip-parent">
+        {{ with .WordCount }}
+          <span class="tooltip top">
+            {{.}} Words
+          </span>
+        {{ end }}
+        {{.ReadingTime}} min read
+      </span>
     </span>
     <span class="info small">
       <a target="_blank" rel="noopener noreferrer" href="{{.Permalink}}"><i class="fas fa-fw fa-link"></i> Permalink</a>
