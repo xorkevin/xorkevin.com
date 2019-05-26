@@ -19,3 +19,14 @@ header.main {
     font-weight: 400;
   }
 }
+
+article,
+.article {
+  .footnotes {
+    font-size: 1rem;
+
+    & > hr {
+      display: none;
+    }
+  }
+}
