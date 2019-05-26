@@ -2,7 +2,7 @@ HUGO=hugo
 
 VENDORPATH=static/vendor
 
-.PHONY: all build dev deps clean-deps
+.PHONY: all build dev deps clean-deps deploycopy
 
 all: build
 
@@ -18,3 +18,6 @@ deps: clean-deps
 
 clean-deps:
 	rm -rf $(VENDORPATH)
+
+deploycopy:
+	cp -r public/* ../xorkevin.github.io
