@@ -116,8 +116,8 @@ with the same color encrypt to the same ciphertext in a naively applied block
 cipher. This is, by definition, weak to frequency analysis.
 
 <div class="contentrow inset">
-{{<core/img src="assets/Tux.jpg">}}
-{{<core/img src="assets/Tux_ecb.jpg">}}
+{{<core/img src="assets/tux.jpg">}}
+{{<core/img src="assets/tuxecb.jpg">}}
 </div>
 
 {{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
@@ -135,7 +135,7 @@ goes through a system to allow the receiver to verify the integrity of the
 message, which is covered in more detail in the MAC section of hash functions,
 later.
 
-{{<core/img class="inset" src="assets/GCM.png">}}
+{{<core/img class="inset" src="assets/gcm.png">}}
 
 {{<core/caption cap="[Advanced Encryption Standard - Galois Counter Mode](https://en.wikipedia.org/wiki/File:GCM-Galois_Counter_Mode_with_IV.svg)">}}
 
