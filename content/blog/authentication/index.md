@@ -59,7 +59,7 @@ immense size of their key space. With most keys at about 256 bits in size
 average, require attempting 2<sup>255</sup> key guesses, which would take most
 state level actors years, even with optimizations, to brute force.
 
-#### Symmetric Encryption
+### Symmetric Encryption
 
 Symmetric encryption, as its name implies, uses the same key for encryption as
 it does for decryption. The most secure encryption algorithm, symmetric or
@@ -113,8 +113,8 @@ with the same color encrypt to the same ciphertext in a naively applied block
 cipher. This is, by definition, weak to frequency analysis.
 
 <div class="contentrow inset">
-  {{<core/img src="assets/Tux.jpg">}}
-  {{<core/img src="assets/Tux_ecb.jpg">}}
+{{<core/img src="assets/Tux.jpg">}}
+{{<core/img src="assets/Tux_ecb.jpg">}}
 </div>
 
 {{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
@@ -124,8 +124,8 @@ cipher. This is, by definition, weak to frequency analysis.
 Modern cryptographic algorithms circumvent these issues by mimicking a one-time
 pad cipher with a stream cipher. Take, for example, AES-GCM[^cipher:aesgcm],
 which itself is based on the secure AES block cipher to mimick a stream cipher.
-Some initial value and a counter are run through AES repeatedly while
-incrementing the counter, therefore producing a pseudo random stream of bits
+Some initial value, key, and counter are run through AES repeatedly while
+incrementing the counter, therefore producing a pseudorandom stream of bits
 similar to a one-time pad. These bits are then XOR'ed with each plaintext block
 to produce the cipher text. The ciphertext then goes through a system to allow
 the receiver to verify the integrity of the message, which is covered in more
@@ -143,29 +143,112 @@ foreseeable future. Unfortunately, despite its security, its implementation in
 machine code is slow without a specialized instruction set, such as
 AES-NI[^aes-ni]. This also makes it potentially vulnerable to side-channel
 attacks while encrypting data, such as a timing attack[^timing-attack], on
-machines without AES-NI. As a result, ChaCha20-Poly1305[^chacha20] is also
-gaining traction, having recently been standardized by the IETF with Google's
-support. ChaCha20 and her original sister cipher salsa20 are stream ciphers,
-unlike the AES block cipher, and their implementations are fast on hardware
-even without specialized instructions.
+machines without a specialized instruction set. As a result,
+ChaCha20-Poly1305[^chacha20] is also gaining traction, having recently been
+standardized by the IETF with Google's support. ChaCha20 and her original
+sister cipher Salsa20 are stream ciphers, unlike the AES block cipher, and
+their implementations are *consistently* fast on hardware even without
+specialized instructions.
 
 [^aes-ni]: https://en.wikipedia.org/wiki/AES_instruction_set
 [^timing-attack]: https://en.wikipedia.org/wiki/Timing_attack
 [^chacha20]: https://tools.ietf.org/html/rfc7539
 
-#### Asymmetric Encryption
+Nevertheless, symmetric encryption algorithms offer many benefits. They are,
+compared to other encryption algorithms, relatively fast to execute due to
+their design; an indefinitely long pseudorandom string of bits may be
+efficiently generated to encrypt arbitrarily large files. Symmetric encryption
+algorithms are also quantum resistant. Using Grover's algorithm[^grover-alg],
+the security of a symmetric cipher such as AES or ChaCha20 only quadratically
+decreases with a quantum computer, i.e. AES-256 would only have 128 bits of
+security instead of 256. These issues can be easily resolved by doubling the
+key size.
 
-Also known as public key cryptography, asymmetric encryption relies on two keys
-in order to send and receive data.
+[^grover-alg]: https://en.wikipedia.org/wiki/Grover%27s_algorithm
 
-However, asymmetric encryption is vulnerable to quantum attacks, such as Shor's
-algorithm. Symmetric ciphers are not yet known to be vulnerable, where quantum
-methods have only reduced their strength by a half.
+The only major downside to symmetric encryption is that both communicating
+parties must know the key. When it is impossible for these parties to
+physically meet, this can lead to a chicken and egg problem, i.e. there is no
+secure means to send the secret key to the other party since no shared secret
+key has been shared. The two main approaches to deal with this issue are key
+exchange, discussed in its own later section, and asymmetric encryption.
+
+### Asymmetric Encryption
+
+Also known as public key cryptography, asymmetric encryption relies on two
+separate keys in order to send and receive data. One of these is called the
+"public" key, and the other, the "private" key. These two keys form what is
+known as a "key pair". A sender may securely send information to a designated
+receiver by using an asymmetric encryption algorithm along with the receiver's
+public key to generate the ciphertext. It is important to note that the public
+key is, in fact, public knowledge. Only the receiver, who knows what the secret
+key is, may decrypt the ciphertext to obtain the original plaintext. Asymmetric
+encryption has the added benefit over symmetric encryption that one does not
+need to generate a new key for every new party one wants to communicate with.
+With symmetric encryption, sharing the same key could lead to every party with
+the shared key decrypting each other's messages. In asymmetric encryption,
+different keys are used for encrypting and decrypting messages, thus the
+encrypting "public" key can be shared amongst everyone.
+
+The first asymmetric cryptographic encryption algorithm was discovered by the
+British GCHQ, who classified it as top-secret to prevent it from being used by
+others. Much to their surprise, the algorithm was independently rediscovered by
+Rivest, Shamir, and Adleman based off the work of Diffie and Hellman[^rsa]. Now
+known as RSA, the algorithm works by exploiting Euler's totient function, which
+is easy to calculate for a number if one knows its prime factorization, and
+difficult otherwise. This property of the totient function, makes it a trapdoor
+function, a function that computationally difficult, unless one knows special
+information, in this case the prime factorization. RSA chooses a semiprime
+number for this, because semiprime numbers are the most difficult to factor for
+their size. RSA is presently secure, because factoring is an NP problem.
+
+[^rsa]: [https://en.wikipedia.org/wiki/RSA\_(cryptosystem)](https://en.wikipedia.org/wiki/RSA_(cryptosystem))
+
+It seems then that asymmetric encryption should always be used, however it has
+some caveats. RSA itself is computationally expensive compared to a strong
+symmetric encryption algorithm such as AES. Encrypting a file on the order of
+megabytes in size would take far longer than AES. Furthermore, since RSA uses
+prime numbers, the frequency of prime numbers affect the number of bits of
+entropy within an RSA key, i.e. unlike in AES, not all 2<sup>N</sup> possible
+keys are valid, because not all are semiprime. As a result, RSA needs a 15360
+bit key to have approximately the same strength as AES-256. RSA itself is also
+completely vulnerable to quantum attacks using Shor's algorithm[^shor-alg] to
+factor numbers in polynomial time. Unlike with AES, where the key size can be
+increased, there is no remedy for this type of attack.
+
+[^shor-alg]: https://en.wikipedia.org/wiki/Shor%27s_algorithm
+
+Fortunately, while RSA has been the mainstay of public key cryptography, some
+of these issues are being addressed by other asymmetric encryption algorithms.
+Elliptic curve cryptography has become more popular, in recent years. ECC is
+based on the difficulty of the more general discrete logarithm problem. ECC
+maps an elliptic curve onto a finite (Galois) field, where the operations of
+multiplication and addition are redefined. Because ECC does not rely on prime
+numbers, it has much smaller key sizes. An ECC key of 521 bits is approximately
+equal in strength to AES-256. Unfortunately, again, ECC is vulnerable to
+quantum attacks via Shor's algorithm. As a result, new systems such as
+lattice-based cryptography[^lattice-crypto] are currently being developed, which have not yet
+been found to have a quantum weakness.
+
+[^lattice-crypto]: https://en.wikipedia.org/wiki/Lattice-based_cryptography
+
+Asymmetric and symmetric cryptography also do not have to be used mutually
+exclusively. Software such as GPG can symmetrically encrypt a large file, e.g.
+with AES, then encrypt the symmetric key with an asymmetric algorithm, e.g.
+with RSA. While the strength of the encryption will only be as strong as the
+weaker of the two keys (most likely RSA), this allows the sending of data
+without having to physically meet and share a secret key.
+
+Public key cryptography has other interesting applications such as signing
+content with the private key that can be verified with the public key, but this
+is discussed in the later section of signing algorithms.
 
 ### Key Exchange Algorithm
 
-### Cryptographic Hash Function
+### Hash Function
 
-MAC, AEAD
+### Password Hash Function
 
-#### Password Hash Function
+### Signing Data
+
+MAC, AEAD, RSA ECC Signing
