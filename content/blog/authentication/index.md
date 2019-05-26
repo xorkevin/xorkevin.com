@@ -245,6 +245,46 @@ is discussed in the later section of signing algorithms.
 
 ### Key Exchange Algorithm
 
+Key exchange algorithms are a mechanism by which two parties can communicate
+over an untrusted communication channel to arrive at a single shared secret
+key, while any potential listeners to that conversation will be unable to
+derive the key. These are most often used for sharing symmetric secret keys, as
+an asymmetric encryption system does not need such a system. The Diffie-Hellman
+key exchange protocol is the most common form of key exchange protocol. Suppose
+two parties Alice and Bob wanted to establish a shared secret key over an
+untrusted channel. Diffie-Hellman uses some irreversible special function,
+which we will denote as `f(x, i) -> c`. Alice and Bob first establish some
+common base `x`, which can be sent unencrypted over the channel. Alice chooses
+some secret number `a`, and computes `f(x, a) -> c_a`. Likewise, Bob chooses
+some secret number `b`, and computes `f(x, b) -> c_b`. `c_a` and `c_b` are
+exchanged by Alice and Bob over the public channel. Alice now computes `f(c_b,
+a) -> c_ba`, and Bob computes `f(c_a, b) -> c_ab`. If the function `f` is
+chosen carefully, `c_ba = c_ab`, and if `f` is irreversible, any listener to
+this conversation will be unable to produce `c_ab` since that would require the
+knowledge of `a` or `b` which have been kept secret. In the original
+implementation, Diffie-Hellman uses an `f((g, p), i) = ((g^i mod p), p)`, which
+can be verified to work since `((g^a)^b) = ((g^b)^a) (mod p)`. Diffie-Hellman
+can use other functions, such as elliptic curves mapped onto finite fields to
+create the Elliptic Curve Diffie-Hellman algorithm[^diffie-hellman].
+
+[^diffie-hellman]: https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
+
+One may ask why key exchange algorithms are needed when a combination of
+asymmetric and symmetric algorithms can be used, as in the case of GPG to
+exchange data. Key exchange algorithms are needed due to the ideal of perfect
+forward secrecy. When using asymmetric encryption, if the key is broken in the
+future, then all past messages encrypted using that key can be decrypted. With
+a key exchange protocol, a new key is established for every new communication
+between the two parties. Breaking one key will only break the messages sent for
+a single session. This is how Diffie-Hellman is used to secure communication in
+TLS for the HTTPS protocol for websites. Furthermore, a variant of
+Diffie-Hellman, known as Double Ratchet Diffie-Hellman has been used by
+Whatsapp, Signal, and others to create protocols that enable perfect forward
+secrecy within the same session of communication[^double-ratchet].
+
+[^tls-diffie-hellman]: https://wiki.openssl.org/index.php/Diffie_Hellman#Diffie-Hellman_in_SSL.2FTLS
+[^double-ratchet]: https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
+
 ### Hash Function
 
 ### Password Hash Function
