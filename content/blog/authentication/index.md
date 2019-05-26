@@ -3,6 +3,7 @@ name: 'authentication'
 title: 'Authentication in a Nutshell'
 author: 'xorkevin'
 date: 2019-05-23T18:03:31-07:00
+lastmod: 2019-05-26T02:18:26-07:00
 description: 'a brief look at authentication strategies'
 tags: ['auth', 'web']
 projecturl: ''
@@ -38,9 +39,12 @@ my Governor microservice project[^xorkevin:governor], and how it all works.
 
 [^xorkevin:governor]: https://github.com/hackform/governor
 
-### Cryptography in a smaller nutshell
+This topic will cover a short series of blog posts, of which this post is Part
+1\.
 
-First, it's important to understand the differences among cryptographic
+### Cryptography: a primer
+
+First, it is important to understand the differences among cryptographic
 algorithms and the wide array of terminology used, so that it is clear what to
 use in certain situations.
 
@@ -84,7 +88,7 @@ key) XOR (plaintext2 XOR key) = (plaintext1 XOR plaintext2)`. This would allow
 the resulting string to be decrypted via frequency analysis and similar tools,
 without the attacker needing to know the key.
 
-[^cipher:otp]: One-time pad https://en.wikipedia.org/wiki/One-time_pad
+[^cipher:otp]: one-time pad https://en.wikipedia.org/wiki/One-time_pad
 
 One-time pads have a downside however: the key must be at least as long as the
 plaintext. This makes encrypting files that are on the order of megabytes in
@@ -127,8 +131,8 @@ AES-GCM[^cipher:aesgcm], which itself is based on the secure AES block cipher
 to mimick a stream cipher. Some initial value, key, and counter are run through
 AES repeatedly while incrementing the counter, therefore producing a
 pseudorandom stream of bits similar to a one-time pad. These bits are then
-XOR'ed with each plaintext block to produce the cipher text. The ciphertext
-then goes through a system to allow the receiver to verify the integrity of the
+XOR'd with each plaintext block to produce the cipher text. The ciphertext then
+goes through a system to allow the receiver to verify the integrity of the
 message, which is covered in more detail in the MAC section of hash functions,
 later.
 
@@ -152,7 +156,7 @@ their implementations are *consistently* fast on hardware even without
 specialized instructions.
 
 [^aes-ni]: AES-NI https://en.wikipedia.org/wiki/AES_instruction_set
-[^timing-attack]: Timing attack https://en.wikipedia.org/wiki/Timing_attack
+[^timing-attack]: timing attack https://en.wikipedia.org/wiki/Timing_attack
 [^chacha20]: ChaCha20 https://tools.ietf.org/html/rfc7539
 
 Nevertheless, symmetric encryption algorithms offer many benefits. They are,
@@ -234,7 +238,7 @@ algorithm. As a result, new systems such as lattice-based
 cryptography[^lattice-crypto] are currently being developed, which have not yet
 been found to have a quantum weakness.
 
-[^lattice-crypto]: Lattice-based crypto https://en.wikipedia.org/wiki/Lattice-based_cryptography
+[^lattice-crypto]: lattice-based crypto https://en.wikipedia.org/wiki/Lattice-based_cryptography
 
 Asymmetric and symmetric cryptography also do not have to be used mutually
 exclusively. Software such as GPG can symmetrically encrypt a large file, e.g.
@@ -247,7 +251,7 @@ Public key cryptography has other interesting applications such as signing
 content with the private key that can be verified with the public key, and this
 is discussed in the later section of signing algorithms.
 
-### Key Exchange Algorithm
+### Key Exchange Algorithms
 
 Key exchange algorithms are a mechanism by which two parties can communicate
 over an untrusted communication channel to arrive at a single shared secret
@@ -291,7 +295,7 @@ secrecy within the same session of communication[^double-ratchet].
 [^tls-diffie-hellman]: https://wiki.openssl.org/index.php/Diffie_Hellman#Diffie-Hellman_in_SSL.2FTLS
 [^double-ratchet]: double ratchet https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
 
-### Hash Function
+### Hash Functions
 
 A hash is a function that maps an input string to a fixed length output. Hash
 functions are used whenever an arbitrary amount of data needs to be represented
@@ -343,7 +347,7 @@ cryptographic hash is difficult to reverse, thus the entire security of the
 system is dependent on the fact that a single entity does not have more than
 50% of the computational power.
 
-### Password Hash Function
+### Password Hash Functions
 
 Normal cryptographic hash functions are designed to be fast to compute. BLAKE2b
 hashes at a rate of 947 MBps[^blake2-hashrate]. A password hashing function on
@@ -387,9 +391,43 @@ difficult to execute on GPUs.
 [^scrypt]: scrypt https://en.wikipedia.org/wiki/Scrypt
 [^argon2]: argon2 https://en.wikipedia.org/wiki/Argon2
 
-### Signing Algorithm
+### Signing Algorithms
 
-Encryption algorithms and hashes allow their users to safely and securely
-transmit data and verify their integrity.
+Encryption algorithms, key exchanges, and hashes allow their users to safely
+and securely transmit data and verify their integrity. However, they alone do
+not verify who the sender or receiver are. Without some other mechanism, they
+are prone to man-in-the-middle (MITM) attacks[^mitm]. For example, say Alice
+and Bob are attempting to communicate over a network controlled by Eve. Alice
+wants to send an asymmetrically encrypted message to Bob, and thus needs Bob's
+public key. Eve, who is in control of the network, could give Alice her own key
+instead of Bob's. Alice, who has no way to verify who owns what key, uses Eve's
+key thinking that it is Bob's, allowing Eve to decrypt Alice's message.
+Furthermore, Eve can then reencrypt the plaintext message with Bob's actual
+public key, and send it to Bob, with Alice and Bob being none the wiser that
+Eve is eavesdropping on the conversation. Similarly, one can imagine a similar
+scenario with Diffie-Hellman key exchange, where Eve negotiates two secret keys
+with both Alice and Bob who think that they are communicating with one another.
+Thus, signing algorithms are needed to provide an unforgeable way to verify
+data from a sender.
 
-RSA ECC Signing
+[^mitm]: MITM https://en.wikipedia.org/wiki/Man-in-the-middle_attack
+
+Signing algorithms are based on public key cryptography, of which RSA, ECC,
+lattice-based crypto, etc. versions exist. They use the secret private key of
+the user to produce a digital signature of some data (usually a hash if the
+data is significantly large). This signature is then sent along with the data
+which can be verified by the receiver with the sender's public key. However,
+there is a bootstrapping issue here, where one cannot trust the sender's public
+key, because the sender's public key cannot be verified with the public key.
+Thus, certificate authorities exist to solve the bootstrapping issue. A
+certificate authority has a public key that is well known and preloaded on
+communication devices. The certificate authority then offers a service where it
+will personally verify and sign the public keys for individuals, granting them
+a signature of their key, known as a certificate. This certificate is then sent
+along with the public key of the sender in communication, and the receiver is
+able to check that the certificate is valid with the preloaded certificate of
+the certificate authority. This is how HTTPS certificates work, and how a
+browser knows that it is in fact communicating with, say, `google.com` and not
+some spoofed website.
+
+And here ends Part 1.
