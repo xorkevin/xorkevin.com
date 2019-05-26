@@ -1,10 +1,10 @@
 ---
-name: 'authentication'
-title: 'Authentication in a Nutshell'
+name: 'auth-crypto'
+title: 'Auth in a Nutshell: Cryptography'
 author: 'xorkevin'
 date: 2019-05-23T18:03:31-07:00
 lastmod: 2019-05-26T02:18:26-07:00
-description: 'a brief look at authentication strategies'
+description: 'a brief look at cryptographic algorithms'
 tags: ['auth', 'web']
 projecturl: ''
 draft: true
