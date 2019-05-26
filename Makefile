@@ -19,5 +19,5 @@ deps: clean-deps
 clean-deps:
 	rm -rf $(VENDORPATH)
 
-deploycopy:
+deploycopy: build
 	cp -r public/* ../xorkevin.github.io
