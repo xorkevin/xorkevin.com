@@ -34,9 +34,9 @@ on external web services, improving application reliability. Unfortunately,
 authentication has a large amount of moving parts, and they can be overwhelming
 to understand and design and use correctly. While I am by no means a security
 expert, I want to share my experiences designing the authentication system for
-my Governor microservice project[^xorkevin:governor], and how it all works.
+my [Governor microservice project][xorkevin:governor], and how it all works.
 
-[^xorkevin:governor]: https://github.com/hackform/governor
+[xorkevin:governor]: https://github.com/hackform/governor
 
 This topic will cover a short series of blog posts, of which this post is Part
 1\.
@@ -125,21 +125,22 @@ cipher. This is, by definition, weak to frequency analysis.
 [^colossus]: Colossus https://en.wikipedia.org/wiki/Colossus_computer
 
 Modern symmetric encryption algorithms circumvent these issues by mimicking a
-one-time pad cipher with a stream cipher. Take, for example,
-AES-GCM[^cipher:aesgcm], which itself is based on the secure AES block cipher
-to mimick a stream cipher. Some initial value, key, and counter are run through
+one-time pad cipher with a stream cipher. Take, for example, AES-GCM, which
+itself is based on the secure AES block cipher to mimick a stream
+cipher[^cipher:aesgcm]. Some initial value, key, and counter are run through
 AES repeatedly while incrementing the counter, therefore producing a
 pseudorandom stream of bits similar to a one-time pad. These bits are then
 XOR'd with each plaintext block to produce the cipher text. The ciphertext then
 goes through a system to allow the receiver to verify the integrity of the
-message, which is covered in more detail in the MAC section of hash functions,
-later.
+message, which is covered in more detail in the MAC section of [hash
+functions][hash-functions], later.
 
 {{<core/img class="inset" src="assets/gcm.png">}}
 
 {{<core/caption cap="[Advanced Encryption Standard - Galois Counter Mode](https://en.wikipedia.org/wiki/File:GCM-Galois_Counter_Mode_with_IV.svg)">}}
 
 [^cipher:aesgcm]: AES-GCM https://en.wikipedia.org/wiki/Galois/Counter_Mode
+[hash-functions]: {{<relref "#hash-functions">}}
 
 AES-GCM is now the de facto symmetric key algorithm. With a key size of 256
 bits, it currently is not known to be cryptographically vulnerable for the
@@ -147,26 +148,27 @@ foreseeable future. Unfortunately, despite its security, its implementation in
 machine code is slow without a specialized instruction set, such as
 AES-NI[^aes-ni]. This also makes it potentially vulnerable to side-channel
 attacks while encrypting data, such as a timing attack[^timing-attack], on
-machines without a specialized instruction set. As a result,
-ChaCha20-Poly1305[^chacha20] is also gaining traction, having recently been
-standardized by the IETF with Google's support. ChaCha20 and her original
-sister cipher Salsa20 are stream ciphers, unlike the AES block cipher, and
-their implementations are *consistently* fast on hardware even without
-specialized instructions.
+machines without a specialized instruction set. As a result, ChaCha20-Poly1305
+is also gaining traction, having recently been standardized by the IETF with
+Google's support[^chacha20]. ChaCha20 and her original sister cipher Salsa20
+are stream ciphers, unlike the AES block cipher, and their implementations are
+*consistently* fast on hardware even without specialized
+instructions[^chacha20-speed].
 
 [^aes-ni]: AES-NI https://en.wikipedia.org/wiki/AES_instruction_set
 [^timing-attack]: timing attack https://en.wikipedia.org/wiki/Timing_attack
 [^chacha20]: ChaCha20 https://tools.ietf.org/html/rfc7539
+[^chacha20-speed]: ChaCha20 speed https://en.wikipedia.org/wiki/Salsa20
 
 Nevertheless, symmetric encryption algorithms offer many benefits. They are,
 compared to other encryption algorithms, relatively fast to execute due to
 their design; an indefinitely long pseudorandom string of bits may be
 efficiently generated to encrypt arbitrarily large files. Symmetric encryption
-algorithms are also quantum resistant. Using Grover's algorithm[^grover-alg],
-the security of a symmetric cipher such as AES or ChaCha20 only quadratically
-decreases with a quantum computer, i.e. AES-256 would only have 128 bits of
-security instead of 256. These issues can be easily resolved by doubling the
-key size.
+algorithms are also quantum resistant. Using Grover's algorithm, the security
+of a symmetric cipher such as AES or ChaCha20 only quadratically decreases with
+a quantum computer, i.e. AES-256 would only have 128 bits of security instead
+of 256[^grover-alg]. These issues can be easily resolved by doubling the key
+size.
 
 [^grover-alg]: Grover's algorithm https://en.wikipedia.org/wiki/Grover%27s_algorithm
 
@@ -174,8 +176,11 @@ The only major downside to symmetric encryption is that both communicating
 parties must know the key. When it is impossible for these parties to
 physically meet, this can lead to a chicken and egg problem, i.e. there is no
 secure means to send the secret key to the other party since no shared secret
-key has been shared. The two main approaches to deal with this issue are key
-exchange, discussed in its own later section, and asymmetric encryption.
+key has been shared. The two main approaches to deal with this issue are [key
+exchange][key-exchange], discussed in its own later section, and asymmetric
+encryption.
+
+[key-exchange]: {{<relref "#key-exchange-algorithms">}}
 
 ### Asymmetric Encryption
 
@@ -217,9 +222,9 @@ prime numbers, the frequency of prime numbers affect the number of bits of
 entropy within an RSA key, i.e. unlike in AES, not all 2<sup>N</sup> possible
 keys are valid, because not all are semiprime. As a result, RSA needs a 15360
 bit key to have approximately the same strength as AES-256. RSA itself is also
-completely vulnerable to quantum attacks using Shor's algorithm[^shor-alg] to
-factor numbers in polynomial time. Unlike with AES, where the key size can be
-increased, there is no remedy for this type of attack.
+completely vulnerable to quantum attacks using Shor's algorithm to factor
+numbers in polynomial time[^shor-alg]. Unlike with AES, where the key size can
+be increased, there is no remedy for this type of attack.
 
 [^shor-alg]: Shor's algorithm https://en.wikipedia.org/wiki/Shor%27s_algorithm
 
@@ -234,9 +239,9 @@ compromising ECDSA. It is recommended to use EdDSA instead on the Ed25519
 elliptic curve.) Because ECC does not rely on prime numbers, it has much
 smaller key sizes. An ECC key of 521 bits is approximately equal in strength to
 AES-256. Unfortunately, ECC is still vulnerable to quantum attacks via Shor's
-algorithm. As a result, new systems such as lattice-based
-cryptography[^lattice-crypto] are currently being developed, which have not yet
-been found to have a quantum weakness.
+algorithm. As a result, new systems such as lattice-based cryptography are
+currently being developed[^lattice-crypto], which have not yet been found to
+have a quantum weakness.
 
 [^lattice-crypto]: lattice-based crypto https://en.wikipedia.org/wiki/Lattice-based_cryptography
 
@@ -249,7 +254,9 @@ without having to physically meet and share a secret key.
 
 Public key cryptography has other interesting applications such as signing
 content with the private key that can be verified with the public key, and this
-is discussed in the later section of signing algorithms.
+is discussed in the later section of [signing algorithms][signing-algorithms].
+
+[signing-algorithms]: {{<relref "#signing-algorithms">}}
 
 ## Key Exchange Algorithms
 
@@ -308,16 +315,16 @@ expensive to find. The idea behind a cryptographic hash function is to have a
 function that can, for all intents and purposes, uniquely represent an
 arbitrary amount of data with a few fixed number of bytes.
 
-Common cryptographic hashes include: SHA-2[^sha2], SHA-3, and BLAKE2[^blake2].
-SHA-1 has had a hash collision, and should not be used going
+Common cryptographic hashes include: [SHA-2][sha2], SHA-3, and
+[BLAKE2][blake2].  SHA-1 has had a hash collision, and should not be used going
 forward[^sha1-attack]. The SHA-3 algorithm, Keccak, was chosen in a competition
 by NIST, over BLAKE, for its differences from SHA-2 in the event SHA-2 were
 ever broken. But SHA-2 has not been broken yet, and thus the recommendation is
 to use BLAKE2 for cryptographic hashes. If an implementation of BLAKE2 is not
 available, SHA2-512, or SHA2-256 should be used.
 
-[^sha2]: SHA-2 https://en.wikipedia.org/wiki/SHA-2
-[^blake2]: BLAKE2 <https://en.wikipedia.org/wiki/BLAKE_(hash_function)>
+[sha2]: https://en.wikipedia.org/wiki/SHA-2
+[blake2]: <https://en.wikipedia.org/wiki/BLAKE_(hash_function)>
 [^sha1-attack]: SHA-1 collision https://www.zdnet.com/article/sha-1-collision-attacks-are-now-actually-practical-and-a-looming-danger/
 
 Because collisions are rare for a good cryptographic hash, they are often used
@@ -325,20 +332,22 @@ to check whether data has been changed or tampered with. This application of a
 hash, known as a hash-based message authentication code (HMAC) allows one to
 verify the integrity of the data[^hmac]. An HMAC works in general by hashing a
 concatenation of the original plaintext and the encryption key, to produce a
-MAC[^MAC] which is sent along with the cipher text to the receiver. If the
+[MAC][mac] which is sent along with the cipher text to the receiver. If the
 ciphertext were tampered with in any way, then the MAC will not match the hash
 of the decrypted data. The MAC also cannot be easily faked since it depends on
 the secret encryption key itself. Many common libraries are now beginning to
-support an "authenticated encryption with associated data" (AEAD)[^aead] mode
-for their encryption, which uses MACs by default and reduces the chance that
-the encryption algorithm will be misused. Common MAC hashes include SHA-2 and
-Poly1305[^poly1305]. Similarly, cryptographic hashes are also used in signing
-algorithms (covered later) to represent the contents of the entire data.
+support an "authenticated encryption with associated data" (AEAD) mode for
+their encryption, which uses MACs by default and reduces the chance that the
+encryption algorithm will be misused[^aead]. Common MAC hashes include SHA-2
+and [Poly1305][poly1305]. Similarly, cryptographic hashes are also used in
+[signing algorithms][signing-algorithms] (covered later) to
+represent the contents of the entire data.
 
 [^hmac]: HMAC https://en.wikipedia.org/wiki/HMAC
-[^mac]: MAC https://en.wikipedia.org/wiki/Message_authentication_code
+[mac]: https://en.wikipedia.org/wiki/Message_authentication_code
 [^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
-[^poly1305]: Poly1305 https://en.wikipedia.org/wiki/Poly1305
+[poly1305]: https://en.wikipedia.org/wiki/Poly1305
+[signing-algorithms]: {{<relref "#signing-algorithms">}}
 
 More recently, cryptographic hashes have found an application in proof of work
 systems such as blockchain. Proof of work relies on the fact that a
@@ -382,9 +391,9 @@ recommended, though benchmarks on your own hardware will give more accurate
 results. The highest work factor where the average hash takes no longer than
 several hundred milliseconds should be preferred. Other password hashing
 algorithms have similar designs. While bcrypt is still recommended, more modern
-password hashes have better defenses against other attacks. Scrypt[^scrypt] and
-Argon2[^argon2] have configurable memory work factors, to make their hashes
-difficult to execute on GPUs.
+password hashes have better defenses against other attacks. Scrypt and Argon2
+have configurable memory work factors, to make their hashes difficult to
+execute on GPUs[^scrypt][^argon2].
 
 [^bcrypt]: bcrypt https://en.wikipedia.org/wiki/Bcrypt
 [^scrypt]: scrypt https://en.wikipedia.org/wiki/Scrypt
@@ -395,7 +404,7 @@ difficult to execute on GPUs.
 Encryption algorithms, key exchanges, and hashes allow their users to safely
 and securely transmit data and verify their integrity. However, they alone do
 not verify who the sender or receiver are. Without some other mechanism, they
-are prone to man-in-the-middle (MITM) attacks[^mitm]. For example, say Alice
+are prone to [man-in-the-middle (MITM) attacks][mitm]. For example, say Alice
 and Bob are attempting to communicate over a network controlled by Eve. Alice
 wants to send an asymmetrically encrypted message to Bob, and thus needs Bob's
 public key. Eve, who is in control of the network, could give Alice her own key
@@ -409,7 +418,7 @@ with both Alice and Bob who think that they are communicating with one another.
 Thus, signing algorithms are needed to provide an unforgeable way to verify
 data from a sender.
 
-[^mitm]: MITM https://en.wikipedia.org/wiki/Man-in-the-middle_attack
+[mitm]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 
 Signing algorithms are based on public key cryptography, of which RSA, ECC,
 lattice-based crypto, etc. versions exist. They use the secret private key of
@@ -426,7 +435,7 @@ a signature of their key, known as a certificate. This certificate is then sent
 along with the public key of the sender in communication, and the receiver is
 able to check that the certificate is valid with the preloaded certificate of
 the certificate authority. This is how HTTPS certificates work, and how a
-browser knows that it is in fact communicating with, say, `google.com` and not
-some spoofed website.
+browser knows that it is in fact communicating with, say, `xorkevin.com` and
+not some spoofed website.
 
 And here ends Part 1.
