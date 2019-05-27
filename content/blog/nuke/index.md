@@ -19,7 +19,7 @@ application system, UCLA DevX internal tooling dashboard, and this blog itself.
 If you would like to interact with a demo, one exists here:
 {{<core/anchor href="https://hackform.github.io">}}https://hackform.github.io/{{</core/anchor>}}
 
-### Typography
+## Typography
 
 Typography was an integral part of Nuke from its inception and it still forms
 the bedrock of its design today. First, I wanted to pick a font that was
@@ -36,9 +36,9 @@ resolution.
 
 {{<core/img src="assets/htmlhtags.png">}}
 
-### Components
+## Components
 
-#### Form Inputs
+### Form Inputs
 
 Interactivity is a necessity in almost every website, thus one of the first set
 of components that I designed consist of input fields and buttons. I
@@ -47,21 +47,21 @@ cues from it.
 
 {{<core/img src="assets/forminputs.png">}}
 
-#### Cards
+### Cards
 
 They seem to be all the rage these days. It feels as if I was almost obligated
 to create them.
 
 {{<core/img src="assets/cards.png">}}
 
-#### Articles
+### Articles
 
 Articles were created purely for fun, taking many cues from Medium, which I
 think executes long form content perfectly.
 
 {{<core/img src="assets/articleview.png">}}
 
-#### Comments
+### Comments
 
 Reddit is one of my favourite online forums because of all the discussion that
 occurs in its various communities. This discussion would not be possible,
@@ -72,7 +72,7 @@ try and replicate this system myself in Nuke.
 
 {{<core/img src="assets/commentthread.png">}}
 
-### Dark Mode
+## Dark Mode
 
 I am a firm believer in giving users options. I, myself, often work late into
 the night and the light from a bright white background can be bothering if not

@@ -25,7 +25,7 @@ Governor. Governor is a framework in Go for quickly building microservices
 needed for running a website with many common requirements such as user
 management already implemented as services out of the box.
 
-### Design
+## Design
 
 I knew that the code that I would write would always be destined to change as I
 learned and grew as a developer, as I painfully learned from experience. To
@@ -40,12 +40,12 @@ generation. Most importantly, the upfront cost has already helped me locate and
 fix many inter-service bugs as I know clearly where one service ends and
 another begins.
 
-### Features
+## Features
 
 Here is a brief summary of the most important features (in no particular order
 of importance):
 
-#### Message queue
+### Message queue
 
 Services can communicate with one another using a NATS message queue set up
 with the project. The message queue is durable, backed by Postgres, to ensure
@@ -55,7 +55,7 @@ the case of a work queue. The message queue enables Governor to scale to
 multiple nodes in order to address load and availability concerns. Furthermore,
 any load spike can be easily handled through placing more jobs on the queue.
 
-#### Storage
+### Storage
 
 There are in-built wrappers around Postgres, Redis, and Minio (based on the S3
 protocol) services that can be launched along with Governor. They handle
@@ -72,7 +72,7 @@ generation utility that generates SQL and functions from structs with tagged
 fields. Code generating frequently changing SQL helps reduce errors due to the
 lack of types.
 
-#### Mail
+### Mail
 
 An SMTP client and mail workers allow mail to be sent to any SMTP server. The
 interface accepts simple strings, which allow anything to be sent. The mail
@@ -82,7 +82,7 @@ caller does not have to wait for the mail to finish sending before continuing.
 This also gives the mail service the benefit of having the same load handling
 characteristics as mentioned before.
 
-#### User Management and Authentication
+### User Management and Authentication
 
 User Management is the oldest and original service I began working on in
 Governor. It takes inspiration from many of my previous projects for
@@ -91,7 +91,7 @@ grow as I add more common use cases. The user service uses JWT access and
 refresh tokens to manage sessions. It also handles password hashing and reset,
 permissions and roles, and many other user tasks.
 
-### Refactoring
+## Refactoring
 
 Refactors have occurred many times as demands changed, and better
 implementations arose. Using Go for this project has enabled me to easily

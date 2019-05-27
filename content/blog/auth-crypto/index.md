@@ -41,13 +41,13 @@ my Governor microservice project[^xorkevin:governor], and how it all works.
 This topic will cover a short series of blog posts, of which this post is Part
 1\.
 
-### Cryptography: a primer
+## Cryptography: a primer
 
 First, it is important to understand the differences among cryptographic
 algorithms and the wide array of terminology used, so that it is clear what to
 use in certain situations.
 
-### Encryption
+## Encryption
 
 Encryption algorithms take a key and some plaintext data, to produce ciphertext
 data. The plaintext data is encoded in the ciphertext, but only those with
@@ -251,7 +251,7 @@ Public key cryptography has other interesting applications such as signing
 content with the private key that can be verified with the public key, and this
 is discussed in the later section of signing algorithms.
 
-### Key Exchange Algorithms
+## Key Exchange Algorithms
 
 Key exchange algorithms are a mechanism by which two parties can communicate
 over an untrusted communication channel to arrive at a single shared secret
@@ -295,7 +295,7 @@ secrecy within the same session of communication[^double-ratchet].
 [^tls-diffie-hellman]: https://wiki.openssl.org/index.php/Diffie_Hellman#Diffie-Hellman_in_SSL.2FTLS
 [^double-ratchet]: double ratchet https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
 
-### Hash Functions
+## Hash Functions
 
 A hash is a function that maps an input string to a fixed length output. Hash
 functions are used whenever an arbitrary amount of data needs to be represented
@@ -390,7 +390,7 @@ difficult to execute on GPUs.
 [^scrypt]: scrypt https://en.wikipedia.org/wiki/Scrypt
 [^argon2]: argon2 https://en.wikipedia.org/wiki/Argon2
 
-### Signing Algorithms
+## Signing Algorithms
 
 Encryption algorithms, key exchanges, and hashes allow their users to safely
 and securely transmit data and verify their integrity. However, they alone do

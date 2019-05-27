@@ -25,7 +25,7 @@ these repetitive changes, and having to rewrite the same common SQL patterns.
 It takes in a Go `struct` and code generates typed Go functions with the
 required SQL strings.
 
-### Code generation
+## Code generation
 
 Code generation, though a term that is gaining buzzword status once again, is a
 relatively old concept. It fell out of favor with the web platform of the past
@@ -69,7 +69,7 @@ struct Point {
 }
 ```
 
-### Go generate
+## Go generate
 
 For languages like Go (which Governor is written in) with less powerful
 metaprogramming, code generation becomes the next best solution. While Go does
