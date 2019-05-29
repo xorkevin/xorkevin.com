@@ -1,0 +1,3 @@
+[submodule "themes/core"]
+	path = themes/core
+	url = https://github.com/xorkevin/core.git
