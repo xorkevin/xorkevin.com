@@ -92,4 +92,59 @@ process moves into its next phase.
 ## Passwords
 
 One might be tempted to just put all the user's information verbatim into the
-`users` table in the database.
+`users` table in the database. Unfortunately, that is a security issue that we
+are all too well aware of by now[^fb-password]. Users place their trust in the
+website to safely store their information, and that trust needs to be
+respected. Passwords should not even be encrypted and stored in the database.
+First and foremost, it does not solve the underlying problem, it just
+obfuscates it and moves it up one level. The master key to all the passwords
+must be stored somewhere.
+
+[^fb-password]: Facebook plaintext passwords https://www.wired.com/story/facebook-passwords-plaintext-change-yours/
+
+Second, even if the key were somehow safely stored, it would have to be
+replaced every once in a while. Assume that we are using the strongest
+encryption available to us, symmetric encryption, and our chosen algorithm is
+the industry standard AES. AES depends on a key and a random initialization
+vector which is at most 16 bytes, but more often 12 bytes for modes such as
+GCM. As mentioned in Part 1, any reuse of an initialization vector with the
+same key on a symmetric cipher immediately breaks the cipher. Thus it is
+guaranteed that every 2<sup>96</sup> password encryptions there will be a
+collision. However, this does not take into account the birthday problem, which
+predicts that there more than likely be a collision in initialization vectors
+after only 2<sup>48</sup> encryptions[^birthday-problem]. Thus it is
+recommended not to use a key for more than 2<sup>32</sup>
+encryptions[^nist:aes-rec]. This is enough to give everyone on the planet just
+1 password reset.
+
+[^birthday-problem]: Birthday problem https://en.wikipedia.org/wiki/Birthday_problem
+[^nist:aes-rec]: NIST AES recommendations https://csrc.nist.gov/publications/detail/sp/800-38d/final
+
+Finally, any attacker who manages to guess the master key, or more likely phish
+it from vulnerable sources, now has access to all the passwords.
+
+Currently, the safest method of storing passwords is with cryptographic
+password hashes. I briefly mentioned this in Part 1, though I think the details
+of and motivations behind each step are important to cover.
+
+### Hashing a password
+
+Again, a password hash is a one-way (irreversible) function. Critically, it is
+also extremely slow to execute (targeting several hundred milliseconds on the
+target machine). This prevents anyone&mdash;hackers, the admins, even the
+user&mdash;from ever recovering the password from the hash itself in any
+reasonable amount of time. If the hash is cryptographically secure, the output
+will be highly random and the only way to find the original password is to try
+every possible password. Assuming that the attackers would like to break the
+hash before the sun explodes[^sun-age], they would need a hash rate of
+2<sup>59</sup> Hashes/second. A hash requires at least 100ms to compute, thus
+the attackers would need 10<sup>50</sup> Summit supercomputers[^summit-specs]
+working around the clock to meet the deadline.
+
+[^sun-age]: Sun lifetime https://www.sciencealert.com/what-will-happen-after-the-sun-dies-planetary-nebula-solar-system
+[^summit-specs]: Summit press release https://www.olcf.ornl.gov/summit/
+
+Checking whether a password is correct is simple: hash the password, and
+compare the hash to the corresponding stored password hash in the database. If
+they match, the password matches, otherwise they do not. This process takes at
+most several hundred milliseconds.
