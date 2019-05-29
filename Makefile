@@ -1,8 +1,6 @@
 HUGO=hugo
 
-VENDORPATH=static/vendor
-
-.PHONY: all build dev deps clean-deps deploycopy
+.PHONY: all build dev deploycopy
 
 all: build
 
@@ -11,13 +9,6 @@ build:
 
 dev:
 	$(HUGO) server --disableFastRender -D -w
-
-deps: clean-deps
-	mkdir -p $(VENDORPATH)
-	./deps.sh $(VENDORPATH)
-
-clean-deps:
-	rm -rf $(VENDORPATH)
 
 deploycopy: build
 	cp -r public/* ../xorkevin.github.io

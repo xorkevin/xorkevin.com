@@ -13,6 +13,7 @@ This is Part 2 of my series on what I learned and how I built the
 authentication system in [Governor][xorkevin:governor]. Here is a link to [Part
 1][auth-part-1].
 
+[xorkevin:governor]: https://github.com/hackform/governor
 [auth-part-1]: {{<relref "/blog/auth-crypto">}}
 
-[xorkevin:governor]: https://github.com/hackform/governor
+Password storage
