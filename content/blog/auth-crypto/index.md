@@ -39,7 +39,10 @@ my [Governor microservice project][xorkevin:governor], and how it all works.
 [xorkevin:governor]: https://github.com/hackform/governor
 
 This topic will cover a short series of blog posts, of which this post is Part
-1\.
+1\. Here are links to all sections:
+
+* Part 1 Auth in a Nutshell: Cryptography
+* [Part 2]({{<relref "/blog/auth-passwords">}}) Auth in a Nutshell: Passwords
 
 ## Cryptography: a primer
 
