@@ -3,6 +3,7 @@ name: 'auth-passwords'
 title: 'Auth in a Nutshell: Passwords'
 author: 'xorkevin'
 date: 2019-05-27T15:34:21-07:00
+lastmod: 2019-05-29T22:33:55-07:00
 description: 'on the subject of passwords'
 tags: ['auth', 'web']
 projecturl: 'https://github.com/hackform/hunter2'
