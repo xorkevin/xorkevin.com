@@ -3,7 +3,7 @@ name: 'auth-passwords'
 title: 'Auth in a Nutshell: Passwords'
 author: 'xorkevin'
 date: 2019-05-27T15:34:21-07:00
-lastmod: 2019-05-29T22:33:55-07:00
+lastmod: 2019-05-30T18:46:38-07:00
 description: 'on the subject of passwords'
 tags: ['auth', 'web']
 projecturl: 'https://github.com/hackform/hunter2'
@@ -200,6 +200,91 @@ There are several rules for using salts effectively:
   assigned a unique salt. Uuid's are typically 128 bits in size, thus it makes
   sense to make salts at least the same length.
 
+### Choosing a hash
+
+With hashing and salting out of the way, now we are left with a choice for the
+hashing algorithm. With all the options of password hashes out there, it can be
+difficult to choose a hash. Decision fatigue is something that afflicts me, and
+hopefully my summary of the most common algorithms can help save you the
+trouble of researching for yourself.
+
+#### Writing your own
+
+Do **not** write your own cryptographic algorithm for anything unless you are
+an active researcher in the field. Even then, do not use your algorithm in
+production until it has been vetted in numerous security reviews by your peers,
+and has been battletested by others for weaknesses. I can almost guarantee that
+you will not need or want to build your own cryptographic algorithm. Leverage
+the work of experts in the field.
+
+Even if you think you understand the algorithm back to front, do not implement
+it yourself. Implementation matters in security, and you could potentially be
+exposing yourself to side-channel attacks like timing attacks in the process.
+Do not implement a cryptographic algorithm by yourself.
+
+#### PBKDF2
+
+Normal cryptographic hashes have most of the properties that we want in a
+password hash, except for the length of time to execute the hash. Password
+hashes should be slow to deter brute force attacks. PBKDF2 addresses this by
+recursively calling a normal cryptographic hash, say an HMAC of SHA-256, over a
+large amount of iterations. In fact, this is a popular choice of hash function
+for use in PBKDF2, and the resulting algorithm is called PBKDF2-HMAC-SHA-256.
+However, one can replace HMAC-SHA-256 with any other cryptographic hashing
+algorithm, such as BLAKE2b to form PBKDF2-BLAKE2b. The number of iterations you
+will need to use for PBKDF2 will be at least on the order of 10<sup>6</sup>.
+
+Unfortunately, the base hash of PBKDF2 is not guaranteed to be resistant to
+more modern attacks. SHA-2 and BLAKE2 can be efficiently implemented in ASIC's
+and GPU's, giving attackers a speed advantage if you are using a CPU to perform
+the hashes, e.g. what may take you 100ms to hash might take an attacker only
+1ms. PBKDF2 is reaching EOL, if it isn't already.
+
+TL;DR: Not recommended
+
+#### bcrypt
+
+bcrypt is based on top of the Blowfish algorithm. It attempts to address the
+ASIC and GPU issue by using more memory than PBKDF2. It does 2<sup>N</sup>
+blowfish key expansions which are memory intensive. Currently recommended is a
+cost of at least N=13. bcrypt is a strong password algorithm, though there are
+stronger options that are more future proof. Most notably, bcrypt, while using
+more memory, still has a constant upper bound on memory. Thus it will
+eventually be outdated as GPU's and ASIC's are improved with more memory.
+
+TL;DR: Okay to use if you are currently using it, but plan an upgrade path.
+
+#### scrypt
+
+scrypt was built to address the constant bound memory issue of bcrypt by making
+the memory usage configurable. It performs 2<sup>N</sup> block mixing
+operations, where the block size is configurable. scrypt also has a
+parallelization factor to use more threads, however in practice this is not
+used, opting instead to increase the work factor, N. Currently, a work factor
+of N=16, block size b=8, and parallelization factor p=1 are recommended at the
+minimum. scrypt can be used for the foreseeable future, at least until the next
+algorithm, Argon2 has had enough time to be deemed thoroughly secure.
+
+TL;DR: Recommended to use, but have an upgrade path available.
+
+#### Argon2
+
+Argon2 has several variants, Argon2i, Argon2d, and Argon2id. Like scrypt, it
+has options available for tuning memory, parallelism, and iterations. The
+different variants of Argon2 are specialized for different scenarios, but
+Argon2id is recommended for most use cases. It is a hybrid mode of Argon2i and
+Argon2d to allow it to resist both side-channel attacks and GPU attacks. Argon2
+is the winner of the Password Hashing Competition, however its original
+published version and latest version are vulnerable to some flaws in some
+variants. Argon2i is vulnerable to a faster polynomial time algorithm if using
+10 or fewer memory passes. Argon2d is not resistant to side-channel attacks,
+since it accesses memory on a password dependent order. Argon2id is not known
+to be vulnerable yet, but allow time for the algorithm to mature before using
+it.
+
+TL;DR: Do not use just yet, but plan an upgrade to Argon2 once the algorithm
+matures a bit more.
+
 ### Storing a password
 
 The actual format of storing a password, while not as important to security, is
@@ -287,13 +372,93 @@ hashid, configuration options, salt, and hash to a string, delimited by `$` and
 returns it. This allows verifying a password to be as simple as examining the
 hash output itself, reading which hasher produced the hash, using its
 configuration options and salt, and checking to see if the hashes are
-equivalent. No external configuration is necessary.
+equivalent. No external configuration is necessary. Here is the implementation
+of `hunter2.Verifier`:
+
+```go
+package hunter2
+
+type (
+  Verifier struct {
+    hashers map[string]Hasher
+  }
+)
+
+func (v *Verifier) RegisterHash(hasher Hasher) {
+  v.hashers[hasher.ID()] = hasher
+}
+
+func (v *Verifier) Verify(key string, hash string) (bool, error) {
+  b := strings.SplitN(strings.TrimLeft(hash, "$"), "$", 2)
+  hasher, ok := v.hashers[b[0]]
+  if !ok {
+    return false, errors.New("Hash " + b[0] + " is not registered")
+  }
+  return hasher.Verify(key, hash)
+}
+```
+
+The `Verifier` splits the hash by the first `$` delimiter, and checks if the
+hash id matches any hasher that it knows about. Then it calls on the hasher to
+verify the hash. In the case of scrypt, the hash parameters, salt, and hash are
+extracted. Then the key is hashed with the hash parameters and salt and
+compared against the hash, as seen below.
+
+```go
+func (c *ScryptConfig) decodeParams(params string) error {
+  p := strings.Split(params, ",")
+  if len(p) != 3 {
+    return errors.New("Invalid number of params")
+  }
+  wf, err := strconv.Atoi(p[0])
+  if err != nil {
+    return errors.New("Invalid work factor")
+  }
+  mb, err := strconv.Atoi(p[1])
+  if err != nil {
+    return errors.New("Invalid mem blocksize")
+  }
+  pf, err := strconv.Atoi(p[2])
+  if err != nil {
+    return errors.New("Invalid parallel factor")
+  }
+  c.workFactor = wf
+  c.memBlocksize = mb
+  c.parallelFactor = pf
+  return nil
+}
+
+func (h *ScryptHasher) Verify(key string, hash string) (bool, error) {
+  b := strings.Split(strings.TrimLeft(hash, "$"), "$")
+  if len(b) != 4 || b[0] != h.hashid {
+    return false, errors.New("Invalid scrypt hash format")
+  }
+
+  config := ScryptConfig{}
+  if err := config.decodeParams(b[1]); err != nil {
+    return false, err
+  }
+  salt, err := base64.RawURLEncoding.DecodeString(b[2])
+  if err != nil {
+    return false, err
+  }
+  hashval, err := base64.RawURLEncoding.DecodeString(b[3])
+  if err != nil {
+    return false, err
+  }
+  res, err := h.exec(key, salt, len(hashval), config)
+  if err != nil {
+    return false, err
+  }
+  return bytes.Equal(res, hashval), nil
+}
+```
 
 This strategy of storing password hash configuration in the output of the hash
 came from the well written bcrypt paper[^bcrypt-paper]. This greatly reduces
 complexity in updating configuration as password hash standards increase, and
 has helped me simplify much of Governor's auth code.
 
-[^bcrypt-paper]: Bcrypt paper https://www.openbsd.org/papers/bcrypt-paper.pdf
+[^bcrypt-paper]: bcrypt paper https://www.openbsd.org/papers/bcrypt-paper.pdf
 
 And thus ends Part 2.
