@@ -1,5 +1,6 @@
 ---
 name: 'auth-passwords'
+type: 'blog'
 title: 'Auth in a Nutshell: Passwords'
 author: 'xorkevin'
 date: 2019-05-27T15:34:21-07:00

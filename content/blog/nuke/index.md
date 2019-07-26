@@ -1,5 +1,6 @@
 ---
 name: 'nuke'
+type: 'blog'
 title: 'Nuke'
 author: 'xorkevin'
 date: 2018-04-10T23:58:40-07:00

@@ -1,5 +1,6 @@
 ---
 name: 'auth-crypto'
+type: 'blog'
 title: 'Auth in a Nutshell: Cryptography'
 author: 'xorkevin'
 date: 2019-05-23T18:03:31-07:00

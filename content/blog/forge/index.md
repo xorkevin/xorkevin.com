@@ -1,5 +1,6 @@
 ---
 name: 'forge'
+type: 'blog'
 title: 'Forge'
 author: 'xorkevin'
 date: 2019-05-19T16:01:01-07:00
