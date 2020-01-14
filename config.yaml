@@ -4,10 +4,6 @@ title: 'xorkevin'
 theme: 'core'
 summaryLength: 8
 pluralizelisttitles: 'false'
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
 footnoteReturnLinkContents: '&larrhk;'
 copyright: 2018
 permalinks:

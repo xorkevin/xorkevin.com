@@ -119,10 +119,10 @@ Using the following images as an example, one can see that regions of the image
 with the same color encrypt to the same ciphertext in a naively applied block
 cipher. This is, by definition, weak to frequency analysis.
 
-<div class="contentrow inset">
+{{<core/contentrow class="inset">}}
 {{<core/img src="assets/tux.jpg">}}
 {{<core/img src="assets/tuxecb.jpg">}}
-</div>
+{{</core/contentrow>}}
 
 {{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
 
