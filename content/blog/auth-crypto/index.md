@@ -347,11 +347,11 @@ and [Poly1305][poly1305]. Similarly, cryptographic hashes are also used in
 [signing algorithms][signing-algorithms] (covered later) to
 represent the contents of the entire data.
 
-[^hmac]: HMAC https://en.wikipedia.org/wiki/HMAC
 [mac]: https://en.wikipedia.org/wiki/Message_authentication_code
-[^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
 [poly1305]: https://en.wikipedia.org/wiki/Poly1305
 [signing-algorithms]: {{<relref "#signing-algorithms">}}
+[^hmac]: HMAC https://en.wikipedia.org/wiki/HMAC
+[^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
 
 More recently, cryptographic hashes have found an application in proof of work
 systems such as blockchain. Proof of work relies on the fact that a

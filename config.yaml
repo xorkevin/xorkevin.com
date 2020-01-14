@@ -4,12 +4,10 @@ title: 'xorkevin'
 theme: 'core'
 summaryLength: 8
 pluralizelisttitles: 'false'
-pygmentsCodeFences: true
-blackfriday:
-  fractions: false
-  hrefTargetBlank: true
-  nofollowLinks: true
-  noreferrerLinks: true
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 footnoteReturnLinkContents: '&larrhk;'
 copyright: 2018
 permalinks:

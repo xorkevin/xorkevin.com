@@ -65,8 +65,8 @@ eventually occur. Validation consists of checking that:
 4. The username and email are unique. (For obvious reasons.)
 5. The email is valid.
 
-[^diceware]: password length and diceware http://world.std.com/%7Ereinhold/dicewarefaq.html
 [diceware-gen]: https://www.rempe.us/diceware/#eff
+[^diceware]: password length and diceware http://world.std.com/%7Ereinhold/dicewarefaq.html
 
 In step 5, the validity of the email address is checked by sending an email to
 the address with a unique random key. Assuming that the request passed checks 1
@@ -161,7 +161,7 @@ most several hundred milliseconds.
 Unfortunately, humans are lazy users, and not all of them use
 [diceware][diceware-gen] to generate passwords like "correct horse battery
 staple"[^xkcd:936]. It is likely that 10% of your users will have one of [these
-passwords][common passwords]. This means that naively hashing passwords will
+passwords][common-passwords]. This means that naively hashing passwords will
 lead to the same 25 password hashes in your database, which if ever obtained by
 an attacker, would be extremely easy to identify. Attackers will also use
 [rainbow tables][rainbow-table] full of passwords and their precomputed hashes.
@@ -172,10 +172,10 @@ any users with the same password have their passwords all broken at the same
 time. In order to address these issues, one should salt passwords before
 storage.
 
-[^xkcd:936]: XKCD: password strength https://xkcd.com/936/
-[common passwords]: https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
+[common-passwords]: https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
 [rainbow-table]: https://en.wikipedia.org/wiki/Rainbow_table
 [dictionary-attack]: https://en.wikipedia.org/wiki/Dictionary_attack
+[^xkcd:936]: XKCD: password strength https://xkcd.com/936/
 
 ### Salting a password
 
