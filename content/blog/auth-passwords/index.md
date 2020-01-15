@@ -66,7 +66,8 @@ eventually occur. Validation consists of checking that:
 5. The email is valid.
 
 [diceware-gen]: https://www.rempe.us/diceware/#eff
-[^diceware]: password length and diceware http://world.std.com/%7Ereinhold/dicewarefaq.html
+
+[^diceware]: password length and diceware {{<core/anchor href="http://world.std.com/%7Ereinhold/dicewarefaq.html" ext="1" />}}
 
 In step 5, the validity of the email address is checked by sending an email to
 the address with a unique random key. Assuming that the request passed checks 1
@@ -106,7 +107,7 @@ foremost, it does not solve the underlying problem, it just obfuscates it and
 moves it up one level. The master key to all the passwords must be stored
 somewhere.
 
-[^fb-password]: Facebook plaintext passwords https://www.wired.com/story/facebook-passwords-plaintext-change-yours/
+[^fb-password]: Facebook plaintext passwords {{<core/anchor href="https://www.wired.com/story/facebook-passwords-plaintext-change-yours/" ext="1" />}}
 
 Second, even if the key were somehow safely stored, it would have to be
 replaced every once in a while. Assume that we are using the strongest
@@ -123,8 +124,8 @@ recommended not to use a key for more than 2<sup>32</sup>
 encryptions[^nist:aes-rec]. This is enough to give everyone on the planet just
 1 password reset.
 
-[^birthday-problem]: Birthday problem https://en.wikipedia.org/wiki/Birthday_problem
-[^nist:aes-rec]: NIST AES recommendations https://csrc.nist.gov/publications/detail/sp/800-38d/final
+[^birthday-problem]: Birthday problem {{<core/anchor href="https://en.wikipedia.org/wiki/Birthday_problem" ext="1" />}}
+[^nist:aes-rec]: NIST AES recommendations {{<core/anchor href="https://csrc.nist.gov/publications/detail/sp/800-38d/final" ext="1" />}}
 
 Finally, any attacker who manages to guess the master key, or more likely
 [phish it from vulnerable sources][phishing-demo], now has access to all the
@@ -150,8 +151,8 @@ bit hash before the sun explodes[^sun-age], they would need a hash rate of
 thus the attackers would need 2\*10<sup>52</sup> Summit
 supercomputers[^summit-specs] working around the clock to meet the deadline.
 
-[^sun-age]: Sun lifetime https://www.sciencealert.com/what-will-happen-after-the-sun-dies-planetary-nebula-solar-system
-[^summit-specs]: Summit press release https://www.olcf.ornl.gov/summit/
+[^sun-age]: Sun lifetime {{<core/anchor href="https://www.sciencealert.com/what-will-happen-after-the-sun-dies-planetary-nebula-solar-system" ext="1" />}}
+[^summit-specs]: Summit press release {{<core/anchor href="https://www.olcf.ornl.gov/summit/" ext="1" />}}
 
 Checking whether a password is correct is simple: hash the password, and
 compare the hash to the corresponding stored password hash in the database. If
@@ -175,7 +176,8 @@ storage.
 [common-passwords]: https://en.wikipedia.org/wiki/List_of_the_most_common_passwords
 [rainbow-table]: https://en.wikipedia.org/wiki/Rainbow_table
 [dictionary-attack]: https://en.wikipedia.org/wiki/Dictionary_attack
-[^xkcd:936]: XKCD: password strength https://xkcd.com/936/
+
+[^xkcd:936]: XKCD: password strength {{<core/anchor href="https://xkcd.com/936/" ext="1" />}}
 
 ### Salting a password
 
@@ -460,6 +462,6 @@ came from the well written bcrypt paper[^bcrypt-paper]. This greatly reduces
 complexity in updating configuration as password hash standards increase, and
 has helped me simplify much of Governor's auth code.
 
-[^bcrypt-paper]: bcrypt paper https://www.openbsd.org/papers/bcrypt-paper.pdf
+[^bcrypt-paper]: bcrypt paper {{<core/anchor href="https://www.openbsd.org/papers/bcrypt-paper.pdf" ext="1" />}}
 
 And thus ends Part 2.

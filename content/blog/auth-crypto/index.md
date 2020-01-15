@@ -23,7 +23,7 @@ level applications, correctness of the authentication service is usually one of
 the most important parts of an application due to its large number of
 dependants.
 
-[^torvalds:bugs]: Linus Torvalds's response https://lkml.org/lkml/2017/11/17/767
+[^torvalds:bugs]: Linus Torvalds's response {{<core/anchor href="https://lkml.org/lkml/2017/11/17/767" ext="1" />}}
 
 It is no surprise, then, to find that many projects choose to use an OAuth
 provider for application sign-in, instead of rolling their own. This makes the
@@ -91,7 +91,7 @@ key) XOR (plaintext2 XOR key) = (plaintext1 XOR plaintext2)`. This would allow
 the resulting string to be decrypted via frequency analysis and similar tools,
 without the attacker needing to know the key.
 
-[^cipher:otp]: one-time pad https://en.wikipedia.org/wiki/One-time_pad
+[^cipher:otp]: one-time pad {{<core/anchor href="https://en.wikipedia.org/wiki/One-time_pad" ext="1" />}}
 
 One-time pads have a downside however: the key must be at least as long as the
 plaintext. This makes encrypting files that are on the order of megabytes in
@@ -103,8 +103,8 @@ cipher[^cipher:lorenz] used in WWII), while block ciphers encrypt entire
 "blocks" of data (which may vary in size) independently (e.g.
 AES[^cipher:aes]).
 
-[^cipher:lorenz]: Lorenz cipher https://en.wikipedia.org/wiki/Lorenz_cipher
-[^cipher:aes]: AES https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+[^cipher:lorenz]: Lorenz cipher {{<core/anchor href="https://en.wikipedia.org/wiki/Lorenz_cipher" ext="1" />}}
+[^cipher:aes]: AES {{<core/anchor href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" ext="1" />}}
 
 Unfortunately, both of these types of algorithms, in their earliest forms, had
 their own glaring weaknesses. Simple stream ciphers, operating at a character
@@ -126,7 +126,7 @@ cipher. This is, by definition, weak to frequency analysis.
 
 {{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
 
-[^colossus]: Colossus https://en.wikipedia.org/wiki/Colossus_computer
+[^colossus]: Colossus {{<core/anchor href="https://en.wikipedia.org/wiki/Colossus_computer" ext="1" />}}
 
 Modern symmetric encryption algorithms circumvent these issues by mimicking a
 one-time pad cipher with a stream cipher. Take, for example, AES-GCM, which
@@ -143,8 +143,9 @@ functions][hash-functions], later.
 
 {{<core/caption cap="[Advanced Encryption Standard - Galois Counter Mode](https://en.wikipedia.org/wiki/File:GCM-Galois_Counter_Mode_with_IV.svg)">}}
 
-[^cipher:aesgcm]: AES-GCM https://en.wikipedia.org/wiki/Galois/Counter_Mode
 [hash-functions]: {{<relref "#hash-functions">}}
+
+[^cipher:aesgcm]: AES-GCM {{<core/anchor href="https://en.wikipedia.org/wiki/Galois/Counter_Mode" ext="1" />}}
 
 AES-GCM is now the de facto symmetric key algorithm. With a key size of 256
 bits, it currently is not known to be cryptographically vulnerable for the
@@ -159,10 +160,10 @@ are stream ciphers, unlike the AES block cipher, and their implementations are
 *consistently* fast on hardware even without specialized
 instructions[^chacha20-speed].
 
-[^aes-ni]: AES-NI https://en.wikipedia.org/wiki/AES_instruction_set
-[^timing-attack]: timing attack https://en.wikipedia.org/wiki/Timing_attack
-[^chacha20]: ChaCha20 https://tools.ietf.org/html/rfc7539
-[^chacha20-speed]: ChaCha20 speed https://en.wikipedia.org/wiki/Salsa20
+[^aes-ni]: AES-NI {{<core/anchor href="https://en.wikipedia.org/wiki/AES_instruction_set" ext=1" />}}
+[^timing-attack]: timing attack {{<core/anchor href="https://en.wikipedia.org/wiki/Timing_attack" ext=1" />}}
+[^chacha20]: ChaCha20 {{<core/anchor href="https://tools.ietf.org/html/rfc7539" ext=1" />}}
+[^chacha20-speed]: ChaCha20 speed {{<core/anchor href="https://en.wikipedia.org/wiki/Salsa20" ext=1" />}}
 
 Nevertheless, symmetric encryption algorithms offer many benefits. They are,
 compared to other encryption algorithms, relatively fast to execute due to
@@ -174,7 +175,7 @@ a quantum computer, i.e. AES-256 would only have 128 bits of security instead
 of 256[^grover-alg]. These issues can be easily resolved by doubling the key
 size.
 
-[^grover-alg]: Grover's algorithm https://en.wikipedia.org/wiki/Grover%27s_algorithm
+[^grover-alg]: Grover's algorithm {{<core/anchor href="https://en.wikipedia.org/wiki/Grover%27s_algorithm" ext="1" />}}
 
 The only major downside to symmetric encryption is that both communicating
 parties must know the key. When it is impossible for these parties to
@@ -216,7 +217,7 @@ semiprime number for this, because semiprime numbers are the most difficult to
 factor for their size. RSA is presently secure, because factoring is an NP
 problem.
 
-[^rsa]: RSA <https://en.wikipedia.org/wiki/RSA\_(cryptosystem)>
+[^rsa]: RSA {{<core/anchor href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)" ext="1" />}}
 
 It seems then that asymmetric encryption should always be used, however it has
 some caveats. RSA itself is computationally expensive compared to a strong
@@ -230,7 +231,7 @@ completely vulnerable to quantum attacks using Shor's algorithm to factor
 numbers in polynomial time[^shor-alg]. Unlike with AES, where the key size can
 be increased, there is no remedy for this type of attack.
 
-[^shor-alg]: Shor's algorithm https://en.wikipedia.org/wiki/Shor%27s_algorithm
+[^shor-alg]: Shor's algorithm {{<core/anchor href="https://en.wikipedia.org/wiki/Shor%27s_algorithm" ext="1" />}}
 
 Fortunately, while RSA has been the mainstay of public key cryptography, some
 of these issues are being addressed by other asymmetric encryption algorithms.
@@ -247,7 +248,7 @@ algorithm. As a result, new systems such as lattice-based cryptography are
 currently being developed[^lattice-crypto], which have not yet been found to
 have a quantum weakness.
 
-[^lattice-crypto]: lattice-based crypto https://en.wikipedia.org/wiki/Lattice-based_cryptography
+[^lattice-crypto]: lattice-based crypto {{<core/anchor href="https://en.wikipedia.org/wiki/Lattice-based_cryptography" ext="1" />}}
 
 Asymmetric and symmetric cryptography also do not have to be used mutually
 exclusively. Software such as GPG can symmetrically encrypt a large file, e.g.
@@ -288,7 +289,7 @@ compute `i`, making the function irreversible or "one-way". Diffie-Hellman can
 use other functions, such as elliptic curves mapped onto finite fields to
 create the Elliptic Curve Diffie-Hellman algorithm[^diffie-hellman].
 
-[^diffie-hellman]: Diffie-Hellman https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
+[^diffie-hellman]: Diffie-Hellman {{<core/anchor href="https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange" ext="1" />}}
 
 One may ask why key exchange algorithms are needed when a combination of
 asymmetric and symmetric algorithms can be used, as in the case of GPG to
@@ -298,13 +299,13 @@ future, then all past messages encrypted using that key can be decrypted. With
 a key exchange protocol, a new key is established for every new communication
 between the two parties. Breaking one key will only break the messages sent for
 a single session. This is how Diffie-Hellman is used to secure communication in
-TLS for the HTTPS protocol for websites. Furthermore, a variant of
-Diffie-Hellman, known as Double Ratchet Diffie-Hellman has been used by
-Whatsapp, Signal, and others to create protocols that enable perfect forward
+TLS for the HTTPS protocol for websites[^tls-diffie-hellman]. Furthermore, a
+variant of Diffie-Hellman, known as Double Ratchet Diffie-Hellman has been used
+by Whatsapp, Signal, and others to create protocols that enable perfect forward
 secrecy within the same session of communication[^double-ratchet].
 
-[^tls-diffie-hellman]: https://wiki.openssl.org/index.php/Diffie_Hellman#Diffie-Hellman_in_SSL.2FTLS
-[^double-ratchet]: double ratchet https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm
+[^tls-diffie-hellman]: Diffie-Hellman in TLS {{<core/anchor href="https://wiki.openssl.org/index.php/Diffie_Hellman#Diffie-Hellman_in_SSL.2FTLS" ext="1" />}}
+[^double-ratchet]: double ratchet {{<core/anchor href="https://en.wikipedia.org/wiki/Double_Ratchet_Algorithm" ext="1" />}}
 
 ## Hash Functions
 
@@ -329,7 +330,8 @@ available, SHA2-512, or SHA2-256 should be used.
 
 [sha2]: https://en.wikipedia.org/wiki/SHA-2
 [blake2]: <https://en.wikipedia.org/wiki/BLAKE_(hash_function)>
-[^sha1-attack]: SHA-1 collision https://www.zdnet.com/article/sha-1-collision-attacks-are-now-actually-practical-and-a-looming-danger/
+
+[^sha1-attack]: SHA-1 collision {{<core/anchor href="https://www.zdnet.com/article/sha-1-collision-attacks-are-now-actually-practical-and-a-looming-danger/" ext="1" />}}
 
 Because collisions are rare for a good cryptographic hash, they are often used
 to check whether data has been changed or tampered with. This application of a
@@ -350,8 +352,9 @@ represent the contents of the entire data.
 [mac]: https://en.wikipedia.org/wiki/Message_authentication_code
 [poly1305]: https://en.wikipedia.org/wiki/Poly1305
 [signing-algorithms]: {{<relref "#signing-algorithms">}}
-[^hmac]: HMAC https://en.wikipedia.org/wiki/HMAC
-[^aead]: AEAD https://en.wikipedia.org/wiki/Authenticated_encryption
+
+[^hmac]: HMAC {{<core/anchor href="https://en.wikipedia.org/wiki/HMAC" ext="1" />}}
+[^aead]: AEAD {{<core/anchor href="https://en.wikipedia.org/wiki/Authenticated_encryption" ext="1" />}}
 
 More recently, cryptographic hashes have found an application in proof of work
 systems such as blockchain. Proof of work relies on the fact that a
@@ -366,7 +369,7 @@ hashes at a rate of 947 MBps[^blake2-hashrate]. A password hashing function on
 the other hand is designed to be slow to compute, and difficult to parallelize
 and pipeline. This is due to the unique nature of how passwords are stored.
 
-[^blake2-hashrate]: BLAKE2 hashrate https://blake2.net/
+[^blake2-hashrate]: BLAKE2 hashrate {{<core/anchor href="https://blake2.net/" ext="1" />}}
 
 Passwords should not be stored in plaintext, or even stored in an encrypted
 format. Plaintext passwords should be irrecoverable from their stored forms.
@@ -384,7 +387,7 @@ so that finding a hash collision is still impractical due to the large size of
 the input. Passwords, however, are unique in that they are relatively small in
 size. Thus the hash itself needs to be designed to be slow.
 
-[^hunter2]: hunter2 origins http://bash.org/?244321
+[^hunter2]: hunter2 origins {{<core/anchor href="http://bash.org/?244321" ext="1" />}}
 
 Bcrypt is the de facto password hashing algorithm, and has been in use for a
 decade. It works by recursively hashing the input for a configurable
@@ -399,9 +402,9 @@ password hashes have better defenses against other attacks. Scrypt and Argon2
 have configurable memory work factors, to make their hashes difficult to
 execute on GPUs[^scrypt][^argon2].
 
-[^bcrypt]: bcrypt https://en.wikipedia.org/wiki/Bcrypt
-[^scrypt]: scrypt https://en.wikipedia.org/wiki/Scrypt
-[^argon2]: argon2 https://en.wikipedia.org/wiki/Argon2
+[^bcrypt]: bcrypt {{<core/anchor href="https://en.wikipedia.org/wiki/Bcrypt" ext="1" />}}
+[^scrypt]: scrypt {{<core/anchor href="https://en.wikipedia.org/wiki/Scrypt" ext="1" />}}
+[^argon2]: argon2 {{<core/anchor href="https://en.wikipedia.org/wiki/Argon2" ext="1" />}}
 
 ## Signing Algorithms
 

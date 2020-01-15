@@ -18,7 +18,7 @@ which I have since used in many other projects, including the LAHacks
 application system, UCLA DevX internal tooling dashboard, and this blog itself.
 
 If you would like to interact with a demo, one exists here:
-{{<core/anchor href="https://hackform.github.io">}}https://hackform.github.io/{{</core/anchor>}}
+{{<core/anchor href="https://hackform.github.io" ext="1" />}}
 
 ## Typography
 
