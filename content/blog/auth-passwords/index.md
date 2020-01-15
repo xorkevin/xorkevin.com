@@ -116,13 +116,12 @@ the industry standard AES. AES depends on a key and a random initialization
 vector which is at most 16 bytes, but more often 12 bytes for modes such as
 GCM. As mentioned in Part 1, any reuse of an initialization vector with the
 same key on a symmetric cipher immediately breaks the cipher. Thus it is
-guaranteed that every 2<sup>96</sup> password encryptions there will be a
-collision. However, this does not take into account the birthday problem, which
-predicts that there more than likely be a collision in initialization vectors
-after only 2<sup>48</sup> encryptions[^birthday-problem]. Thus it is
-recommended not to use a key for more than 2<sup>32</sup>
-encryptions[^nist:aes-rec]. This is enough to give everyone on the planet just
-1 password reset.
+guaranteed that every 2^96 password encryptions there will be a collision.
+However, this does not take into account the birthday problem, which predicts
+that there more than likely be a collision in initialization vectors after only
+2^48 encryptions[^birthday-problem]. Thus it is recommended not to use a key
+for more than 2^32 encryptions[^nist:aes-rec]. This is enough to give everyone
+on the planet just 1 password reset.
 
 [^birthday-problem]: Birthday problem {{<core/anchor href="https://en.wikipedia.org/wiki/Birthday_problem" ext="1" />}}
 [^nist:aes-rec]: NIST AES recommendations {{<core/anchor href="https://csrc.nist.gov/publications/detail/sp/800-38d/final" ext="1" />}}
@@ -147,9 +146,9 @@ reasonable amount of time. If the hash is cryptographically secure, the output
 will be highly random and the only way to find the original password is to try
 every possible password. Assume that some attackers would like to break a 256
 bit hash before the sun explodes[^sun-age], they would need a hash rate of
-2\*10<sup>59</sup> Hashes/second. A hash requires at least 100ms to compute,
-thus the attackers would need 2\*10<sup>52</sup> Summit
-supercomputers[^summit-specs] working around the clock to meet the deadline.
+2\*10^59 Hashes/second. A hash requires at least 100ms to compute, thus the
+attackers would need 2\*10^52 Summit supercomputers[^summit-specs] working
+around the clock to meet the deadline.
 
 [^sun-age]: Sun lifetime {{<core/anchor href="https://www.sciencealert.com/what-will-happen-after-the-sun-dies-planetary-nebula-solar-system" ext="1" />}}
 [^summit-specs]: Summit press release {{<core/anchor href="https://www.olcf.ornl.gov/summit/" ext="1" />}}
@@ -235,7 +234,7 @@ large amount of iterations. In fact, this is a popular choice of hash function
 for use in PBKDF2, and the resulting algorithm is called PBKDF2-HMAC-SHA-256.
 However, one can replace HMAC-SHA-256 with any other cryptographic hashing
 algorithm, such as BLAKE2b to form PBKDF2-BLAKE2b. The number of iterations you
-will need to use for PBKDF2 will be at least on the order of 10<sup>6</sup>.
+will need to use for PBKDF2 will be at least on the order of 10^6.
 
 Unfortunately, the base hash of PBKDF2 is not guaranteed to be resistant to
 more modern attacks. SHA-2 and BLAKE2 can be efficiently implemented in ASIC's
@@ -248,25 +247,25 @@ TL;DR: Not recommended
 #### bcrypt
 
 bcrypt is based on top of the Blowfish algorithm. It attempts to address the
-ASIC and GPU issue by using more memory than PBKDF2. It does 2<sup>N</sup>
-blowfish key expansions which are memory intensive. Currently recommended is a
-cost of at least N=13. bcrypt is a strong password algorithm, though there are
-stronger options that are more future proof. Most notably, bcrypt, while using
-more memory, still has a constant upper bound on memory. Thus it will
-eventually be outdated as GPU's and ASIC's are improved with more memory.
+ASIC and GPU issue by using more memory than PBKDF2. It does 2^N blowfish key
+expansions which are memory intensive. Currently recommended is a cost of at
+least N=13. bcrypt is a strong password algorithm, though there are stronger
+options that are more future proof. Most notably, bcrypt, while using more
+memory, still has a constant upper bound on memory. Thus it will eventually be
+outdated as GPU's and ASIC's are improved with more memory.
 
 TL;DR: Okay to use if you are currently using it, but plan an upgrade path.
 
 #### scrypt
 
 scrypt was built to address the constant bound memory issue of bcrypt by making
-the memory usage configurable. It performs 2<sup>N</sup> block mixing
-operations, where the block size is configurable. scrypt also has a
-parallelization factor to use more threads, however in practice this is not
-used, opting instead to increase the work factor, N. Currently, a work factor
-of N=16, block size b=8, and parallelization factor p=1 are recommended at the
-minimum. scrypt can be used for the foreseeable future, at least until the next
-algorithm, Argon2 has had enough time to be deemed thoroughly secure.
+the memory usage configurable. It performs 2^N block mixing operations, where
+the block size is configurable. scrypt also has a parallelization factor to use
+more threads, however in practice this is not used, opting instead to increase
+the work factor, N. Currently, a work factor of N=16, block size b=8, and
+parallelization factor p=1 are recommended at the minimum. scrypt can be used
+for the foreseeable future, at least until the next algorithm, Argon2 has had
+enough time to be deemed thoroughly secure.
 
 TL;DR: Recommended to use, but have an upgrade path available.
 

@@ -321,7 +321,7 @@ function that can, for all intents and purposes, uniquely represent an
 arbitrary amount of data with a few fixed number of bytes.
 
 Common cryptographic hashes include: [SHA-2][sha2], SHA-3, and
-[BLAKE2][blake2].  SHA-1 has had a hash collision, and should not be used going
+[BLAKE2][blake2]. SHA-1 has had a hash collision, and should not be used going
 forward[^sha1-attack]. The SHA-3 algorithm, Keccak, was chosen in a competition
 by NIST, over BLAKE, for its differences from SHA-2 in the event SHA-2 were
 ever broken. But SHA-2 has not been broken yet, and thus the recommendation is
@@ -390,17 +390,16 @@ size. Thus the hash itself needs to be designed to be slow.
 [^hunter2]: hunter2 origins {{<core/anchor href="http://bash.org/?244321" ext="1" />}}
 
 Bcrypt is the de facto password hashing algorithm, and has been in use for a
-decade. It works by recursively hashing the input for a configurable
-2<sup>N</sup> iterations, or "rounds", where N is the work factor[^bcrypt].
-Thus as computers grow more powerful, bcrypt's number of rounds can be
-increased proportionally. For the year of 2019, a workfactor of 13 is
-recommended, though benchmarks on your own hardware will give more accurate
-results. The highest work factor where the average hash takes no longer than
-several hundred milliseconds should be preferred. Other password hashing
-algorithms have similar designs. While bcrypt is still recommended, more modern
-password hashes have better defenses against other attacks. Scrypt and Argon2
-have configurable memory work factors, to make their hashes difficult to
-execute on GPUs[^scrypt][^argon2].
+decade. It works by recursively hashing the input for a configurable 2^N
+iterations, or "rounds", where N is the work factor[^bcrypt]. Thus as computers
+grow more powerful, bcrypt's number of rounds can be increased proportionally.
+For the year of 2019, a workfactor of 13 is recommended, though benchmarks on
+your own hardware will give more accurate results. The highest work factor
+where the average hash takes no longer than several hundred milliseconds should
+be preferred. Other password hashing algorithms have similar designs. While
+bcrypt is still recommended, more modern password hashes have better defenses
+against other attacks. Scrypt and Argon2 have configurable memory work factors,
+to make their hashes difficult to execute on GPUs[^scrypt][^argon2].
 
 [^bcrypt]: bcrypt {{<core/anchor href="https://en.wikipedia.org/wiki/Bcrypt" ext="1" />}}
 [^scrypt]: scrypt {{<core/anchor href="https://en.wikipedia.org/wiki/Scrypt" ext="1" />}}
