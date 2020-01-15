@@ -63,8 +63,8 @@ designs are public, and their security does not rely on keeping their
 implementations a secret. Encryption algorithms are instead secure due to the
 immense size of their key space. With most keys at about 256 bits in size
 (known as 256 bit security), breaking a secure encryption algorithm would, on
-average, require attempting 2<sup>255</sup> key guesses, which would take most
-state level actors years, even with optimizations, to brute force.
+average, require attempting 2^255 key guesses, which would take most state
+level actors years, even with optimizations, to brute force.
 
 ### Symmetric Encryption
 
@@ -224,12 +224,12 @@ some caveats. RSA itself is computationally expensive compared to a strong
 symmetric encryption algorithm such as AES. Encrypting a file on the order of
 megabytes in size would take far longer than AES. Furthermore, since RSA uses
 prime numbers, the frequency of prime numbers affect the number of bits of
-entropy within an RSA key, i.e. unlike in AES, not all 2<sup>N</sup> possible
-keys are valid, because not all are semiprime. As a result, RSA needs a 15360
-bit key to have approximately the same strength as AES-256. RSA itself is also
-completely vulnerable to quantum attacks using Shor's algorithm to factor
-numbers in polynomial time[^shor-alg]. Unlike with AES, where the key size can
-be increased, there is no remedy for this type of attack.
+entropy within an RSA key, i.e. unlike in AES, not all 2^N possible keys are
+valid, because not all are semiprime. As a result, RSA needs a 15360 bit key to
+have approximately the same strength as AES-256. RSA itself is also completely
+vulnerable to quantum attacks using Shor's algorithm to factor numbers in
+polynomial time[^shor-alg]. Unlike with AES, where the key size can be
+increased, there is no remedy for this type of attack.
 
 [^shor-alg]: Shor's algorithm {{<core/anchor href="https://en.wikipedia.org/wiki/Shor%27s_algorithm" ext="1" />}}
 
