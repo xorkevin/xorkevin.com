@@ -16,8 +16,8 @@ easily testable, tangible, and fun way to learn programming. To this day, the
 first thing I will try to build when learning a new UI framework or platform is
 to build a simple clicker "game". Though highly contrived, it exercises
 maintaining and updating state, programmatically updating the view, and
-interfacing with the event system---all the common requirements for building a
-UI program.
+interfacing with the event system---all common requirements for building a UI
+program.
 
 My early experimentation with game programming quickly reached an impasse,
 however. I discovered, in attempting to write more complex games, that my game
@@ -28,10 +28,10 @@ experience, I understand that game architecture is an entirely different beast
 compared with the "traditional" object oriented approach to program design.
 
 Game architecture has a wildly different philosophy than more conventional
-programs, driven by the unique way data is organized and accessed for games.
+programs, driven by the unique way data is organized and accessed within them.
 Currently, the most widely accepted solution is to use the entity component
 system pattern, or some variant of it. Learning about how the current best
-architectural patterns solve these unique problems that appear in game
+architectural patterns solve these problems that uniquely appear in game
 programming has been useful for me to compare against architectural patterns in
 other domains. These comparisons give insight into the key aspects of a
 particular problem that motivate a certain type of solution.
@@ -40,17 +40,16 @@ particular problem that motivate a certain type of solution.
 
 To reiterate, using "traditional" object oriented designs for game development
 is not recommended, because it quickly leads to tangled logic and difficult to
-understand and debug code. To better visualize this, let us consider a
-contrived example.
+debug code. To better visualize this, let us consider a contrived example.
 
-Say there is a rogue-like dungeon crawler game world with the following types
-of objects with their corresponding behaviors:
+Say there is a roguelike[^roguelike] dungeon crawler game with the following
+types of objects and their corresponding behaviors:
 
-- player: is collidable, has velocity, has position, has health, is
+- player: is collidable, has position, has velocity, has health, is
   controllable, and is renderable
-- enemy: is collidable, has velocity, has position, has health, and is
+- enemy: is collidable, has position, has velocity, has health, and is
   renderable
-- enemy spawner: has position and has timer
+- trap: has position, has health, and is renderable
 - wall: is collidable, has position, and is renderable
 
 The objective here is to write maintainable implementations for these behaviors
@@ -58,29 +57,34 @@ that allows us to easily share those implementations amongst the multiple types
 of objects that require them, and allow behaviors to be easily added and
 modified.
 
+[^roguelike]: Roguelike game {{<core/anchor href="https://en.wikipedia.org/wiki/Roguelike" ext="1" />}}
+
+A "traditional" object oriented approach here would dictate that we should
+abstract over the behaviors of each type of object. Inheritance is one such
+solution to share implementation across multiple types of objects, though it
+would be difficult to implement in practice here, because certain object types
+share some behaviors in a nonhierarchical manner. For example, player, enemy,
+and wall share collision, position, and renderable; and player and enemy share
+velocity and health. However, player, enemy, and trap share position, health
+and renderable as well. There is no object type hierarchy here where supertypes
+may have behavior that is shared only by subtypes. Thus inheritance is a poor
+solution for this problem.
+
+Alternately, interfaces are another "traditional" objected oriented solution.
+Addressing the previously stated issues, object types only have to implement
+the behavior that they require. For example, the player type could implement
+the collidable interface by delegating it to a common shared collidable
+implementation, and likewise for the rest of the player's behaviors. Other
+object types could similarly implement only the interfaces that they require.
+However, the issue with this approach is that business logic for games often
+concerns not just one entire object at a time, but only parts of all objects at
+a time. For example, in order to calculate collision, one needs to consider the
+collision and position properties of all objects, but may not care about
+whether an object has health or is renderable.
+
+## Enter Entity Component System
+
 ---
-
-because it would suck to have to copy and paste code over and over again
-
-inheritance wouldn't be good, because these things have properties that are
-shared by some groups, but not by others
-
-so it's not necessarily tree like
-
-implementing interfaces would be nice
-
-say you had a player object, that could compose over a collidable
-implementation and delegate the collidable methods to that, and so on for
-velocity, position, renderable, etc.
-
-but now the issue is, what if you wanted to grab all objects with velocity to
-update their position for this time step
-
-that would be difficult to do
-
-likewise, when you want to calculate what collides with what, you need to grab
-all collidable things. there's really no good way to organize all these objects
-so you can grab all the ones that are collidable
 
 so the super efficient way to solve all these issues is to use an
 entity-component-system framework
