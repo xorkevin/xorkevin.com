@@ -13,41 +13,52 @@ draft: true
 I, like many programmers often do, first began experimenting with programming
 through games. They can be quite simple to write, and provide a self contained,
 easily testable, tangible, and fun way to learn programming. To this day, the
-first thing I will try to build when learning a new new UI framework or
-platform is to build a simple clicker "game". Though highly contrived, it
-exercises maintaining and updating state, programmatically updating the view,
-and interfacing with the event system.
+first thing I will try to build when learning a new UI framework or platform is
+to build a simple clicker "game". Though highly contrived, it exercises
+maintaining and updating state, programmatically updating the view, and
+interfacing with the event system---all the common requirements for building a
+UI program.
 
 My early experimentation with game programming quickly reached an impasse,
 however. I discovered, in attempting to write more complex games, that my game
 logic always became tangled, difficult to understand, and difficult to debug.
 It wasn't until recently, in having to design and implement a game for a class
-project, that I learned the reason why. Backed by my, now, many more additional
-years of experience since I began learning to program, I now understand that
-game architecture is an entirely different beast compared with the traditional
-and naive object oriented approach to program design.
+project, that I learned the reason why. Now, with many more additional years of
+experience, I understand that game architecture is an entirely different beast
+compared with the "traditional" object oriented approach to program design.
 
 Game architecture has a wildly different philosophy than more conventional
 programs, driven by the unique way data is organized and accessed for games.
-Learning about how the current best architectural patterns solve these unique
-problems that appear in game programming has been useful for me to compare
-against architectural patterns in other domains. These comparisons give insight
-into the key aspects of a particular problem that motivate a certain type of
-solution.
+Currently, the most widely accepted solution is to use the entity component
+system pattern, or some variant of it. Learning about how the current best
+architectural patterns solve these unique problems that appear in game
+programming has been useful for me to compare against architectural patterns in
+other domains. These comparisons give insight into the key aspects of a
+particular problem that motivate a certain type of solution.
 
-## Enter Entity Component System
+## The Problem
 
-To reiterate, using "traditional" objected oriented for game development is
-highly unconventional, because it quickly leads to tangled logic and difficult
-to understand and debug code.
+To reiterate, using "traditional" object oriented designs for game development
+is not recommended, because it quickly leads to tangled logic and difficult to
+understand and debug code. To better visualize this, let us consider a
+contrived example.
+
+Say there is a rogue-like dungeon crawler game world with the following types
+of objects with their corresponding behaviors:
+
+- player: is collidable, has velocity, has position, has health, is
+  controllable, and is renderable
+- enemy: is collidable, has velocity, has position, has health, and is
+  renderable
+- enemy spawner: has position and has timer
+- wall: is collidable, has position, and is renderable
+
+The objective here is to write maintainable implementations for these behaviors
+that allows us to easily share those implementations amongst the multiple types
+of objects that require them, and allow behaviors to be easily added and
+modified.
 
 ---
-
-like say a player is collidable, has velocity, has position, and is renderable,
-a wall is collidable, has position, and is renderable, and a car spawner has
-position and has a timer for how often a car is spawned
-
-the objective here is to share implementation as much as possible
 
 because it would suck to have to copy and paste code over and over again
 
