@@ -59,7 +59,7 @@ modified.
 
 [^roguelike]: Roguelike game {{<core/anchor href="https://en.wikipedia.org/wiki/Roguelike" ext="1" />}}
 
-A "traditional" object oriented approach here would dictate that we should
+A traditional object oriented approach here would dictate that we should
 abstract over the behaviors of each type of object. Inheritance is one such
 solution to share implementation across multiple types of objects, though it
 would be difficult to implement in practice here, because certain object types
@@ -70,7 +70,7 @@ and renderable as well. There is no object type hierarchy here where supertypes
 may have behavior that is shared only by subtypes. Thus inheritance is a poor
 solution for this problem.
 
-Alternately, interfaces are another "traditional" objected oriented solution.
+Alternately, interfaces are another traditional objected oriented solution.
 Addressing the previously stated issues, object types only have to implement
 the behavior that they require. For example, the player type could implement
 the collidable interface by delegating it to a common shared collidable
@@ -81,6 +81,21 @@ concerns not just one entire object at a time, but only parts of all objects at
 a time. For example, in order to calculate collision, one needs to consider the
 collision and position properties of all objects, but may not care about
 whether an object has health or is renderable.
+
+Furthermore, both of these approaches fail at a more fundamental level.
+Abstracting over behaviors on a per object basis is less useful for this
+problem, because the "behaviors" in question are mostly direct data access and
+mutation. For example, the position interface would most likely just consist of
+`get_pos() -> Vec` and `set_pos(pos: Vec)`, because it needs to be queried and
+updated in unique ways by velocity and collision. Similarly, the health
+interface would most likely only consist of `get_health() -> int` and
+`change_health(delta: int)` to support taking damage in various ways such as
+being attacked by an enemy, or receiving damage over time from a trap.
+
+Abstracting over behaviors is most powerful when the behaviors are complex and
+higher level, so that the complexity of lower level implementation details is
+hidden from those who depend on the interface. Interfaces that directly expose
+low level implementation are inherently weaker.
 
 ## Enter Entity Component System
 
