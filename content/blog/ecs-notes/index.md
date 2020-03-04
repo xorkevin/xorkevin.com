@@ -59,6 +59,8 @@ modified.
 
 [^roguelike]: Roguelike game {{<core/anchor href="https://en.wikipedia.org/wiki/Roguelike" ext="1" />}}
 
+### Inheritance
+
 A traditional object oriented approach here would dictate that we should
 abstract over the behaviors of each type of object. Inheritance is one such
 solution to share implementation across multiple types of objects, though it
@@ -69,6 +71,8 @@ velocity and health. However, player, enemy, and trap share position, health
 and renderable as well. There is no object type hierarchy here where supertypes
 may have behavior that is shared only by subtypes. Thus inheritance is a poor
 solution for this problem.
+
+### Interfaces
 
 Alternately, interfaces are another traditional objected oriented solution.
 Addressing the previously stated issues, object types only have to implement
@@ -99,28 +103,27 @@ low level implementation are inherently weaker.
 
 ## Enter Entity Component System
 
+Entity component system (ECS) attempts to address the issues that we have seen
+above, i.e. a heavy emphasis on data access and mutation, and objects that are
+composed of many subcomponents. It has, as its name suggests, three main parts:
+
+- Entity: An entity is conceptually an object that exists in the game world.
+  Most importantly, an entity does not contain any data or behavior itself. It
+  is represented only by a global identifier (not unlike the primary key of a
+  database table). Usually, there exists an "entity manager" which keeps a
+  record of all the entities that currently exist.
+- Component: A component is a property of an entity, and only stores a
+  particular facet of data about an entity, such as a velocity component or
+  position component. Importantly, components do not contain any behavior. Like
+  entities themselves, components of the same type are usually all stored
+  together in a single data structure (typically an array for performance
+  reasons) and managed by a "component manager". This is in stark contrast with
+  traditional the OOP mindset, where a player object might own its velocity,
+  position, etc. In ECS, component managers each own all the components of a
+  particular type. For example, a velocity component manager owns and manages
+  all the velocity components of all entities in the game world.
+
 ---
-
-so the super efficient way to solve all these issues is to use an
-entity-component-system framework
-
-typically abbreviated as ecs
-
-an entity is just an id, (think of it like a global identifier for a "thing",
-like you would a userid in a db)
-
-a component is a property of an entity. (so a velocity component might be one,
-as would a position component)
-
-these components are all grouped together in a single data structure, typically
-an array for fast processing
-
-so instead of a traditional oop mindset, where a player object might own its
-velocity, position, etc.
-
-now there is a component manager for each type of component, say for example, a
-velocity component manager which goes, i have this array of components, each of
-which correspond to particular entities (ids)
 
 grouping like components together in this way paves the way for the final part
 of ecs, system
