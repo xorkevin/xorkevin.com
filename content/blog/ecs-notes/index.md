@@ -4,7 +4,7 @@ type: 'blog'
 title: 'Why ECS'
 author: 'xorkevin'
 date: 2020-03-02T14:01:18-08:00
-description: 'Why do we need entity component system'
+description: 'What is entity component system for'
 tags: ['gamedev', 'notes']
 projecturl: ''
 draft: true
@@ -62,12 +62,12 @@ modified.
 ### Inheritance
 
 A traditional object oriented approach here would dictate that we should
-abstract over the behaviors of each type of object. Inheritance is one such
+abstract over the behaviors for each object type. Inheritance is one such
 solution to share implementation across multiple types of objects, though it
 would be difficult to implement in practice here, because certain object types
 share some behaviors in a nonhierarchical manner. For example, player, enemy,
 and wall share collision, position, and renderable; and player and enemy share
-velocity and health. However, player, enemy, and trap share position, health
+velocity and health. However, player, enemy, and trap share position, health,
 and renderable as well. There is no object type hierarchy here where supertypes
 may have behavior that is shared only by subtypes. Thus inheritance is a poor
 solution for this problem.
@@ -77,7 +77,7 @@ solution for this problem.
 Alternately, interfaces are another traditional objected oriented solution.
 Addressing the previously stated issues, object types only have to implement
 the behavior that they require. For example, the player type could implement
-the collidable interface by delegating it to a common shared collidable
+the collidable interface by delegating it to a common, shared collidable
 implementation, and likewise for the rest of the player's behaviors. Other
 object types could similarly implement only the interfaces that they require.
 However, the issue with this approach is that business logic for games often
@@ -122,28 +122,24 @@ composed of many subcomponents. It has, as its name suggests, three main parts:
   position, etc. In ECS, component managers each own all the components of a
   particular type. For example, a velocity component manager owns and manages
   all the velocity components of all entities in the game world.
+- System: Grouping like components together through component managers paves
+  the way for the final part of ECS, system. A system contains an aspect of the
+  business logic of a game. An ECS instance (known as a world) may have many
+  systems running every tick. Systems operate on specific subsets of
+  components, read their state, and act upon it, which may include updating the
+  component, updating other components, or dispatching events. For example, a
+  physics system may iterate through all entities with velocity and position
+  components, and update position based on velocity for the time step. Another
+  may be a movement sytem which checks for input, and updates the velocity
+  component of a player.
+
+### Philosophy
+
+The ECS pattern is highly data driven compared to other architectural patterns.
+With ECS, one defines a large, segmented pool of state (components), and
+separately define business logic which operates on those components (systems).
 
 ---
-
-grouping like components together in this way paves the way for the final part
-of ecs, system
-
-an ecs instance (known as a world) may have many systems running every tick
-
-you may have a movement sytem which checks for input, and updates the velocity
-component of a player
-
-you may also have a physics system which iterates through all the velocity and
-position components, and updates the position based on velocity for the time
-step
-
-or you may have a collision component which iterates through all collidable,
-velocity, and position components, and ensures that colliding objects don't
-intersect
-
-ecs just becomes this wonderful pattern where you define this large segmented
-pool of state (your components), and then you can separately define your
-business logic which operates on those components (your systems)
 
 all your systems care about are the components that they are responsible for
 
