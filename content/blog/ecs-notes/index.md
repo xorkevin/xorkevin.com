@@ -4,6 +4,7 @@ type: 'blog'
 title: 'Why ECS'
 author: 'xorkevin'
 date: 2020-03-02T14:01:18-08:00
+lastmod: 2020-03-08T23:08:48-07:00
 description: 'What is entity component system for'
 tags: ['gamedev', 'notes']
 projecturl: ''
@@ -133,25 +134,100 @@ composed of many subcomponents. It has, as its name suggests, three main parts:
   may be a movement sytem which checks for input, and updates the velocity
   component of a player.
 
+### Example
+
+Here is a brief code example of what the physics system in the game that I
+wrote looks like. Some things of note about this example are:
+
+- The `run` function is called on every tick of the game loop.
+- The physics implementation is quite simple, and just involves iterating
+  through each entity with a `PHYSICS` and `TRANSFORM` component, and updating
+  their positions and velocities for the next time step.
+- ECS encourages writing systems, i.e. game logic, that are concise, single
+  responsibility, and composable.
+
+```js
+const TRANSFORM = 'TRANSFORM';
+
+const TransformComponent = (px, py, pz, orientation) => {
+  return [TRANSFORM, {px, py, pz, orientation}];
+};
+
+const PHYSICS = 'PHYSICS';
+
+const PhysicsComponent = (vx, vy, friction) => {
+  return [PHYSICS, {vx, vy, basevx: 0, basevy: 0, friction}];
+};
+
+const PhysicsSystem = () => {
+  const applyFriction = (f, v) => {
+    if (f > Math.abs(v)) {
+      return 0;
+    }
+    if (v > 0) {
+      return v - f;
+    }
+    return v + f;
+  };
+
+  const run = (ctx, dt) => {
+    for (const [id, physics, transform] of ctx.getEntities(
+      PHYSICS,
+      TRANSFORM,
+    )) {
+      transform.px += (physics.basevx + physics.vx) * dt;
+      transform.py += (physics.basevy + physics.vy) * dt;
+      if (physics.vx !== 0 || physics.vy !== 0) {
+        transform.orientation =
+          Math.atan2(physics.vy, physics.vx) - Math.PI / 2;
+      }
+      if (physics.friction !== 0) {
+        const f = physics.friction * dt;
+        physics.vx = applyFriction(f, physics.vx);
+        physics.vy = applyFriction(f, physics.vy);
+      }
+    }
+  };
+
+  return {
+    run,
+  };
+};
+
+```
+
 ### Philosophy
 
 The ECS pattern is highly data driven compared to other architectural patterns.
 With ECS, one defines a large, segmented pool of state (components), and
-separately define business logic which operates on those components (systems).
+separately defines business logic which operates on those components (systems).
+Systems only care about and operate on the components that they are responsible
+for, and entities only need to compose over the relevant components in order to
+obtain behavior from systems. For example, creating a new enemy would involve
+creating a new entity with collidable, position, velocity, health, and
+renderable components, knowing that the physics, collision, health, and
+rendering systems will ensure that its state is updated correctly each tick.
+Creating new enemy types that are mechanically different also become "easy", as
+a direct result of the composability of components. For example, creating a
+ghost enemy that may fly through walls would only need position, velocity,
+health, and renderable components, knowing that the collision system would not
+operate on this new ghost entity.
 
----
+ECS embraces the fact that game logic has inherently cross-cutting concerns
+that involve different entities and components. This is apparent in position,
+which needs to be updated both by velocity and by collision, and as such cannot
+be directly "owned" by either. Collision also involves all entities with a
+collidable component. This would be difficult to implement if collision data
+was not managed by a single data structure.
 
-all your systems care about are the components that they are responsible for
-
-so now going back to the beginning
-
-let's say i want to add a car to my world that has a velocity and a position,
-is collidable, and is renderable
-
-all i have to do is create a new entity, with the proper velocity, position,
-collision, and render parameters
-
-and all the systems that care about those components will automatically begin
-to operate on those components, like updating position based on velocity, or
-updating velocity based on collision, or determing what to draw to the screen
-at a particular position
+ECS is well suited for problems where data needs to be accessed and modified
+constantly by a multitude of actors, because of its focus on a separation of
+data and its associated behavior. It does this, however, by giving up some
+degree of encapsulation and information hiding. A more traditional object
+oriented architecture is designed to hide implementation details so that other
+services may depend upon a constant API contract/interface while the underlying
+implementation evolves and improves. With games, the aspect of the code that
+changes the most is not implementation, but instead new features and systems
+that integrate tightly with the existing systems, i.e. new ways to play the
+game. This unique problem is why entity component system is so prevalent in
+game programming, and why it is crucial to learn for game developers.
