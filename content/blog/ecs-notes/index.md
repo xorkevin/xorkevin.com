@@ -8,7 +8,6 @@ lastmod: 2020-03-08T23:08:48-07:00
 description: 'What is entity component system for'
 tags: ['gamedev', 'notes']
 projecturl: ''
-draft: true
 ---
 
 I, like many programmers often do, first began experimenting with programming
