@@ -2,7 +2,6 @@ baseURL: 'https://xorkevin.com/'
 languageCode: 'en-us'
 title: 'xorkevin'
 theme: 'core'
-summaryLength: 8
 pluralizelisttitles: 'false'
 footnoteReturnLinkContents: '&larrhk;'
 copyright: 2018
@@ -10,3 +9,4 @@ permalinks:
   blog: '/:section/:year/:month/:title'
 params:
   author: 'xorkevin'
+  headerbackground: '/img/home/background.jpg'

@@ -4,7 +4,7 @@ type: 'blog'
 title: 'Auth in a Nutshell: Cryptography'
 author: 'xorkevin'
 date: 2019-05-23T18:03:31-07:00
-lastmod: 2019-05-26T02:18:26-07:00
+lastmod: 2020-11-01T13:03:45-08:00
 description: 'a brief look at cryptographic algorithms'
 tags: ['auth', 'web']
 projecturl: ''
@@ -37,7 +37,7 @@ to understand and design and use correctly. While I am by no means a security
 expert, I want to share my experiences designing the authentication system for
 my [Governor microservice project][xorkevin:governor], and how it all works.
 
-[xorkevin:governor]: https://github.com/hackform/governor
+[xorkevin:governor]: https://github.com/xorkevin/governor
 
 This topic will cover a short series of blog posts, of which this post is Part
 1\. Here are links to all sections:
@@ -119,10 +119,10 @@ Using the following images as an example, one can see that regions of the image
 with the same color encrypt to the same ciphertext in a naively applied block
 cipher. This is, by definition, weak to frequency analysis.
 
-{{<core/contentrow class="inset">}}
+{{<core/row class="inset">}}
 {{<core/img src="assets/tux.jpg">}}
 {{<core/img src="assets/tuxecb.jpg">}}
-{{</core/contentrow>}}
+{{</core/row >}}
 
 {{<core/caption cap="Left: [Original Tux Image](https://upload.wikimedia.org/wikipedia/commons/5/56/Tux.jpg), Right: [Encrypted Tux Image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Tux_ecb.jpg)">}}
 

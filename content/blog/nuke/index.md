@@ -4,10 +4,10 @@ type: 'blog'
 title: 'Nuke'
 author: 'xorkevin'
 date: 2018-04-10T23:58:40-07:00
-lastmod: 2019-05-22T22:22:40-07:00
+lastmod: 2020-11-01T12:59:19-08:00
 description: 'frontend for governor'
 tags: ['web', 'frontend', 'react', 'js']
-projecturl: 'https://github.com/hackform/nuke'
+projecturl: 'https://github.com/xorkevin/nuke'
 ---
 
 Nuke was designed as a frontend for the Governor web framework project. I
@@ -16,9 +16,6 @@ compose Governor. However, as the project grew, I wanted to also componentize
 various UI elements for future reuse. Thus, Nuke became its own UI library,
 which I have since used in many other projects, including the LAHacks
 application system, UCLA DevX internal tooling dashboard, and this blog itself.
-
-If you would like to interact with a demo, one exists here:
-{{<core/anchor href="https://hackform.github.io" ext="1" />}}
 
 ## Typography
 

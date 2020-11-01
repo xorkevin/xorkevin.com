@@ -4,10 +4,10 @@ type: 'blog'
 title: 'Governor'
 author: 'xorkevin'
 date: 2018-06-25T17:08:18-07:00
-lastmod: 2019-05-22T22:33:30-07:00
+lastmod: 2020-11-01T13:00:25-08:00
 description: 'microservice framework'
 tags: ['microservice', 'go', 'web', 'backend']
-projecturl: 'https://github.com/hackform/governor'
+projecturl: 'https://github.com/xorkevin/governor'
 ---
 
 As the amount of projects I have worked on grew, I noticed that many

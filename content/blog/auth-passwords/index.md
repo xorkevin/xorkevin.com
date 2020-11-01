@@ -4,17 +4,17 @@ type: 'blog'
 title: 'Auth in a Nutshell: Passwords'
 author: 'xorkevin'
 date: 2019-05-27T15:34:21-07:00
-lastmod: 2019-05-30T18:46:38-07:00
+lastmod: 2020-11-01T13:02:33-08:00
 description: 'on the subject of passwords'
 tags: ['auth', 'web']
-projecturl: 'https://github.com/hackform/hunter2'
+projecturl: 'https://github.com/xorkevin/hunter2'
 ---
 
 This is Part 2 of my series on how I built the authentication system in
 [Governor][xorkevin:governor] and what I learned in the process. Here are links
 to all sections:
 
-[xorkevin:governor]: https://github.com/hackform/governor
+[xorkevin:governor]: https://github.com/xorkevin/governor
 
 * [Part 1]({{<relref "/blog/auth-crypto">}}) Auth in a Nutshell: Cryptography
 * Part 2 Auth in a Nutshell: Passwords
@@ -322,7 +322,7 @@ To solve this configuration issue, I developed a library for Governor,
 [hunter2][hunter2:repo], but its actual implementation is quite simple. Hunter2
 exports a `Hasher` interface as follows:
 
-[hunter2:repo]: https://github.com/hackform/hunter2
+[hunter2:repo]: https://github.com/xorkevin/hunter2
 
 ```go
 package hunter2

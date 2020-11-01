@@ -4,10 +4,10 @@ type: 'blog'
 title: 'Forge'
 author: 'xorkevin'
 date: 2019-05-19T16:01:01-07:00
-lastmod: 2019-05-22T22:14:19-07:00
+lastmod: 2020-11-01T13:01:19-08:00
 description: 'code generation utility for governor'
 tags: ['codegen', 'cli', 'go']
-projecturl: 'https://github.com/hackform/forge'
+projecturl: 'https://github.com/xorkevin/forge'
 ---
 
 Forge is a CLI utility I originally wrote to manage the complexity of my
